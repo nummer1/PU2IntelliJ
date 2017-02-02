@@ -1,0 +1,5 @@
+# Github integration
+project for IntelliJ
+
+Using github integration in Jetbrains
+https://www.jetbrains.com/help/idea/2016.3/using-github-integration.html
