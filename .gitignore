@@ -114,6 +114,6 @@ ENV/
 Contact GitHub API Training Shop Blog About
 
 
-.DS_Store
-vcs.xml
-workspace.xml
+**/.DS_Store
+**/vcs.xml
+**/workspace.xml
