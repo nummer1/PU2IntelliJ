@@ -81,4 +81,21 @@ public class Course {
             throw new IllegalArgumentException("The difficulty must be between 1 and 10");
         }
     }
+
+    public void addDependency(Course dependency) {
+        this.dependencies.add(dependency);
+    }
+
+    public void removeDependency(Course dependency) {
+        if (this.dependencies.contains(dependency)) {
+            this.dependencies.remove(dependency);
+        } else {
+            throw new IllegalArgumentException("The dependency was not found.");
+        }
+    }
+
+    public ArrayList<Course> getDependencies() {
+        return this.dependencies;
+    }
+
 }
