@@ -24,7 +24,7 @@ public class CourseTest extends TestCase{
         c.setTime(dt);
         c.add(Calendar.DATE, 1);
         dt = c.getTime();
-        tdt4100.setExam_date(dt);
+        tdt4100.setExam_date("30/12/2017");
         tdt4100.setFaculty("IME");
     }
 

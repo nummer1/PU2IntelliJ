@@ -1,3 +1,6 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +30,12 @@ public class Course {
     // First 2-6 chars, followed by 4-6 numbers.
     // In CS there is mainly 3 chars followed by 4 numbers. (only exphil is 4 chars + 4 numbers)
     public void setCourse_id(String course_id) {
-        //TODO
-        this.course_id = course_id;
+        String regex = "^[A-Z]{2,6}[0-9]{4,6}$";
+        if (course_id.matches(regex)) {
+            this.course_id = course_id;
+        } else {
+            throw new IllegalArgumentException("Invalid course ID");
+        }
     }
 
     public String getDescription() {
@@ -60,7 +67,16 @@ public class Course {
 
     // Sanitize the input to make sure it is after the current day
     // May be better to take a string as input, and convert it into date in this method
-    public void setExam_date(Date exam_date) {
+    public void setExam_date(String exam_string) {
+        Date exam_date;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            exam_date = df.parse(exam_string);
+            String newDateString = df.format(exam_date);
+            System.out.println(newDateString);
+        } catch (ParseException e) {
+            exam_date = new Date(); // if parseException, sets date to now
+        }
         if (exam_date.after(new Date())) {
             this.exam_date = exam_date;
         } else {
