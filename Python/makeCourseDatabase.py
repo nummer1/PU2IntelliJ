@@ -6,23 +6,19 @@ with open('courses.json') as f:
 
 courses = data['course']
 
-# Be careful when running the following  of code
-#for i in range len(courses) in courses:
-#	c = json.loads(getSingleCourse.getCourseData(courses[i]['code']))
-#	c = c['course']
-
-c = json.loads(getSingleCourse.getCourseData(courses[0]['code']))
-c = c['course']
-
+#print(courses[3380]['code'])
+#getSingleCourse(courses[i]['code]'])
 
 tempDB = dict()
-tempDB['code'] = dict()
-tempDB['code']['noName'] = c['englishName']
-tempDB['code']['enName'] = c['norwegianName']
-tempDB['code']['subArea'] = []
-for subjectArea in c['subjectArea']:
-	tempDB['code']['subArea'].append(subjectArea['code'])
+# Be careful when running the following  of code
+for i in range(len(courses)):
+	if i != 3380:
+		c = json.loads(getSingleCourse.getCourseData(courses[i]['code']))
+		c = c['course']
+		tempDB[courses[i]['code']] = c
+		print(i)
 
+print(tempDB.keys())
 
 with open('data.json', 'w') as outfile:
 	json.dump(tempDB, outfile)

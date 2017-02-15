@@ -1,4 +1,4 @@
-import urllib.request as url
+import requests
 
 urlapi = 'http://www.ime.ntnu.no/api/'
 
@@ -6,9 +6,9 @@ urlCourse = 'course/'
 
 #returns (norwegian) course with courseCode in json format
 def getCourseData(courseCode):
-	course = url.urlopen(urlapi + urlCourse + courseCode).read().decode()
+	course = requests.get(urlapi + urlCourse + courseCode)
 
-	return course
+	return course.text
 
 #everything is in Json format
 #NTNUapi returns single course in form dict_keys(['course', 'request', 'cache'])
