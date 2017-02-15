@@ -56,6 +56,8 @@ public class CourseTest extends TestCase{
         try {
             tdt4100.setCourse_id("T4125");
             Assert.fail("One char and 4 numbers is not allowed");
+        } catch (IllegalArgumentException e) {
+            //An error is expected here
         }
     }
 
