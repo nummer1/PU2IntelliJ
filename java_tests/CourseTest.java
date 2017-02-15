@@ -18,7 +18,7 @@ public class CourseTest extends TestCase{
 
 
     private void setup() {
-        this.tdt4100 = new Course("tdt4100");
+        this.tdt4100 = new Course("TDT4100");
         tdt4100.setDescription("This is a description");
         tdt4100.setDifficulty(5);
         c.setTime(dt);
@@ -37,6 +37,28 @@ public class CourseTest extends TestCase{
         assertNotNull(tdt4100.getExam_date());
     }
 
+    public void testCourse_id() {
+        setup();
+        tdt4100.setCourse_id("TMA4100");
+        assertEquals(tdt4100.getCourse_id(), "TMA4100");
+        try {
+            tdt4100.setCourse_id("Objekt-orientert programmering");
+            Assert.fail("Only chars is not allowed");
+        } catch (IllegalArgumentException e) {
+            //An error is expected here
+        }
+        try {
+            tdt4100.setCourse_id("235781487378141");
+            Assert.fail("Only numbers is not allowed");
+        } catch (IllegalArgumentException e) {
+            //An error is expected here
+        }
+        try {
+            tdt4100.setCourse_id("T4125");
+            Assert.fail("One char and 4 numbers is not allowed");
+        }
+    }
+
     public void testDescription() {
         setup();
         assertEquals(tdt4100.getDescription(), "This is a description");
@@ -52,10 +74,12 @@ public class CourseTest extends TestCase{
             tdt4100.setDifficulty(-1);
             Assert.fail("It should throw IllegalArgument");
         } catch (IllegalArgumentException e) {
+            //An error is expected here
         }
         try {
             tdt4100.setDifficulty(14);
         } catch (IllegalArgumentException e) {
+            //An error is expected here
         }
         tdt4100.setDifficulty(7);
         assertEquals(tdt4100.getDifficulty(), 7);
