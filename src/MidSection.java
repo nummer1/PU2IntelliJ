@@ -35,6 +35,15 @@ public class MidSection {
     }
     */
 
+    public static GridPane getCoursePlan () {
+        return coursePlan;
+    }
+
+    public static void resetCounts() {
+        semesterCount = -1;
+        count = 0;
+    }
+
     public static GridPane generateMidSection(String from, String to) {
         makeBasicGridPane();
 
@@ -66,7 +75,7 @@ public class MidSection {
             coursePlan.getChildren().add(semesterLabel);
         }
         //TextField fag = new TextField(course);
-        TextArea fag = new TextArea(course.getCourse_id() + "\n" + course.getCourse_name() + "\n" + "Eksamensdato: " + course.getExam_date());
+        TextArea fag = new TextArea(course.getCourse_id() + "\n" + course.getCourse_name() + "\n" + "Eksamensdato: " + course.getPrintable_date());
         fag.setEditable(false);
         //fag.setAlignment(Pos.CENTER);
         GridPane.setConstraints(fag, semesterCount, count + 1);

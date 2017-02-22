@@ -40,6 +40,8 @@ public class TopSection {
     public static void setConfirmBtnAction() {
         confirmBtn.setOnAction(e -> {
             if (studiesIsSelected()) {
+                MidSection.getCoursePlan().getChildren().clear();
+                MidSection.resetCounts();
                 App.getLayout().setCenter(MidSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilChoices.getSelectionModel().getSelectedItem().toString()));
                 App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
             }
