@@ -1,4 +1,4 @@
-/**
+package GUI; /**
  * Created by andreaswilhelmflatt on 19.02.2017.
  */
 

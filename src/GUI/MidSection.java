@@ -1,14 +1,10 @@
-import javafx.geometry.HPos;
+package GUI;
+
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import Algorithm.Course;
 
 import java.util.ArrayList;
 
@@ -23,12 +19,12 @@ public class MidSection {
 
 
     // ORDNE DENNE VHA COURSE-KODEN TIL ERLEND
-    /*public void addSemester(ArrayList<Course> semesterArg) {
+    /*public void addSemester(ArrayList<Algorithm.Course> semesterArg) {
         VBox semester = new VBox(10);
 
         //LEGG TIL SELECTOR-KODEN TIL ERLEND HER
 
-        for (Course course : semesterArg) {
+        for (Algorithm.Course course : semesterArg) {
             semester.getChildren().add(semesterArg);
         }
         coursePlan.getChildren().add(semester);
@@ -47,7 +43,7 @@ public class MidSection {
     public static GridPane generateMidSection(String from, String to) {
         makeBasicGridPane();
 
-        ArrayList<ArrayList<Course>> firstYear = Selector.get_first_year();
+        ArrayList<ArrayList<Algorithm.Course>> firstYear = Algorithm.Selector.get_first_year();
 
         for (ArrayList<Course> semester : firstYear) {
             for (Course course : semester) {

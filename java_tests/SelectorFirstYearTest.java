@@ -1,3 +1,4 @@
+import Algorithm.Selector;
 import junit.framework.TestCase;
 import java.util.ArrayList;
 
@@ -6,7 +7,7 @@ import java.util.ArrayList;
  */
 public class SelectorFirstYearTest extends TestCase {
 
-    ArrayList<ArrayList<Course>> plan;
+    ArrayList<ArrayList<Selector.Course>> plan;
     Selector sel = new Selector();
 
     public void setup() {
@@ -15,8 +16,8 @@ public class SelectorFirstYearTest extends TestCase {
 
     public void test_array() {
         setup();
-        ArrayList<Course> some_semester = this.plan.get(0);
-        Course some_course = some_semester.get(2);
+        ArrayList<Selector.Course> some_semester = this.plan.get(0);
+        Selector.Course some_course = some_semester.get(2);
         System.out.println(some_course.getCourse_id() + " " + some_course.getCourse_name() + " " + some_course.getExam_date());
         assertEquals("TMA4140", some_course.getCourse_id());
         assertEquals("Diskret matematikk", some_course.getCourse_name());

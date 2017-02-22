@@ -1,6 +1,7 @@
+package Algorithm;
+
 import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.Objects;
 
 //import com.google.gson.*;
 
@@ -21,7 +22,7 @@ public class Selector {
         //TODO
     }
 
-    //Takes in information gotten from the database and puts it into a Course object.
+    //Takes in information gotten from the database and puts it into a Algorithm.Course object.
     private Course convert_to_course(Dictionary course) {
         //TODO
         return new Course("TDT4100");

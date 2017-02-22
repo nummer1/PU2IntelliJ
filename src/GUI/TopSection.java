@@ -1,3 +1,9 @@
+package GUI;
+
+import GUI.AlertBox;
+import GUI.App;
+import GUI.ConnectedComboBox;
+import GUI.MidSection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
