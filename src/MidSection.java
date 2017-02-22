@@ -2,12 +2,15 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
+import java.util.ArrayList;
 
 /**
  * Created by andreaswilhelmflatt on 20.02.2017.
@@ -35,7 +38,15 @@ public class MidSection {
     public static GridPane generateMidSection(String from, String to) {
         makeBasicGridPane();
 
-        addExampleCourses();
+        ArrayList<ArrayList<Course>> firstYear = Selector.get_first_year();
+
+        for (ArrayList<Course> semester : firstYear) {
+            for (Course course : semester) {
+                addCourse(course);
+            }
+        }
+
+        //addExampleCourses();
 
         return coursePlan;
     }
@@ -46,7 +57,7 @@ public class MidSection {
         coursePlan.setHgap(10);
     }
 
-    public static void addCourse(String course) {
+    public static void addCourse(Course course) {
         if (count == 0) {
             semesterCount++;
             Label semesterLabel = new Label("Semester" + Integer.toString(semesterCount + 1));
@@ -54,9 +65,10 @@ public class MidSection {
             GridPane.setConstraints(semesterLabel, semesterCount, 0);
             coursePlan.getChildren().add(semesterLabel);
         }
-        TextField fag = new TextField(course);
+        //TextField fag = new TextField(course);
+        TextArea fag = new TextArea(course.getCourse_id() + "\n" + course.getCourse_name() + "\n" + "Eksamensdato: " + course.getExam_date());
         fag.setEditable(false);
-        fag.setAlignment(Pos.CENTER);
+        //fag.setAlignment(Pos.CENTER);
         GridPane.setConstraints(fag, semesterCount, count + 1);
         System.out.println(semesterCount);
         count++;
@@ -64,7 +76,7 @@ public class MidSection {
         coursePlan.getChildren().add(fag);
     }
 
-    public static void addExampleCourses() { /// DENNE SLETTES NÅR VI HAR IMPLEMENTERT DATABASEN
+    /*public static void addExampleCourses() { /// DENNE SLETTES NÅR VI HAR IMPLEMENTERT DATABASEN
         addCourse("TDT4120");
         addCourse("TDT4110");
         addCourse("TDT4100");
@@ -90,4 +102,5 @@ public class MidSection {
         addCourse("TDT8418");
         addCourse("TDT2344");
     }
+    */
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Objects;
 
-import com.google.gson.*;
+//import com.google.gson.*;
 
 /**
  * Created by Erlend on 15.02.2017.
@@ -40,7 +40,7 @@ public class Selector {
     //This function is only for demonstration purposes
     //Do not call this function unless you only want a static list over the first
     //8 courses in mtdt :)
-    public ArrayList<ArrayList<Course>> get_first_year() {
+    public static ArrayList<ArrayList<Course>> get_first_year() {
         ArrayList<ArrayList<Course>> plan = new ArrayList<>();
         ArrayList<Course> first = new ArrayList<>();
         ArrayList<Course> second = new ArrayList<>();
