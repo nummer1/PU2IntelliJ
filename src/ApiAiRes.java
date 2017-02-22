@@ -25,6 +25,7 @@ public class ApiAiRes {
     ApiAi test = gson.fromJson(new FileReader("jsonExample.json"), ApiAi.class);
     System.out.println(test.toString());
     System.out.println(gson.toJson(test));
+    System.out.println(test.result.get("action"));
   }
 }
 

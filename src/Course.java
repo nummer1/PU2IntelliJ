@@ -76,6 +76,17 @@ public class Course {
         return exam_date;
     }
 
+    public String getPrintable_date () {
+        String dateString = null;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            dateString = df.format(this.exam_date);
+            return dateString;
+        } catch (NullPointerException e) {
+            return "The exam date can't be found";
+        }
+    }
+
     // Sanitize the input to make sure it is after the current day
     // May be better to take a string as input, and convert it into date in this method
     public void setExam_date(String exam_string) {

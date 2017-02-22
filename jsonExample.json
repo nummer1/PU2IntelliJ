@@ -1,0 +1,34 @@
+﻿{
+  "id": "71c43655-8f85-47f5-9c8c-10c2001646f1",
+  "timestamp": "2017-02-20T13:10:26.958Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "asdoaijw dwajnks",
+    "action": "input.unknown",
+    "actionIncomplete": false,
+    "parameters": {},
+    "contexts": [],
+    "metadata": {
+      "intentId": "e04b3aae-20a7-40f4-95d6-37e7453a3469",
+      "webhookUsed": "false",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "Default Fallback Intent"
+    },
+    "fulfillment": {
+      "speech": "I'm sorry. I didn't quite grasp what you just said.",
+      "messages": [
+        {
+          "type": 0,
+          "speech": "I don't think I'm qualified to answer that yet."
+        }
+      ]
+    },
+    "score": 1
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "55bd02ea-4142-4578-a8d0-095e5223597f"
+}
