@@ -21,20 +21,6 @@ public class MidSection {
     private static int semesterCount = -1;
     private static int count = 0;
 
-
-    // ORDNE DENNE VHA COURSE-KODEN TIL ERLEND
-    /*public void addSemester(ArrayList<Course> semesterArg) {
-        VBox semester = new VBox(10);
-
-        //LEGG TIL SELECTOR-KODEN TIL ERLEND HER
-
-        for (Course course : semesterArg) {
-            semester.getChildren().add(semesterArg);
-        }
-        coursePlan.getChildren().add(semester);
-    }
-    */
-
     public static GridPane getCoursePlan () {
         return coursePlan;
     }
@@ -54,9 +40,6 @@ public class MidSection {
                 addCourse(course);
             }
         }
-
-        //addExampleCourses();
-
         return coursePlan;
     }
 
@@ -74,42 +57,11 @@ public class MidSection {
             GridPane.setConstraints(semesterLabel, semesterCount, 0);
             coursePlan.getChildren().add(semesterLabel);
         }
-        //TextField fag = new TextField(course);
         TextArea fag = new TextArea(course.getCourse_id() + "\n" + course.getCourse_name() + "\n" + "Eksamensdato: " + course.getPrintable_date());
         fag.setEditable(false);
-        //fag.setAlignment(Pos.CENTER);
         GridPane.setConstraints(fag, semesterCount, count + 1);
-        System.out.println(semesterCount);
         count++;
         count = count % 4;
         coursePlan.getChildren().add(fag);
     }
-
-    /*public static void addExampleCourses() { /// DENNE SLETTES NÅR VI HAR IMPLEMENTERT DATABASEN
-        addCourse("TDT4120");
-        addCourse("TDT4110");
-        addCourse("TDT4100");
-        addCourse("TDT2100");
-        addCourse("TDT8418");
-        addCourse("TDT2344");
-        addCourse("TDT4120");
-        addCourse("TDT4110");
-        addCourse("TDT4100");
-        addCourse("TDT2100");
-        addCourse("TDT8418");
-        addCourse("TDT2344");
-        addCourse("TDT4120");
-        addCourse("TDT4110");
-        addCourse("TDT4100");
-        addCourse("TDT2100");
-        addCourse("TDT8418");
-        addCourse("TDT2344");
-        addCourse("TDT4120");
-        addCourse("TDT4110");
-        addCourse("TDT4100");
-        addCourse("TDT2100");
-        addCourse("TDT8418");
-        addCourse("TDT2344");
-    }
-    */
 }
