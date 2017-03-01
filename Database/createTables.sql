@@ -1,18 +1,15 @@
 CREATE TABLE Course (
-    Code                        VARCHAR(12),
-    Name                        VARCHAR(30),
+    CourseCode                  VARCHAR(12),
+    CourseName                  VARCHAR(50),
     Credit                      REAL,
     CreditTypeCode              CHAR(2),
-    StudyLevelCode              INTEGER,
-    StudyLevelStudyLevelName    CHAR(2),
     TaughtInSpring              BOOLEAN,
     TaughtInAutumn              BOOLEAN,
     URL                         VARCHAR(50),
-    Forkunnskap                 VARCHAR(300),
-    Innhold                     VARCHAR(300),
+    Prerequisite                VARCHAR(300),
+    Content                     VARCHAR(300),
 
-    PRIMARY KEY (Code)
-    #CONSTRAINT chk_CourseCode CHECK (Code REGEXP '^[A-Z](2,6)[0-9](4,6)$')
+    PRIMARY KEY (CourseCode)
 );
 
 
@@ -21,8 +18,8 @@ CREATE TABLE Dependent (
     Dependency                  VARCHAR(12),
 
     PRIMARY KEY (Dependent, Dependency),
-    FOREIGN KEY (Dependent) REFERENCES Course(Code),
-    FOREIGN KEY (Dependency) REFERENCES Course(Code)
+    FOREIGN KEY (Dependent) REFERENCES Course(CourseCode),
+    FOREIGN KEY (Dependency) REFERENCES Course(CourseCode)
 );
 
 
@@ -32,31 +29,31 @@ CREATE TABLE CreditReduction (
     Amount                      REAL,
 
     PRIMARY KEY (ReducedCourse, ReducedBy),
-    FOREIGN KEY (ReducedCourse) REFERENCES Course(Code),
-    FOREIGN KEY (ReducedBy) REFERENCES Course(Code)
+    FOREIGN KEY (ReducedCourse) REFERENCES Course(CourseCode),
+    FOREIGN KEY (ReducedBy) REFERENCES Course(CourseCode)
 );
 
 
 CREATE TABLE Subject (
-    Code                        VARCHAR(12),
-    Name                        VARCHAR(30),
+    SubjectCode                 VARCHAR(12),
+    SubjectName                 VARCHAR(50),
 
-    PRIMARY KEY (Code)
+    PRIMARY KEY (SubjectCode)
 );
 
 
 CREATE TABLE StudyProgram (
-    Code                        VARCHAR(12),
-    Name                        VARCHAR(30),
+    StudyCode                   VARCHAR(12),
+    StudyName                   VARCHAR(50),
 
-    PRIMARY KEY (Code)
+    PRIMARY KEY (StudyCode)
 );
 
 
 CREATE TABLE Language (
-    Name                        VARCHAR(20),
+    LanguageName                VARCHAR(50),
 
-    PRIMARY KEY (Name)
+    PRIMARY KEY (LanguageName)
 );
 
 
@@ -65,62 +62,80 @@ CREATE TABLE CourseSubject (
     SubjectCode                 VARCHAR(12),
 
     PRIMARY KEY (CourseCode, SubjectCode),
-    FOREIGN KEY (CourseCode) REFERENCES Course(Code),
-    FOREIGN KEY (SubjectCode) REFERENCES Subject(Code)
+    FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
+    FOREIGN KEY (SubjectCode) REFERENCES Subject(SubjectCode)
 );
 
 
 CREATE TABLE CourseStudyProgram (
     CourseCode                  VARCHAR(12),
-    StudyProgramCode            VARCHAR(12),
+    StudyCode                   VARCHAR(12),
+    Year                        YEAR(4),
 
-    PRIMARY KEY (CourseCode, StudyProgramCode),
-    FOREIGN KEY (CourseCode) REFERENCES Course(Code),
-    FOREIGN KEY (StudyProgramCode) REFERENCES StudyProgram(Code)
+    PRIMARY KEY (CourseCode, StudyCode),
+    FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
+    FOREIGN KEY (StudyCode) REFERENCES StudyProgram(StudyCode)
 );
 
 
 CREATE TABLE CourseLanguage (
     CourseCode                  VARCHAR(12),
-    LanguageName                VARCHAR(20),
+    LanguageName                VARCHAR(50),
 
     PRIMARY KEY (CourseCode, LanguageName),
-    FOREIGN KEY (CourseCode) REFERENCES Course(Code),
-    FOREIGN KEY (LanguageName) REFERENCES Language(Name)
+    FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
+    FOREIGN KEY (LanguageName) REFERENCES Language(LanguageName)
 );
 
 
 CREATE TABLE ExamCode (
-    Code                        CHAR(1),
-    Name                        VARCHAR(30),
+    AidCode                     CHAR(1),
+    AidName                     VARCHAR(30),
 
-    PRIMARY KEY (Code)
+    PRIMARY KEY (AidCode)
+);
+
+
+CREATE TABLE AssessmentForm (
+    AssessmentFormCode          VARCHAR(2),
+    AssessmentFormDescription   VARCHAR(50),
+
+    PRIMARY KEY (AssessmentFormCode)
 );
 
 
 CREATE TABLE Exam (
-    Code                        VARCHAR(2),
-    ExamDate                    DATE,
-    StatusCode                  VARCHAR(10),
+    CourseCode                  VARCHAR(12),
+    ExamDate                    DATETIME,
     AssessmentFormCode          VARCHAR(2),
-    AssessmentFormDescription   VARCHAR(30),
     RegistrationDeadLine        DATE,
     DeadLineBackOut             DATE,
-    ExaminationCode             CHAR(1),
+    AidCode                     CHAR(1),
 
-    PRIMARY KEY (Code, ExamDate),
-    FOREIGN KEY (Code) REFERENCES Course(Code),
-    FOREIGN KEY (ExaminationCode) REFERENCES ExamCode (Code)
+    PRIMARY KEY (CourseCode, ExamDate),
+    FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
+    FOREIGN KEY (AidCode) REFERENCES ExamCode(AidCode),
+    FOREIGN KEY (AssessmentFormCode) REFERENCES AssessmentForm(AssessmentFormCode)
 );
 
 
 CREATE TABLE Teacher (
-    ID                          INTEGER,
-    Type                        VARCHAR(20),
-    Name                        VARCHAR(40),
-    Email                       VARCHAR(40),
+    TeacherId                   INTEGER,
+    Type                        VARCHAR(50),
+    Name                        VARCHAR(50),
+    Email                       VARCHAR(50),
     Phone                       INTEGER,
     OfficeAdress                VARCHAR(50),
 
-    PRIMARY KEY (ID)
+    PRIMARY KEY (TeacherID)
+);
+
+
+CREATE TABLE TeacherCourse (
+    TeacherId                   INTEGER,
+    CourseCode                  VARCHAR(12),
+
+    PRIMARY KEY (TeacherId, CourseCode),
+    FOREIGN KEY (TeacherId) REFERENCES Teacher(TeacherId),
+    FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode)
 );
