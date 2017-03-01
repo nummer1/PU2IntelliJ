@@ -70,7 +70,7 @@ CREATE TABLE CourseSubject (
 CREATE TABLE CourseStudyProgram (
     CourseCode                  VARCHAR(12),
     StudyCode                   VARCHAR(12),
-    Year                        YEAR(4),
+    Semester                    INTEGER,
 
     PRIMARY KEY (CourseCode, StudyCode),
     FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),
