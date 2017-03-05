@@ -2,10 +2,9 @@
  * Created by Erlend on 13.02.2017.
  */
 
+import Algorithm.Course;
 import junit.framework.TestCase;
 import org.junit.*;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.Calendar;
 import java.util.Date;
