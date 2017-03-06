@@ -1,8 +1,7 @@
 package Algorithm;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Dictionary;
+import GUI.Study;
+import java.util.*;
 
 //import com.google.gson.*;
 
@@ -19,18 +18,30 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many differt helping functions which can be implemented when needed.
-    private void switch_major(String from, String to, int semesters) {
-        Collection<Course> finished_courses = new ArrayList<>();
-        Collection<Course> needed_courses = new ArrayList<>();
+    private StudyPlan switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
+        Collection<Course> needed_courses = new ArrayList<>(to);
+        needed_courses.removeAll(from);
 
-        needed_courses.removeAll(finished_courses);
 
-        
+        //The needed_courses now contains all the courses left the student needs.
+        //Now we must sort the courses by dependecy (a topological sort)
 
+        for(int i=semesters; i < needed_courses.size(); i++) {
+
+        }
     }
 
-    private ArrayList<Course> get_courses_from_major() {
-        return new ArrayList<>();
+
+
+
+    //Gets all the courses from a major.
+    //Semesters is the upper bound of how many semesters you want courses from.
+    //Ex. semesters=2 gets the courses from the first year.
+    //semesters=0 should get all courses from the major
+    private StudyPlan get_courses_from_major(String major, int semesters) {
+        DbCom com = new DbCom();
+        StudyPlan study = com.getCoursesFromMajor(major, semesters);
+        return study;
     }
 
     //Takes in information gotten from the database and puts it into a Algorithm.Course object.
