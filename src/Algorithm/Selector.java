@@ -1,6 +1,7 @@
 package Algorithm;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Dictionary;
 
 //import com.google.gson.*;
@@ -19,7 +20,17 @@ public class Selector {
     //This would be the initial call to our main algorithm.
     //It may have many differt helping functions which can be implemented when needed.
     private void switch_major(String from, String to, int semesters) {
-        //TODO
+        Collection<Course> finished_courses = new ArrayList<>();
+        Collection<Course> needed_courses = new ArrayList<>();
+
+        needed_courses.removeAll(finished_courses);
+
+        
+
+    }
+
+    private ArrayList<Course> get_courses_from_major() {
+        return new ArrayList<>();
     }
 
     //Takes in information gotten from the database and puts it into a Algorithm.Course object.
