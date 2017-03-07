@@ -10,17 +10,23 @@ import java.util.Date;
  * Created by Erlend on 13.02.2017.
  */
 
-public class Course {
+public class Course implements Comparable<Course>{
 
     private String course_id;
+    private String course_name;
     private String description;
     private String faculty;
     private Date exam_date;
     private int difficulty;
-    ArrayList<Course> dependencies = new ArrayList<Course>();
+    private ArrayList<Course> dependencies = new ArrayList<Course>();
+    private boolean isSpring;
+    private boolean isAutumn;
+    private boolean isAgile;
+    private int score;
 
-    public Course(String course_id) {
+    public Course(String course_id, String season) {
         this.course_id = course_id;
+        // TODO Implement check for spring, autumn, and agile
     }
 
     public String getCourse_id() {
@@ -37,6 +43,14 @@ public class Course {
         } else {
             throw new IllegalArgumentException("Invalid course ID");
         }
+    }
+
+    public String getCourse_name() {
+        return course_name;
+    }
+
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
     }
 
     public String getDescription() {
@@ -64,6 +78,17 @@ public class Course {
 
     public Date getExam_date() {
         return exam_date;
+    }
+
+    public String getPrintable_date () {
+        String dateString = null;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            dateString = df.format(this.exam_date);
+            return dateString;
+        } catch (NullPointerException e) {
+            return "The exam date can't be found";
+        }
     }
 
     // Sanitize the input to make sure it is after the current day
@@ -115,4 +140,20 @@ public class Course {
         return this.dependencies;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return Integer.compare(this.score, o.score);
+    }
+
+    public boolean equals(Object o) {
+        return (o instanceof Course) && score == ((Course) o).score;
+    }
 }
