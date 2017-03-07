@@ -35,7 +35,9 @@ public class TextClientApplication {
 
     AIDataService dataService;
 
-
+    /**
+     * Building the clientside
+     */
     public TextClientApplication() {
         String args = "44c2085b82f3436da06a12c7008744cb";
         if (args.length() < 1) {

@@ -19,5 +19,10 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="gson-2.6.2" level="project" />
+    <orderEntry type="library" name="ai.api" level="project" />
+    <orderEntry type="library" name="libai" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.3.1" level="project" />
+    <orderEntry type="library" name="org.apache.logging.log4j:log4j-api:2.2" level="project" />
+    <orderEntry type="library" name="org.apache.logging.log4j:log4j-core:2.2" level="project" />
   </component>
 </module>
