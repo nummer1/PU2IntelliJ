@@ -30,7 +30,7 @@ public class SearchField {
         searchFieldOptions = searchFieldOptions;
     }
 
-    public void initializeSearchField(HBox lowerSection) {
+    public void initializeSearchField(HBox lowerSection) { // Initializes search-field.
         searchField = new TextField();
         searchField.setPromptText("Search for courses.");
         searchField.setVisible(false);

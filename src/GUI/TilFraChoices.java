@@ -62,7 +62,7 @@ public class TilFraChoices {
         fraChoices.setMinWidth(200);
     }
 
-    public void initializeTilFraListener(VBox topSection) {
+    public void initializeTilFraListener(VBox topSection) { // Sets top-section visible if a study is selected.
         fraChoices.valueProperty().addListener(e -> {
             topSection.getChildren().get(1).setVisible(true);
         });
@@ -85,7 +85,7 @@ public class TilFraChoices {
         return studies;
     }
 
-    public boolean studiesIsSelected() {
+    public boolean studiesIsSelected() { // Checks if both studies is selected.
         if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {
             return false;
         }

@@ -36,7 +36,7 @@ public class SemesterSlider {
         this.slider = slider;
     }
 
-    public void initializeSliderListener() {
+    public void initializeSliderListener() { // Listens if slider-value changes.
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             colorCompleteSliderCourses(newValue.doubleValue());
         });

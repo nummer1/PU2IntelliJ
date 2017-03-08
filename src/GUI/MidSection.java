@@ -62,14 +62,14 @@ public class MidSection {
 
     public GridPane getCoursePlan () {
         return coursePlan;
-    }
+    } // Returns courseplan.
 
-    public void resetCounts() {
+    public void resetCounts() { // Resets counts.
         semesterCount = -1;
         count = 0;
     }
 
-    public GridPane generateMidSection(String from, String to) {
+    public GridPane generateMidSection(String from, String to) { // Initializes GridPane and adds courses.
         makeBasicGridPane();
 
         ArrayList<ArrayList<Algorithm.Course>> firstYear = Algorithm.Selector.get_first_year();
@@ -106,21 +106,21 @@ public class MidSection {
         return coursePlan;
     }
 
-    public void makeBasicGridPane() {
+    public void makeBasicGridPane() { // Initializes GridPane.
         coursePlan.getStylesheets().add(MidSection.class.getResource("stylesheets.css").toExternalForm());
         coursePlan.setPadding(new Insets(10, 10, 10, 10));
         coursePlan.setVgap(10);
         coursePlan.setHgap(10);
     }
 
-    public void addCourse(Course course) {
-        if (count == 0) {
+    public void addCourse(Course course) { // Adds a course to the courseplan.
+        if (count == 0) { // Checks if it needs to start a new semester.
             semesterCount++;
             Label semesterLabel = new Label("Semester " + Integer.toString(semesterCount + 1));
             semesterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
-            GridPane.setHalignment(semesterLabel, HPos.CENTER);
-            //SENTRER ALLE SEMESTERLABELS. GOOGLE
-            if (semesterCount < 5) {
+            GridPane.setHalignment(semesterLabel, HPos.CENTER); // Center Semester-Label.
+
+            if (semesterCount < 5) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
                 GridPane.setConstraints(semesterLabel, semesterCount, 0);
             }
             else {
@@ -128,15 +128,13 @@ public class MidSection {
             }
             coursePlan.getChildren().add(semesterLabel);
         }
-        //TextField fag = new TextField(course);
 
         TextArea fag = new TextArea(course.getCourse_id() + "\n" + course.getCourse_name() + "\n" + "Eksamensdato: " + course.getPrintable_date());
         fag.getStyleClass().add("all-courses");
         fag.setEditable(false);
-        fag.setWrapText(true); // TVINGER NEWLINE DERSOM TEKSTEN BRUKER STØRRE BREDDE EN BOXEN ER TILDELT
-        initializeOnClickedListener(fag);
-        //fag.setAlignment(Pos.CENTER);
-        if (semesterCount <5) {
+        fag.setWrapText(true); // Forces newline if the text use more width than the textbox is given.
+        initializeOnClickedListener(fag); // Adds listener to add color-coding functionality.
+        if (semesterCount <5) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
             GridPane.setConstraints(fag, semesterCount, count + 1);
         }
         else {
@@ -144,11 +142,11 @@ public class MidSection {
         }
         System.out.println(semesterCount);
         count++;
-        count = count % 4;
+        count = count % 4; // Used to make each semester consist of 4 courses.
         coursePlan.getChildren().add(fag);
     }
 
-    public void initializeOnClickedListener(TextArea fag) {
+    public void initializeOnClickedListener(TextArea fag) { // Listens for mouse-clicks on one of the courses. Toggles color-coding. NOT YET FUNCTIONAL
         fag.onMouseClickedProperty().addListener(text -> {
             if (fag.getStyleClass().get(0).equals("completed-courses")) {
                 fag.getStyleClass().remove("completed-courses");
@@ -161,7 +159,7 @@ public class MidSection {
         });
     }
 
-    public static void colorCompleteSliderCourses(double sliderValue) {
+    public static void colorCompleteSliderCourses(double sliderValue) { // Slider's functionality. Colors courses based on finished semesters.
         int count = 0;
         for (double semester = 0; semester < sliderValue * 2; semester++) {
             count++;

@@ -14,6 +14,8 @@ public class SemesterCheckBoxes {
     private ArrayList<CheckBox> checkBoxList = new ArrayList<CheckBox>();
     private HBox checkBoxSection = new HBox(10);
 
+    // CLASS CURRENTLY NOT IN USE. IMPLEMENTED SLIDER INSTEAD.
+
     public HBox getCheckBoxSection() {
         return checkBoxSection;
     }

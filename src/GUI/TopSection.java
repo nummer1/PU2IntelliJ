@@ -52,8 +52,8 @@ public class TopSection {
         slider.initializeSliderListener();
 
         //GJØR SLIK AT SEARCHFIELD BLIR HØYRE-SENTRERT
-        Region rightAlignTextField = new Region();
-        lowerSection.setHgrow(rightAlignTextField, Priority.SOMETIMES);
+        Region rightAlignTextField = new Region(); // Added because I want to right-align the search-field.
+        lowerSection.setHgrow(rightAlignTextField, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
         lowerSection.setVisible(false);
 
         lowerSection.getChildren().addAll(slider.getSlider(), rightAlignTextField, searchField.getSearchField());
