@@ -10,20 +10,23 @@ import java.util.Date;
  * Created by Erlend on 13.02.2017.
  */
 
-public class Course {
+public class Course implements Comparable<Course>{
 
     private String course_id;
-
-
     private String course_name;
     private String description;
     private String faculty;
     private Date exam_date;
     private int difficulty;
-    ArrayList<Course> dependencies = new ArrayList<Course>();
+    private ArrayList<Course> dependencies = new ArrayList<Course>();
+    private boolean isSpring;
+    private boolean isAutumn;
+    private boolean isAgile;
+    private int score;
 
-    public Course(String course_id) {
+    public Course(String course_id, String season) {
         this.course_id = course_id;
+        // TODO Implement check for spring, autumn, and agile
     }
 
     public String getCourse_id() {
@@ -137,4 +140,20 @@ public class Course {
         return this.dependencies;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return Integer.compare(this.score, o.score);
+    }
+
+    public boolean equals(Object o) {
+        return (o instanceof Course) && score == ((Course) o).score;
+    }
 }
