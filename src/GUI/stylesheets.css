@@ -1,0 +1,11 @@
+.completed-courses .content {
+   -fx-background-color: #aafca3;
+}
+
+.all-courses .content {
+    -fx-background-color: #ffecb3;
+}
+
+.main-background .content {
+    -fx-background-color: yellow ;
+}
