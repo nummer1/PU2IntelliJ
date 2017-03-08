@@ -8,7 +8,7 @@ import java.util.Collection;
  */
 public class StudyPlan {
 
-    private Collection<Semester> semesters = new ArrayList<>();
+    private ArrayList<Semester> semesters = new ArrayList<>();
     private String name;
     private String major;
     private int score;
@@ -19,6 +19,10 @@ public class StudyPlan {
 
     public void addSemester(Semester semester) {
         this.semesters.add(semester);
+    }
+
+    public Semester getSemester(int nr) {
+        this.semesters.get(nr - 1);
     }
 
     public void setScore(int score) {
