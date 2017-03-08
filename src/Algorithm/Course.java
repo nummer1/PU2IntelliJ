@@ -26,7 +26,19 @@ public class Course implements Comparable<Course>{
 
     public Course(String course_id, String season) {
         this.course_id = course_id;
-        // TODO Implement check for spring, autumn, and agile
+        if (season.equals("agile")) {
+            isAgile = true;
+            isAutumn = true;
+            isSpring = true;
+        } else if (season.equals("spring")) {
+            isSpring = true;
+            isAutumn = false;
+            isAgile = false;
+        } else if (season.equals("autumn")) {
+            isAutumn = true;
+            isSpring = false;
+            isAgile = false;
+        }
     }
 
     public String getCourse_id() {
@@ -99,7 +111,6 @@ public class Course implements Comparable<Course>{
         try {
             exam_date = df.parse(exam_string);
             String newDateString = df.format(exam_date);
-            System.out.println(newDateString);
         } catch (ParseException e) {
             exam_date = new Date(); // if parseException, sets date to now
         }
@@ -153,6 +164,7 @@ public class Course implements Comparable<Course>{
         return Integer.compare(this.score, o.score);
     }
 
+    @Override
     public boolean equals(Object o) {
         return (o instanceof Course) && score == ((Course) o).score;
     }

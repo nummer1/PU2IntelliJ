@@ -17,7 +17,7 @@ public class CourseTest extends TestCase{
 
 
     private void setup() {
-        this.tdt4100 = new Course("TDT4100");
+        this.tdt4100 = new Course("TDT4100", "spring");
         tdt4100.setDescription("This is a description");
         tdt4100.setDifficulty(5);
         c.setTime(dt);

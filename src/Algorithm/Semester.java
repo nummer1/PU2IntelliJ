@@ -22,7 +22,6 @@ public class Semester {
         } else {
             throw new IllegalArgumentException("The season must be either spring or autumn");
         }
-
     }
 
     public void addCourse(Course course) {
