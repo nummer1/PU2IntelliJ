@@ -6,7 +6,10 @@ CREATE TABLE Course (
     TaughtInSpring              BOOLEAN,
     TaughtInAutumn              BOOLEAN,
     StudyLevelCode              INTEGER,
+    Difficulty                  INTEGER,
+    Faculty                     TEXT,
     URL                         TEXT,
+    Description                 TEXT,
 
     PRIMARY KEY (CourseCode)
 );

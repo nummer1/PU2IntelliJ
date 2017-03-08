@@ -10,6 +10,8 @@ import java.util.Date;
  * Created by Erlend on 13.02.2017.
  */
 
+//TODO fix nullpointer exception when setting values in course
+
 public class Course implements Comparable<Course>{
 
     private String course_id;
@@ -108,6 +110,10 @@ public class Course implements Comparable<Course>{
         } else {
             throw new IllegalArgumentException("You must pick a date after the current date");
         }
+    }
+
+    public void setExam_Date(Date exam_Date) {
+        this.exam_date = exam_date;
     }
 
     public int getDifficulty() {
