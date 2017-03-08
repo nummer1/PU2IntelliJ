@@ -34,6 +34,7 @@ public class Selector {
                 }
             }
             autumn = !autumn;
+            studyplan.addSemester(semester);
         }
         return studyplan;
     }
