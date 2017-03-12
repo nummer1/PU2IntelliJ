@@ -18,7 +18,7 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many differt helping functions which can be implemented when needed.
-    private StudyPlan switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
+    public StudyPlan switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
         Collection<Course> needed_courses = new ArrayList<>(to);
         needed_courses.removeAll(from);
         Stack<Course> stack = new Stack<>();
