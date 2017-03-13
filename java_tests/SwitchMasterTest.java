@@ -18,14 +18,16 @@ public class SwitchMasterTest extends TestCase{
         StudyPlan a = new StudyPlan("a");
         StudyPlan b = new StudyPlan("b");
 
-        for (int i=6; i==9; i++) {
+        for (int i=8; i<10; i++) {
             Course c = new Course(Integer.toString(i), "autumn");
-            sem.addCourse(c);
+            this.sem.addCourse(c);
         }
-        expected.addSemester(sem);
+        this.expected.addSemester(this.sem);
 
         Semester asem1 = new Semester("autumn");
+        Semester asem2 = new Semester("spring");
         Semester bsem1 = new Semester("autumn");
+        Semester bsem2 = new Semester("spring");
 
         for(int i=0; i<4; i++) {
             Course c = new Course(Integer.toString(i), "autumn");
@@ -33,18 +35,14 @@ public class SwitchMasterTest extends TestCase{
             bsem1.addCourse(c);
         }
 
-        Semester asem2 = new Semester("spring");
-
         for(int i=0; i<4; i++) {
             Course c = new Course(Integer.toString(i+4), "autumn");
             asem2.addCourse(c);
         }
 
-        Semester bsem2 = new Semester("spring");
-
         for(int i=0; i<4; i++) {
             Course c = new Course(Integer.toString(i+6), "autumn");
-            bsem1.addCourse(c);
+            bsem2.addCourse(c);
         }
 
         a.addSemester(asem1);
@@ -63,9 +61,9 @@ public class SwitchMasterTest extends TestCase{
         ArrayList<Course> from = new ArrayList<>(a.getCourses());
         ArrayList<Course> to = new ArrayList<>(b.getCourses());
 
-        actual = sel.switch_major(from, to, 1);
+        this.actual = sel.switch_major(from, to, 1);
 
-        boolean correct = actual.getCourses().containsAll(expected.getCourses());
+        boolean correct = this.actual.getCourses().containsAll(this.expected.getCourses());
 
         assertTrue(correct);
     }

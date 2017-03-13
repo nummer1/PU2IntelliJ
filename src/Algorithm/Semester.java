@@ -29,7 +29,7 @@ public class Semester {
     }
 
     public Collection getCourses() {
-        return courses;
+        return this.courses;
     }
 
     public boolean isFilled() {

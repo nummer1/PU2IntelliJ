@@ -43,7 +43,7 @@ public class StudyPlan {
 
     public ArrayList<Course> getCourses() {
         ArrayList<Course> array = new ArrayList<>();
-        for(Semester sem : semesters) {
+        for(Semester sem : this.semesters) {
             array.addAll(sem.getCourses());
         }
         return array;
