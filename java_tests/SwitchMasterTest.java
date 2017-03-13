@@ -13,7 +13,6 @@ public class SwitchMasterTest extends TestCase{
     StudyPlan actual = new StudyPlan("Custom studyplan");
     StudyPlan a;
     StudyPlan b;
-    DbCom com = new DbCom();
 
     public void setup() {
         StudyPlan a = new StudyPlan("a");
@@ -59,13 +58,16 @@ public class SwitchMasterTest extends TestCase{
     }
 
     public void testSwitchMajor() {
+        setup();
         Selector sel = new Selector();
         ArrayList<Course> from = new ArrayList<>(a.getCourses());
         ArrayList<Course> to = new ArrayList<>(b.getCourses());
 
         actual = sel.switch_major(from, to, 1);
 
-        
+        boolean correct = actual.getCourses().containsAll(expected.getCourses());
+
+        assertTrue(correct);
     }
 
 

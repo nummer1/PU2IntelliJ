@@ -22,7 +22,7 @@ public class StudyPlan {
     }
 
     public Semester getSemester(int nr) {
-        this.semesters.get(nr - 1);
+        return this.semesters.get(nr - 1);
     }
 
     public void setScore(int score) {
@@ -41,4 +41,11 @@ public class StudyPlan {
         return this.major;
     }
 
+    public ArrayList<Course> getCourses() {
+        ArrayList<Course> array = new ArrayList<>();
+        for(Semester sem : semesters) {
+            array.addAll(sem.getCourses());
+        }
+        return array;
+    }
 }

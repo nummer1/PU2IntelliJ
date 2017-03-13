@@ -44,9 +44,10 @@ public class Selector {
     //Ex. semesters=2 gets the courses from the first year.
     //semesters=0 should get all courses from the major
     private StudyPlan get_courses_from_major(String major, int semesters) {
-        DbCom com = new DbCom();
-        StudyPlan study = com.getCoursesFromMajor(major, semesters);
-        return study;
+        //DbCom com = new DbCom();
+        //StudyPlan study = com.getCoursesFromMajor(major, semesters);
+        //return study;
+        return null;
     }
 
     //Takes in information gotten from the database and puts it into a Algorithm.Course object.

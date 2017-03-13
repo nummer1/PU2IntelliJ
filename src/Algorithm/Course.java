@@ -168,4 +168,9 @@ public class Course implements Comparable<Course>{
     public boolean equals(Object o) {
         return (o instanceof Course) && score == ((Course) o).score;
     }
+
+    @Override
+    public String toString() {
+        return course_id;
+    }
 }
