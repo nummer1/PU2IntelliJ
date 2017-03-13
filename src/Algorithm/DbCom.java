@@ -92,7 +92,7 @@ public class DbCom {
         //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
         try {
             Statement studyCoursestmt = this.con.createStatement();
-            String courseStudyQuery = "SELECT Course FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
+            String courseStudyQuery = "SELECT CourseCode FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
             ResultSet studyCourseRs = studyCoursestmt.executeQuery(courseStudyQuery);
 
             Map<Integer, List<Course>> courseMap = new HashMap<>();
@@ -136,7 +136,11 @@ public class DbCom {
 
     public static void main(String[] args) {
         DbCom db = new DbCom();
-        db.getCoursesFromMajor("MTDT");
+        Course c = db.getCourse("TTM4100");
+        StudyPlan s = db.getCoursesFromMajor("MTDT");
+        System.out.println(c.getCourse_id());
+        System.out.println(c.getDependencies());
+        System.out.println(s.getMajor());
     }
     //possible other methods
 }
