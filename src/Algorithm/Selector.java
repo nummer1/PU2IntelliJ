@@ -17,7 +17,7 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many differt helping functions which can be implemented when needed.
-    private StudyPlan switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
+    public StudyPlan switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
         Collection<Course> needed_courses = new ArrayList<>(to);
         needed_courses.removeAll(from);
         Stack<Course> stack = new Stack<>();
@@ -33,6 +33,7 @@ public class Selector {
                 }
             }
             autumn = !autumn;
+            studyplan.addSemester(semester);
         }
         return studyplan;
     }
@@ -42,9 +43,10 @@ public class Selector {
     //Ex. semesters=2 gets the courses from the first year.
     //semesters=0 should get all courses from the major
     private StudyPlan get_courses_from_major(String major, int semesters) {
-        DbCom com = new DbCom();
-        StudyPlan study = com.getCoursesFromMajor(major, semesters);
-        return study;
+        //DbCom com = new DbCom();
+        //StudyPlan study = com.getCoursesFromMajor(major, semesters);
+        //return study;
+        return null;
     }
 
     //Takes in information gotten from the database and puts it into a Algorithm.Course object.

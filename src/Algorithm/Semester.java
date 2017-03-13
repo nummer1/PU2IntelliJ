@@ -32,7 +32,7 @@ public class Semester {
     public void addCourseList(List<Course> courseList) { this.courses = courseList; }
 
     public Collection getCourses() {
-        return courses;
+        return this.courses;
     }
 
     public boolean isFilled() {
