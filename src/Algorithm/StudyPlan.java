@@ -1,14 +1,14 @@
 package Algorithm;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Erlend on 06.03.2017.
  */
 public class StudyPlan {
 
-    private Collection<Semester> semesters = new ArrayList<>();
+    private Map<Integer, Semester> semesters = new HashMap<>();
     private String name;
     private String major;
     private int score;
@@ -17,8 +17,8 @@ public class StudyPlan {
         this.name = name;
     }
 
-    public void addSemester(Semester semester) {
-        this.semesters.add(semester);
+    public void addSemester(Semester semester, Integer semesterNumber) {
+        this.semesters.put(semesterNumber, semester);
     }
 
     public void setScore(int score) {
