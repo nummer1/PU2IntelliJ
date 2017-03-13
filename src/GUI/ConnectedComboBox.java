@@ -15,6 +15,8 @@ public class ConnectedComboBox<T> implements ChangeListener<T> {
     private ObservableList<T> items;
     private List<ChoiceBox<T>> comboBoxList = new ArrayList<>();
 
+    // Class functionality: If from-study is selected, this study is removed from to-study. Bidirectional.
+
     public ConnectedComboBox(ObservableList<T> items){
         this.items = items;
         if (this.items == null) this.items = FXCollections.observableArrayList();

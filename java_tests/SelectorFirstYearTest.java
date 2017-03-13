@@ -23,5 +23,4 @@ public class SelectorFirstYearTest extends TestCase {
         assertEquals("TMA4140", some_course.getCourse_id());
         assertEquals("Diskret matematikk", some_course.getCourse_name());
     }
-
 }
