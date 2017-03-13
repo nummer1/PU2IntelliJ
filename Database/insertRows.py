@@ -47,7 +47,7 @@ def makeSQLSingle(arg):
 
 #this script adds courses to database crreated by createTables.sql
 
-CourseQuerry = "INSERT INTO Course(CourseCode, CourseName, Credit, CreditTypeCode, TaughtInSpring, TaughtInAutumn, StudyLevelCode, URL) VALUES({}, {}, {}, {}, {}, {}, {}, {})"
+CourseQuerry = "INSERT INTO Course(CourseCode, CourseName, Credit, CreditTypeCode, TaughtInSpring, TaughtInAutumn, StudyLevelCode, Difficulty, Faculty, URL, Description) VALUES({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})"
 DependentQuerry = "INSERT INTO Dependent(Dependent, Dependency, Necessary) VALUES({}, {}, {})"
 CreditReducitonQuerry = "INSERT INTO CreditReduction(ReducedCourse, ReducedBy, Amount) VALUES({}, {}, {})"
 SubjectQuerry = "INSERT INTO Subject(SubjectCode, SubjectName) VALUES({}, {})"
@@ -91,6 +91,8 @@ for course in data:
         for element in infoType:
             if element['code'] == 'E-URL':
                 url = element.get('text')
+            elif element['code'] == 'INNHOLD':
+                description = element.get('text')
             #add to table Dependent
             elif element['code'] == 'ANBFORK' or element['code'] == 'FORK':
                 necessary = element['code'] == 'FORK'
@@ -103,7 +105,7 @@ for course in data:
 
     #add to table Course
     CourseArgs.append((cData['code'], cData['name'], cData['credit'], cData['creditTypeCode'], \
-    cData['taughtInSpring'], cData['taughtInAutumn'], cData['studyLevelCode'], url))
+    cData['taughtInSpring'], cData['taughtInAutumn'], cData['studyLevelCode'], 0, None, url, description))
 
     #add ro table CreditRecution
     creditReduction = cData.get('creditReduction')
@@ -123,7 +125,7 @@ for course in data:
     if studyProgram is not None:
         for element in studyProgram:
             StudyProgramArgs.add((element['code'], element['name']))
-            CourseStudyProgramArgs.append((course, element['code'], 0))
+            CourseStudyProgramArgs.append((course, element['code'], int(cData['studyLevelCode'])%100))
 
     #add to table Language and CourseLanguage
     language = cData.get('educationLanguage')
