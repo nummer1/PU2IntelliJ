@@ -27,82 +27,7 @@ public class MidSection {
     private int semesterCount = -1;
     private int count = 0;
 
-    public void initializeDragAndDrop(TextArea fag) {
-        fag.setOnDragDetected(event -> {
-            System.out.println("onDragDetected");
-
-            String sourceText = fag.getText();
-
-            Dragboard db = fag.startDragAndDrop(TransferMode.COPY_OR_MOVE);
-
-            ClipboardContent content = new ClipboardContent();
-            content.putString(sourceText);
-
-            db.setContent(content);
-            event.consume();
-        });
-
-        fag.setOnDragOver(event -> {
-            // If drag board has a string, let the event know that
-            // the target accepts copy and move transfer modes
-            Dragboard dragboard = event.getDragboard();
-
-            if (dragboard.hasString())
-            {
-                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-            }
-
-            event.consume();
-        });
-
-        fag.setOnDragDropped(event -> {
-            // Transfer the data to the target
-            Dragboard dragboard = event.getDragboard();
-
-            if(event.getGestureSource() == event.getGestureTarget()) {return;}
-
-            if (dragboard.hasString())
-            {
-                TextArea targetFag = new TextArea();
-                TextArea sourceFag = new TextArea();
-
-                int targetIndex = -1;
-                int sourceIndex = -1;
-
-                for (int i = 0; i < coursePlan.getChildren().size(); i++) {
-                    if (event.getGestureTarget().equals(coursePlan.getChildren().get(i))) {
-                        targetFag = (TextArea) coursePlan.getChildren().get(i);
-                        targetIndex = i;
-                    }
-                    if (event.getGestureSource().equals(coursePlan.getChildren().get(i))) {
-                        sourceFag = (TextArea) coursePlan.getChildren().get(i);
-                        sourceIndex = i;
-                    }
-                }
-
-                String targetText = targetFag.getText();
-                String sourceText = sourceFag.getText();
-
-                ((TextArea) coursePlan.getChildren().get(targetIndex)).setText(dragboard.getString()); // Set target text.
-                ((TextArea) coursePlan.getChildren().get(sourceIndex)).setText(targetText); // Set source text.
-                System.out.println(targetFag.getText());
-
-                // Data transfer is successful
-                event.setDropCompleted(true);
-            }
-            else
-            {
-                // Data transfer is not successful
-                event.setDropCompleted(false);
-            }
-
-            event.consume();
-        });
-
-    }
-
-
-    public GridPane getCoursePlan () {
+    public static GridPane getCoursePlan () {
         return coursePlan;
     } // Returns courseplan.
 
@@ -174,7 +99,7 @@ public class MidSection {
         TextArea fag = new TextArea(course.getCourse_id() + "\n" + course.getCourse_name() + "\n" + "Eksamensdato: " + course.getPrintable_date());
         fag.getStyleClass().add("all-courses");
         fag.setEditable(false);
-        initializeDragAndDrop(fag);
+        DragAndDrop.initializeDragAndDrop(fag);
         fag.setWrapText(true); // Forces newline if the text use more width than the textbox is given.
         initializeOnClickedListener(fag); // Adds listener to add color-coding functionality.
         if (semesterCount <5) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
