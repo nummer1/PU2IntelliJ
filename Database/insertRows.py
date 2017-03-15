@@ -175,9 +175,9 @@ db = MySQLdb.connect(host="188.166.85.212", user="default", db="Education")
 cur = db.cursor()
 
 #Create Tables
-with open('createTables.sql', 'r') as f:
-   sql = " ".join(f.readlines())
-cur.execute(sql)
+# with open('createTables.sql', 'r') as f:
+#    sql = " ".join(f.readlines())
+# cur.execute(sql)
 
 querries = 0
 
@@ -185,12 +185,12 @@ def executeSQL(Querry, args):
     global querries
     for arg in args:
         querries += 1
-        #try:
-        arg = makeSQL(arg)
-        cur.execute(Querry.format(*arg))
-        # except Exception:
-        #     print(Querry.format(*arg))
-        #     continue
+        try:
+            arg = makeSQL(arg)
+            cur.execute(Querry.format(*arg))
+        except Exception: #!!!
+             print(Querry.format(*arg))
+             continue
     print(querries)
 
 print('course')

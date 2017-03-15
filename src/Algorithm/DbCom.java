@@ -45,7 +45,7 @@ public class DbCom {
             Statement courseStmt = this.con.createStatement();
             Statement dependentStmt = this.con.createStatement();
             String courseQuery = "SELECT Course.CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode = " + "\"" + courseInp + "\"";
-            String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependency = " + "\"" + courseInp + "\"";
+            String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependent = " + "\"" + courseInp + "\"";
             ResultSet courseRs = courseStmt.executeQuery(courseQuery);
             ResultSet dependentRs = dependentStmt.executeQuery(dependentQuery);
 
@@ -90,7 +90,7 @@ public class DbCom {
         //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
         try {
             Statement studyCoursestmt = this.con.createStatement();
-            String courseStudyQuery = "SELECT CourseCode FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
+            String courseStudyQuery = "SELECT CourseCode, Semester FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
             ResultSet studyCourseRs = studyCoursestmt.executeQuery(courseStudyQuery);
 
             Map<Integer, List<Course>> courseMap = new HashMap<>();
@@ -172,7 +172,7 @@ public class DbCom {
         DbCom db = new DbCom();
         Course c = db.getCourse("TTM4100");
         StudyPlan s = db.getCoursesFromMajor("MTDT");
-        Collection<String> b = db.getCourses();
+        Collection<String> cS = db.getCourses();
         int i = db.getSemester("TMA4100", "MTDT");
 //        System.out.println(c.getCourse_id());
 //        System.out.println(c.getDependencies());
