@@ -28,7 +28,19 @@ public class Course implements Comparable<Course>{
 
     public Course(String course_id, String season) {
         this.course_id = course_id;
-        // TODO Implement check for spring, autumn, and agile
+        if (season.equals("agile")) {
+            isAgile = true;
+            isAutumn = true;
+            isSpring = true;
+        } else if (season.equals("spring")) {
+            isSpring = true;
+            isAutumn = false;
+            isAgile = false;
+        } else if (season.equals("autumn")) {
+            isAutumn = true;
+            isSpring = false;
+            isAgile = false;
+        }
     }
 
     public String getCourse_id() {
@@ -158,7 +170,13 @@ public class Course implements Comparable<Course>{
         return Integer.compare(this.score, o.score);
     }
 
+    @Override
     public boolean equals(Object o) {
-        return (o instanceof Course) && score == ((Course) o).score;
+        return (o instanceof Course) && course_id.equals(((Course) o).course_id);
+    }
+
+    @Override
+    public String toString() {
+        return course_id;
     }
 }

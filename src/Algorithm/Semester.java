@@ -22,7 +22,6 @@ public class Semester {
         } else {
             throw new IllegalArgumentException("The season must be either spring or autumn");
         }
-
     }
 
     public void addCourse(Course course) {
@@ -30,7 +29,7 @@ public class Semester {
     }
 
     public Collection getCourses() {
-        return courses;
+        return this.courses;
     }
 
     public boolean isFilled() {
