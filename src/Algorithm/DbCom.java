@@ -73,7 +73,8 @@ public class DbCom {
 
                 // add dependencies
                 while (dependentRs.next()) {
-                    course.addDependency(dependentRs.getString("Dependency "));
+                    String d = dependentRs.getString(1);
+                    course.addDependency(d);
                 }
 
                 return course;
@@ -82,6 +83,25 @@ public class DbCom {
             }
         } catch (SQLException e) {
             throw new IllegalStateException("SQLException in DbCom.getCourse()", e);
+        }
+    }
+
+    public Collection<String> getCourses() {
+        // return all course codes and courseNames
+        // seperate scoursecode from respective coursename with space
+        // SELECT CourseCode, CourseName FROM Course
+        try {
+            Statement courseStmt = this.con.createStatement();
+            String courseQuery = "SELECT CourseCode, CourseName FROM Course";
+            ResultSet rs = courseStmt.executeQuery(courseQuery);
+            Collection<String> rCol = new ArrayList<>();
+            while (rs.next()) {
+                String s = rs.getString("CourseCode") + " " + rs.getString("CourseName");
+                rCol.add(s);
+            }
+            return rCol;
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getCourses()", e);
         }
     }
 
@@ -132,24 +152,6 @@ public class DbCom {
         }
     }
 
-    public Collection<String> getCourses() {
-        // return all course codes and courseNames
-        // seperate scoursecode from respective coursename with space
-        // SELECT CourseCode, CourseName FROM Course
-        try {
-            Statement courseStmt = this.con.createStatement();
-            String courseQuery = "SELECT CourseCode, CourseName FROM Course";
-            ResultSet rs = courseStmt.executeQuery(courseQuery);
-            Collection<String> rCol = new ArrayList<>();
-            while (rs.next()) {
-                rCol.add(rs.getString("CourseCorde") + " " + rs.getString("CourseName"));
-            }
-            return rCol;
-        } catch (SQLException e) {
-            throw new IllegalStateException("SQLException in DbCom.getCourses()", e);
-        }
-    }
-
     public int getSemester(String courseCode, String studyCode) {
         // reuturn the respective semester from coursecode and studycode
         // SELECT Semester FROM CourseStudyProgram WHERE CourseCode = courseCode AND StudyCode = studyCode
@@ -165,18 +167,6 @@ public class DbCom {
         } catch (SQLException e) {
             throw new IllegalStateException("SQLException in DbCom.getSemester()", e);
         }
-    }
-
-
-    public static void main(String[] args) {
-        DbCom db = new DbCom();
-        Course c = db.getCourse("TTM4100");
-        StudyPlan s = db.getCoursesFromMajor("MTDT");
-        Collection<String> cS = db.getCourses();
-        int i = db.getSemester("TMA4100", "MTDT");
-//        System.out.println(c.getCourse_id());
-//        System.out.println(c.getDependencies());
-//        System.out.println(s.getMajor());
     }
     //possible other methods
 }

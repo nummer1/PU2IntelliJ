@@ -22,6 +22,8 @@ public class StudyPlan {
         this.semesters.put(semesterNumber, semester);
     }
 
+    public Semester getSemester(int i) { return semesters.get(i); }
+
     public void setScore(int score) {
         this.score = score;
     }
