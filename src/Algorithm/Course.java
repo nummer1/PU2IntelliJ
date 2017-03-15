@@ -20,7 +20,7 @@ public class Course implements Comparable<Course>{
     private String faculty;
     private Date exam_date;
     private int difficulty;
-    private ArrayList<Course> dependencies = new ArrayList<Course>();
+    private ArrayList<String> dependencies = new ArrayList<>();
     private boolean isSpring;
     private boolean isAutumn;
     private boolean isAgile;
@@ -71,7 +71,9 @@ public class Course implements Comparable<Course>{
     // Sanitize the input for faculties
     // Faculties are only alphabetic
     public void setFaculty(String faculty) {
-        if (faculty.chars().allMatch(Character::isLetter)) {
+        if (faculty == null) {
+            this.faculty = null;
+        } else if (faculty.chars().allMatch(Character::isLetter)) {
             this.faculty = faculty;
         } else {
             throw new IllegalArgumentException("The faculty name can only contain alphabetic characters");
@@ -96,18 +98,23 @@ public class Course implements Comparable<Course>{
     // Sanitize the input to make sure it is after the current day
     // May be better to take a string as input, and convert it into date in this method
     public void setExam_date(String exam_string) {
-        Date exam_date;
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            exam_date = df.parse(exam_string);
-            String newDateString = df.format(exam_date);
-        } catch (ParseException e) {
-            exam_date = new Date(); // if parseException, sets date to now
-        }
-        if (exam_date.after(new Date())) {
-            this.exam_date = exam_date;
+        if (exam_string == null) {
+            this.exam_date = null;
         } else {
-            throw new IllegalArgumentException("You must pick a date after the current date");
+            Date exam_date;
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                exam_date = df.parse(exam_string);
+                String newDateString = df.format(exam_date);
+                System.out.println(newDateString);
+            } catch (ParseException e) {
+                exam_date = new Date(); // if parseException, sets date to now
+            }
+            if (exam_date.after(new Date())) {
+                this.exam_date = exam_date;
+            } else {
+                throw new IllegalArgumentException("You must pick a date after the current date");
+            }
         }
     }
 
@@ -129,11 +136,11 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public void addDependency(Course dependency) {
+    public void addDependency(String dependency) {
         this.dependencies.add(dependency);
     }
 
-    public void removeDependency(Course dependency) {
+    public void removeDependency(String dependency) {
         if (this.dependencies.contains(dependency)) {
             this.dependencies.remove(dependency);
         } else {
@@ -141,7 +148,7 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public ArrayList<Course> getDependencies() {
+    public ArrayList<String> getDependencies() {
         return this.dependencies;
     }
 
