@@ -1,5 +1,6 @@
 package Algorithm;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,14 @@ public class StudyPlan {
 
     public String getMajor() {
         return this.major;
+    }
+
+    public ArrayList<Course> getCourses() {
+        ArrayList<Course> array = new ArrayList<>();
+        for(Semester sem : this.semesters) {
+            array.addAll(sem.getCourses());
+        }
+        return array;
     }
 
 }
