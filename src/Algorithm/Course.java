@@ -142,6 +142,7 @@ public class Course implements Comparable<Course>{
     }
 
     public void addDependency(Course dependency) {
+        //TODO THIS SHOULD BE STRINGS, NOT OBJECTS
         this.dependencies.add(dependency);
     }
 

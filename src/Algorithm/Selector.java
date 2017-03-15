@@ -18,7 +18,41 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many differt helping functions which can be implemented when needed.
-    public StudyPlan switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
+    public StudyPlan switch_major(Collection<Course> from, Collection<Course> to, String toName, int semesters) {
+        Collection<Course> needed_courses = new ArrayList<>(to);
+        DbCom db = new DbCom();
+        needed_courses.removeAll(from);
+
+        for (Course course : needed_courses) {
+            int semester = db.getSemester(course.getCourse_id(), toName);
+            if (semester < 2) {
+                course.setScore(1000);
+            } else if (semester < 4) {
+                course.setScore(800);
+            } else if (semester < 6) {
+                course.setScore(600);
+            } else if (semester < 8) {
+                course.setScore(400);
+            } else if (semester < 10) {
+                course.setScore(200);
+            } else {
+                course.setScore(100);
+            }
+        }
+
+        for (Course course : needed_courses) {
+            //Iterate over dependencies and alter the score based on it
+        }
+
+        //Sort the courses based on the score
+
+        //Set courses in semester based on the sorted set of courses
+
+        //return the studyplan
+        return new StudyPlan("dummy");
+    }
+
+    public StudyPlan dumb_switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
         Collection<Course> needed_courses = new ArrayList<>(to);
         needed_courses.removeAll(from);
         Stack<Course> stack = new Stack<>();
@@ -38,6 +72,8 @@ public class Selector {
         }
         return studyplan;
     }
+
+
 
     //Gets all the courses from a major.
     //Semesters is the upper bound of how many semesters you want courses from.
