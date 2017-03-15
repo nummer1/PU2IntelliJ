@@ -40,8 +40,8 @@ public class StudyPlan {
 
     public ArrayList<Course> getCourses() {
         ArrayList<Course> array = new ArrayList<>();
-        for(Semester sem : this.semesters) {
-            array.addAll(sem.getCourses());
+        for(Integer key : this.semesters.keySet()) {
+            array.addAll(semesters.get(key).getCourses());
         }
         return array;
     }
