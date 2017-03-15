@@ -104,8 +104,17 @@ for course in data:
                             DependentArgs.append((course, word, necessary))
 
     #add to table Course
+    studyCode = cData['studyLevelCode']
+    if studyCode == None:
+        studyCode = 0
+    autumn = cData['taughtInAutumn']
+    if autumn == None:
+        autumn = False
+    spring = cData['taughtInSpring']
+    if spring == None:
+        spring = False
     CourseArgs.append((cData['code'], cData['name'], cData['credit'], cData['creditTypeCode'], \
-    cData['taughtInSpring'], cData['taughtInAutumn'], cData['studyLevelCode'], 0, None, url, description))
+    spring, autumn, studyCode, 1, None, url, description))
 
     #add ro table CreditRecution
     creditReduction = cData.get('creditReduction')
@@ -124,8 +133,13 @@ for course in data:
     studyProgram = cData.get('usedInStudyprogrammes')
     if studyProgram is not None:
         for element in studyProgram:
+            semester = int(cData['studyLevelCode'])//100
+            if semester == 0:
+                semester = 1
+            elif semester > 10:
+                semester = 10
             StudyProgramArgs.add((element['code'], element['name']))
-            CourseStudyProgramArgs.append((course, element['code'], int(cData['studyLevelCode'])%100))
+            CourseStudyProgramArgs.append((course, element['code'], semester))
 
     #add to table Language and CourseLanguage
     language = cData.get('educationLanguage')
