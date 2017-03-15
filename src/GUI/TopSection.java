@@ -1,17 +1,13 @@
 package GUI;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-
 public class TopSection {
+
     private VBox topSection = new VBox(10);
 
     public TopSection() {
@@ -30,6 +26,10 @@ public class TopSection {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
         upperSection.setAlignment(Pos.CENTER);
+
+        ChatBox chatBox = new ChatBox();
+        upperSection.getChildren().add(chatBox.getChatBox());
+
 
         TilFraChoices tilFraChoices = new TilFraChoices();
         tilFraChoices.initializeTilFraListener(topSection);
@@ -50,6 +50,10 @@ public class TopSection {
 
         SemesterSlider slider = new SemesterSlider();
         slider.initializeSliderListener();
+
+
+        //måtte plasere den nede her for å kunne referere til Searchfield osv
+        chatBox.setConfirmChatBoxAction(searchField);
 
         //GJØR SLIK AT SEARCHFIELD BLIR HØYRE-SENTRERT
         Region rightAlignTextField = new Region(); // Added because I want to right-align the search-field.
