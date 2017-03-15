@@ -3,7 +3,6 @@ import json
 import re
 import datetime
 
-
 # add " before and after string, swith None with "NULL"
 def makeSQL(tup):
     newTup = []
@@ -85,6 +84,7 @@ courseRegex = re.compile('^[A-Z]{2,6}[0-9]{2,6}$')
 for course in data:
     cData = data[course]
     url = None
+    description = None
     infoType = cData.get('infoType')
     if infoType is not None:
         #get information for course
@@ -98,7 +98,7 @@ for course in data:
                 necessary = element['code'] == 'FORK'
                 t = element.get('text')
                 if t is not None:
-                    t = t.split()
+                    t = re.split('[ /]', t)
                     for word in t:
                         if courseRegex.match(word):
                             DependentArgs.append((course, word, necessary))
@@ -176,7 +176,7 @@ cur = db.cursor()
 
 #Create Tables
 with open('createTables.sql', 'r') as f:
-    sql = " ".join(f.readlines())
+   sql = " ".join(f.readlines())
 cur.execute(sql)
 
 querries = 0
@@ -185,30 +185,38 @@ def executeSQL(Querry, args):
     global querries
     for arg in args:
         querries += 1
-        if querries % 100 == 0:
-            print(querries)
-        try:
-            arg = makeSQL(arg)
-            cur.execute(CourseQuerry.format(*arg))
-        except Exception: #it's fine
-            continue
-
-
+        #try:
+        arg = makeSQL(arg)
+        cur.execute(Querry.format(*arg))
+        # except Exception:
+        #     print(Querry.format(*arg))
+        #     continue
+    print(querries)
 
 print('course')
 executeSQL(CourseQuerry, CourseArgs)
 
+db.commit()
+
 print('dependent')
 executeSQL(DependentQuerry, DependentArgs)
+
+db.commit()
 
 print('credit')
 executeSQL(CreditReducitonQuerry, CreditReductionArgs)
 
+db.commit()
+
 print('subject')
 executeSQL(SubjectQuerry, SubjectArgs)
 
+db.commit()
+
 print('study')
 executeSQL(StudyProgramQuerry, StudyProgramArgs)
+
+db.commit()
 
 #usese different makeSQL, maybe fix
 print('language')
@@ -216,28 +224,43 @@ for arg in LanguageArgs:
     arg = makeSQLSingle(arg)
     cur.execute(LanguageQuerry.format(arg))
 
+db.commit()
+
 print('coursesubject')
 executeSQL(CourseSubjectQuerry, CourseSubjectArgs)
+
+db.commit()
 
 print('coursestudy')
 executeSQL(CourseStudyProgramQuerry, CourseStudyProgramArgs)
 
+db.commit()
+
 print('courselanguage')
 executeSQL(CourseLanguageQuerry, CourseLanguageArgs)
+
+db.commit()
 
 print('examcode')
 executeSQL(ExamCodeQuerry, ExamCodeArgs)
 
+db.commit()
+
 print('exam')
 executeSQL(ExamQuerry, ExamArgs)
+
+db.commit()
 
 print('teacher')
 executeSQL(TeacherQuerry, TeacherArgs)
 
+db.commit()
+
 print('teachercourse')
 executeSQL(TeacherCourseQuerry, TeacherCourseArgs)
 
+db.commit()
+
 print("length = ", len(CourseArgs) + len(DependentArgs) + len(CreditReductionArgs) + len(SubjectArgs) + len(StudyProgramArgs) + len(LanguageArgs) + len(CourseSubjectArgs) + len(CourseStudyProgramArgs) + len(CourseLanguageArgs) + len(ExamCodeArgs) + len(ExamArgs) + len(TeacherArgs) + len(TeacherCourseArgs))
 
-db.commit()
 db.close()
