@@ -31,7 +31,7 @@ public class Semester {
 
     public void addCourseList(List<Course> courseList) { this.courses = courseList; }
 
-    public Collection getCourses() {
+    public Collection<Course> getCourses() {
         return this.courses;
     }
 

@@ -1,11 +1,9 @@
 package Algorithm;
 
 import javax.swing.plaf.nimbus.State;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.util.*;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -47,7 +45,7 @@ public class DbCom {
             Statement courseStmt = this.con.createStatement();
             Statement dependentStmt = this.con.createStatement();
             String courseQuery = "SELECT Course.CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode = " + "\"" + courseInp + "\"";
-            String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependency = " + "\"" + courseInp + "\"";
+            String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependent = " + "\"" + courseInp + "\"";
             ResultSet courseRs = courseStmt.executeQuery(courseQuery);
             ResultSet dependentRs = dependentStmt.executeQuery(dependentQuery);
 
@@ -75,7 +73,8 @@ public class DbCom {
 
                 // add dependencies
                 while (dependentRs.next()) {
-                    course.addDependency(dependentRs.getString("Dependency "));
+                    String d = dependentRs.getString(1);
+                    course.addDependency(d);
                 }
 
                 return course;
@@ -83,7 +82,26 @@ public class DbCom {
                 return null;
             }
         } catch (SQLException e) {
-            throw new IllegalArgumentException("SQLException in DbCom.getCourse()", e);
+            throw new IllegalStateException("SQLException in DbCom.getCourse()", e);
+        }
+    }
+
+    public Collection<String> getCourses() {
+        // return all course codes and courseNames
+        // seperate scoursecode from respective coursename with space
+        // SELECT CourseCode, CourseName FROM Course
+        try {
+            Statement courseStmt = this.con.createStatement();
+            String courseQuery = "SELECT CourseCode, CourseName FROM Course";
+            ResultSet rs = courseStmt.executeQuery(courseQuery);
+            Collection<String> rCol = new ArrayList<>();
+            while (rs.next()) {
+                String s = rs.getString("CourseCode") + " " + rs.getString("CourseName");
+                rCol.add(s);
+            }
+            return rCol;
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getCourses()", e);
         }
     }
 
@@ -92,7 +110,7 @@ public class DbCom {
         //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
         try {
             Statement studyCoursestmt = this.con.createStatement();
-            String courseStudyQuery = "SELECT CourseCode FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
+            String courseStudyQuery = "SELECT CourseCode, Semester FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
             ResultSet studyCourseRs = studyCoursestmt.executeQuery(courseStudyQuery);
 
             Map<Integer, List<Course>> courseMap = new HashMap<>();
@@ -130,17 +148,25 @@ public class DbCom {
             return studyPlan;
 
         } catch (SQLException e) {
-            throw new IllegalArgumentException("SQLException in DbCom.getCoursesFromMajor()");
+            throw new IllegalStateException("SQLException in DbCom.getCoursesFromMajor()", e);
         }
     }
 
-    public static void main(String[] args) {
-        DbCom db = new DbCom();
-        Course c = db.getCourse("TTM4100");
-        StudyPlan s = db.getCoursesFromMajor("MTDT");
-        System.out.println(c.getCourse_id());
-        System.out.println(c.getDependencies());
-        System.out.println(s.getMajor());
+    public int getSemester(String courseCode, String studyCode) {
+        // reuturn the respective semester from coursecode and studycode
+        // SELECT Semester FROM CourseStudyProgram WHERE CourseCode = courseCode AND StudyCode = studyCode
+        try {
+            Statement stmt = this.con.createStatement();
+            String query = "SELECT Semester FROM CourseStudyProgram WHERE CourseCode = " + "\"" + courseCode + "\"" + "AND StudyCode = " + "\"" + studyCode + "\"";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt("Semester");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getSemester()", e);
+        }
     }
     //possible other methods
 }
