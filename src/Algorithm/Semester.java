@@ -43,6 +43,14 @@ public class Semester {
         }
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Course c : courses) {
+            sb.append(c.toString());
+            sb.append(", ");
+        }
+        return sb.toString();
+    }
 
 }
