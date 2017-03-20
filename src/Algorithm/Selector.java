@@ -44,7 +44,7 @@ public class Selector {
             ArrayList<String> dependencies = course.getDependencies();
             for (Course course1 : neededCourses) {
                 if(dependencies.contains(course1.getCourseId())) {
-                    Double d = course1.getScore()*1.2;
+                    Double d = course1.getScore()*1.05;
                     course1.setScore(d.intValue());
                 }
             }
