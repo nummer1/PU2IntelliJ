@@ -1,5 +1,6 @@
 package GUI;
 
+import Algorithm.Semester;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -26,6 +27,8 @@ public class ConfirmButton {
                 //checkCompletedCourses();
 
                 App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString()));
+                SemesterSlider.getSlider().setMax(midSection.getCoursePlan().getChildren().size()/10);
+                SemesterSlider.getSlider().setVisible(true);
                 App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
             }
             else {
