@@ -41,7 +41,13 @@ public class Selector {
         }
 
         for (Course course : needed_courses) {
-            //Iterate over dependencies and alter the score based on it
+            ArrayList<Course> dependencies = course.getDependencies();
+            for (Course course1 : needed_courses) {
+                if(dependencies.contains(course1)) {
+                    Double d = new Double(course1.getScore()*1.2);
+                    course1.setScore(d.intValue());
+                }
+            }
         }
 
         //Sort the courses based on the score
