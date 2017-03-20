@@ -1,6 +1,5 @@
 package Algorithm;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Date;
 import java.util.*;
 import java.sql.*;
@@ -65,7 +64,7 @@ public class DbCom {
                 }
 
                 Course course = new Course(courseCode, season);
-                course.setCourse_name(courseName);
+                course.setCourseName(courseName);
                 course.setDescription(description);
                 course.setFaculty(faculty);
                 course.setExam_Date(examDate);
