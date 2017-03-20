@@ -24,7 +24,7 @@ public class Course implements Comparable<Course>{
     private boolean isSpring;
     private boolean isAutumn;
     private boolean isAgile;
-    private int score;
+    private double score;
 
     public Course(String courseId, String season) {
         this.courseId = courseId;
@@ -164,17 +164,17 @@ public class Course implements Comparable<Course>{
         return this.dependencies;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
     @Override
     public int compareTo(Course o) {
-        return Integer.compare(this.score, o.score);
+        return Double.compare(this.score, o.score);
     }
 
     @Override
