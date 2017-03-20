@@ -1,3 +1,6 @@
+# gets information from http://www.ime.ntnu.no/api/ about all coursenames 
+# stored in file 'courses.json' and saves them to data.json in JSON format
+
 import json
 import getSingleCourse
 
