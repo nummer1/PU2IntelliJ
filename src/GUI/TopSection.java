@@ -22,10 +22,6 @@ public class TopSection {
         return topSection;
     }
 
-    public void setTopSection(VBox topSection) {
-        topSection = topSection;
-    }
-
     private void initializeTopSection() {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
@@ -43,13 +39,9 @@ public class TopSection {
 
         upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn());
 
-        /*
-        SemesterCheckBoxes semesterCheckBoxes = new SemesterCheckBoxes();
-        semesterCheckBoxes.initializeLabelsAndCheckBoxes();
-        */
-
         SemesterSlider slider = new SemesterSlider();
         slider.initializeSliderListener();
+        slider.getSlider().setVisible(false);
 
         //GJØR SLIK AT SEARCHFIELD BLIR HØYRE-SENTRERT
         Region rightAlignTextField = new Region(); // Added because I want to right-align the search-field.

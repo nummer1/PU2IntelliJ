@@ -43,13 +43,13 @@ public class MidSection {
         ArrayList<ArrayList<Algorithm.Course>> firstYear = Algorithm.Selector.get_first_year();
 
         //TEST
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             addTestList(firstYear);
         }
 
         //SLUTT TEST
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             generateCoursePlan(firstYear);
         }
         return coursePlan;
