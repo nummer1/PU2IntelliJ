@@ -2,13 +2,14 @@ package Algorithm;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Erlend on 06.03.2017.
  */
 public class Semester {
 
-    private Collection courses = new ArrayList<Course>();
+    private Collection<Course> courses = new ArrayList<>();
     private boolean isSpring;
     private boolean isAutumn;
 
@@ -28,7 +29,9 @@ public class Semester {
         this.courses.add(course);
     }
 
-    public Collection getCourses() {
+    public void addCourseList(List<Course> courseList) { this.courses = courseList; }
+
+    public Collection<Course> getCourses() {
         return this.courses;
     }
 

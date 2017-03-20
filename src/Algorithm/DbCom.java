@@ -1,6 +1,8 @@
 package Algorithm;
 
-import java.util.ArrayList;
+import javax.swing.plaf.nimbus.State;
+import java.sql.Date;
+import java.util.*;
 import java.sql.*;
 
 
@@ -28,31 +30,34 @@ public class DbCom {
         }
     }
 
-    public Course getCourse(String cC) {
+    public Course getCourse(String courseInp) {
         // get course information from database and create course
         // SELECT CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn
         // FROM Course JOIN Exam ON Exam.CourseCode == Course.CourseCode
         // WHERE Course.CourseCode == courseCode
 
-        //TODO
         // get requirements
         // SELECT C.CourseCode, D.CourseCode, Necessary
         // FROM Course AS dep JOIN Dependent ON Dep.CourseCode == Dependent.CourseCode JOIN Course AS req ON req.CourseCode == Dependent.Dependency
         // WHERE dep.CourseCode == courseCode
 
         try {
-            Statement stmt = this.con.createStatement();
-            String query = "SELECT Course.CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode = " + "\"" + cC + "\"";
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                String courseCode = rs.getString("CourseCode");
-                String courseName = rs.getString("CourseName");
-                String description = rs.getString("Description");
-                String faculty = rs.getString("Faculty");
-                Date examDate = rs.getDate("ExamDate");
-                int difficulty = rs.getInt("Difficulty");
-                boolean taughtInSpring = rs.getBoolean("TaughtInSpring");
-                boolean taughtInAutumn = rs.getBoolean("TaughtInAutumn");
+            Statement courseStmt = this.con.createStatement();
+            Statement dependentStmt = this.con.createStatement();
+            String courseQuery = "SELECT Course.CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode = " + "\"" + courseInp + "\"";
+            String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependent = " + "\"" + courseInp + "\"";
+            ResultSet courseRs = courseStmt.executeQuery(courseQuery);
+            ResultSet dependentRs = dependentStmt.executeQuery(dependentQuery);
+
+            if (courseRs.next()) {
+                String courseCode = courseRs.getString("CourseCode");
+                String courseName = courseRs.getString("CourseName");
+                String description = courseRs.getString("Description");
+                String faculty = courseRs.getString("Faculty");
+                Date examDate = courseRs.getDate("ExamDate");
+                int difficulty = courseRs.getInt("Difficulty");
+                boolean taughtInSpring = courseRs.getBoolean("TaughtInSpring");
+                boolean taughtInAutumn = courseRs.getBoolean("TaughtInAutumn");
 
                 String season = (taughtInSpring) ? "spring" : "autumn";
                 if (taughtInSpring && taughtInAutumn) {
@@ -66,24 +71,102 @@ public class DbCom {
                 course.setExam_Date(examDate);
                 course.setDifficulty(difficulty);
 
+                // add dependencies
+                while (dependentRs.next()) {
+                    String d = dependentRs.getString(1);
+                    course.addDependency(d);
+                }
+
                 return course;
             } else {
                 return null;
             }
         } catch (SQLException e) {
-            throw new IllegalStateException("SQLException, DbCom.Course()", e);
+            throw new IllegalStateException("SQLException in DbCom.getCourse()", e);
         }
     }
 
-    //get all the courses from a given semester in a given major in uppercase
-    //Ex. getCoursesFromMajor("MTDT", 2) should return an arraylist of all the courses in MTDT in the second semester
-    public StudyPlan getCoursesFromMajor(String major , int semester) {
-        return null;
+    public Collection<String> getCourses() {
+        // return all course codes and courseNames
+        // seperate scoursecode from respective coursename with space
+        // SELECT CourseCode, CourseName FROM Course
+        try {
+            Statement courseStmt = this.con.createStatement();
+            String courseQuery = "SELECT CourseCode, CourseName FROM Course";
+            ResultSet rs = courseStmt.executeQuery(courseQuery);
+            Collection<String> rCol = new ArrayList<>();
+            while (rs.next()) {
+                String s = rs.getString("CourseCode") + " " + rs.getString("CourseName");
+                rCol.add(s);
+            }
+            return rCol;
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getCourses()", e);
+        }
     }
 
-    public static void main(String[] args) {
-        DbCom db = new DbCom();
-        db.getCourse("TTM4100");
+    //get all the courses in a given major in uppercase
+    public StudyPlan getCoursesFromMajor(String studyCodeInp) {
+        //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
+        try {
+            Statement studyCoursestmt = this.con.createStatement();
+            String courseStudyQuery = "SELECT CourseCode, Semester FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
+            ResultSet studyCourseRs = studyCoursestmt.executeQuery(courseStudyQuery);
+
+            Map<Integer, List<Course>> courseMap = new HashMap<>();
+            while (studyCourseRs.next()) {
+                String courseCode = studyCourseRs.getString("CourseCode");
+                Integer semesterNumber = studyCourseRs.getInt("Semester");
+                Course course = this.getCourse(courseCode);
+                List<Course> courseList = courseMap.get(semesterNumber);
+                if (courseList == null) {
+                    //add a list with key semesterNumber to courseMap that contains course
+                    List<Course> list = new ArrayList<>();
+                    list.add(course);
+                    courseMap.put(semesterNumber, list);
+                } else {
+                    //add a course to existing list in courseMap with correct semesterNumber
+                    courseList.add(course);
+                }
+            }
+
+            //create studyplan with the semesters created from courses in courseMap
+            StudyPlan studyPlan = new StudyPlan(studyCodeInp);
+
+            String season;
+            for (Integer key : courseMap.keySet()) {
+                if (key % 2 == 0) {
+                    season = "spring";
+                } else {
+                    season = "autumn";
+                }
+                Semester sem = new Semester(season);
+                sem.addCourseList(courseMap.get(key));
+                studyPlan.addSemester(sem, key);
+            }
+
+            return studyPlan;
+
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getCoursesFromMajor()", e);
+        }
+    }
+
+    public int getSemester(String courseCode, String studyCode) {
+        // reuturn the respective semester from coursecode and studycode
+        // SELECT Semester FROM CourseStudyProgram WHERE CourseCode = courseCode AND StudyCode = studyCode
+        try {
+            Statement stmt = this.con.createStatement();
+            String query = "SELECT Semester FROM CourseStudyProgram WHERE CourseCode = " + "\"" + courseCode + "\"" + "AND StudyCode = " + "\"" + studyCode + "\"";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt("Semester");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getSemester()", e);
+        }
     }
     //possible other methods
 }

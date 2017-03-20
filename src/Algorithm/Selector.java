@@ -1,6 +1,5 @@
 package Algorithm;
 
-import GUI.Study;
 import java.util.*;
 
 //import com.google.gson.*;
@@ -60,6 +59,7 @@ public class Selector {
         StudyPlan studyplan = new StudyPlan("Custom studyplan");
 
         boolean autumn = semesters%2 == 0;
+        int semNumber = 1;
         while (!stack.isEmpty()) {
             Semester semester = new Semester((autumn) ? "autumn" : "spring");
             for(int j=0; j<4; j++) {
@@ -68,7 +68,8 @@ public class Selector {
                 }
             }
             autumn = !autumn;
-            studyplan.addSemester(semester);
+            studyplan.addSemester(semester, semNumber);
+            semNumber += 1;
         }
         return studyplan;
     }
