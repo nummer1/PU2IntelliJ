@@ -41,10 +41,10 @@ public class Selector {
 
         //Give courses score based on dependencies
         for (Course course : needed_courses) {
-            ArrayList<Course> dependencies = course.getDependencies();
+            ArrayList<String> dependencies = course.getDependencies();
             for (Course course1 : needed_courses) {
-                if(dependencies.contains(course1)) {
-                    Double d = new Double(course1.getScore()*1.2);
+                if(dependencies.contains(course1.getCourse_id())) {
+                    Double d = course1.getScore()*1.2;
                     course1.setScore(d.intValue());
                 }
             }
@@ -67,7 +67,7 @@ public class Selector {
                 }
             }
             autumn = !autumn;
-            studyplan.addSemester(semester);
+            studyplan.addSemester(semester, semNumber);
             semNumber += 1;
         }
 
