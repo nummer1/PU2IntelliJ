@@ -19,7 +19,7 @@ public class Selector {
     //This would be the initial call to our main algorithm.
     //It may have many differt helping functions which can be implemented when needed.
     public StudyPlan switch_major(Collection<Course> from, Collection<Course> to, String toName, int semesters) {
-        Collection<Course> needed_courses = new ArrayList<>(to);
+        ArrayList<Course> needed_courses = new ArrayList<>(to);
         DbCom db = new DbCom();
         needed_courses.removeAll(from);
 
@@ -40,6 +40,7 @@ public class Selector {
             }
         }
 
+        //Give courses score based on dependencies
         for (Course course : needed_courses) {
             ArrayList<Course> dependencies = course.getDependencies();
             for (Course course1 : needed_courses) {
@@ -51,11 +52,28 @@ public class Selector {
         }
 
         //Sort the courses based on the score
+        Collections.sort(needed_courses);
 
         //Set courses in semester based on the sorted set of courses
+        Stack<Course> stack = new Stack<>();
+        stack.addAll(needed_courses);
+        StudyPlan studyplan = new StudyPlan("Custom studyplan");
+        boolean autumn = semesters%2 == 0;
+        int semNumber = 1;
+        while (!stack.isEmpty()) {
+            Semester semester = new Semester((autumn) ? "autumn" : "spring");
+            for(int j=0; j<4; j++) {
+                if (!stack.isEmpty()) {
+                    semester.addCourse(stack.pop());
+                }
+            }
+            autumn = !autumn;
+            studyplan.addSemester(semester);
+            semNumber += 1;
+        }
 
         //return the studyplan
-        return new StudyPlan("dummy");
+        return studyplan;
     }
 
     public StudyPlan dumb_switch_major(Collection<Course> from, Collection<Course> to, int semesters) {
