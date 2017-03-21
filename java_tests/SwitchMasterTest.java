@@ -22,7 +22,7 @@ public class SwitchMasterTest extends TestCase{
             Course c = new Course(Integer.toString(i), "autumn");
             this.sem.addCourse(c);
         }
-        this.expected.addSemester(this.sem);
+        this.expected.addSemester(this.sem, 0);
 
         Semester asem1 = new Semester("autumn");
         Semester asem2 = new Semester("spring");
@@ -45,11 +45,11 @@ public class SwitchMasterTest extends TestCase{
             bsem2.addCourse(c);
         }
 
-        a.addSemester(asem1);
-        a.addSemester(asem2);
+        a.addSemester(asem1, 0);
+        a.addSemester(asem2, 0);
 
-        b.addSemester(bsem1);
-        b.addSemester(bsem2);
+        b.addSemester(bsem1, 0);
+        b.addSemester(bsem2, 0);
 
         this.a = a;
         this.b = b;
@@ -62,7 +62,7 @@ public class SwitchMasterTest extends TestCase{
         ArrayList<Course> to = new ArrayList<>(b.getCourses());
         String toMajor = "MTDT";
 
-        this.actual = sel.switch_major(to, toMajor, 1);
+        this.actual = sel.switchMajor(to, toMajor, "spring");
 
         boolean correct = this.actual.getCourses().containsAll(this.expected.getCourses());
 

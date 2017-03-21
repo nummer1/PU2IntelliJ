@@ -11,23 +11,20 @@ import java.util.*;
 
 public class Selector {
 
-    DbCom db = new DbCom();
-
     //This will be called by the model. It chooses the correct function based on the json from api.ai
     public void action(String json_filename) {
         //TODO
     }
 
     //This would be the initial call to our main algorithm.
-    //It may have many differt helping functions which can be implemented when needed.
-    public StudyPlan switchMajor( Collection<Course> finishedCourses, String toName, String season) {
-        StudyPlan majorCourses = db.getCoursesFromMajor("toName", 0);
-        Collection<Course> neededCourses = majorCourses.getCourses();
+    //It may have many different helping functions which can be implemented when needed.
+    public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
+        DbCom db = new DbCom();
+        StudyPlan majorCourses = db.getCoursesFromMajor(toName);
+        ArrayList<Course> neededCourses = majorCourses.getCourses();
         neededCourses.removeAll(finishedCourses);
+        System.out.println(neededCourses);
 
-
-        for (Course course : neededCourses) {
-            int semester = db.getSemester(course.getCourse_id(), toName);
         for (Course course : neededCourses) {
             int semester = db.getSemester(course.getCourseId(), toName);
             if (semester < 2) {
@@ -45,8 +42,15 @@ public class Selector {
             }
         }
 
-        for (Course course : needed_courses) {
-            //Iterate over dependencies and alter the score based on it
+        //Give courses score based on dependencies
+        for (Course course : neededCourses) {
+            ArrayList<String> dependencies = course.getDependencies();
+            for (Course course1 : neededCourses) {
+                if(dependencies.contains(course1.getCourseId())) {
+                    Double d = course1.getScore()*1.2;
+                    course1.setScore(d.intValue());
+                }
+            }
         }
 
         //Sort the courses based on the score
@@ -56,7 +60,7 @@ public class Selector {
         Stack<Course> stack = new Stack<>();
         stack.addAll(neededCourses);
         StudyPlan studyplan = new StudyPlan("Custom studyplan");
-        boolean autumn = semesters%2 == 0;
+        boolean autumn = season.equals("autumn");
         int semNumber = 1;
         while (!stack.isEmpty()) {
             Semester semester = new Semester((autumn) ? "autumn" : "spring");
@@ -74,7 +78,7 @@ public class Selector {
         return studyplan;
     }
 
-    public StudyPlan dumbSwitchMajor(Collection<Course> from, Collection<Course> to, int semesters) {
+/*    public StudyPlan dumbSwitchMajor(Collection<Course> from, Collection<Course> to, int semesters) {
         Collection<Course> neededCourses = new ArrayList<>(to);
         neededCourses.removeAll(from);
         Stack<Course> stack = new Stack<>();
@@ -95,7 +99,7 @@ public class Selector {
             semNumber += 1;
         }
         return studyplan;
-    }
+    }*/
 
 
     //Takes in information gotten from the database and puts it into a Algorithm.Course object.
