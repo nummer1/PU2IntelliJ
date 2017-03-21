@@ -14,11 +14,10 @@ import static GUI.MidSection.colorCompleteSliderCourses;
  */
 public class SemesterSlider {
 
-    Slider slider = new Slider();
+    private static Slider slider = new Slider();
 
     public SemesterSlider() {
         slider.setMin(0);
-        slider.setMax(5);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         slider.setBlockIncrement(0.5);
@@ -28,12 +27,8 @@ public class SemesterSlider {
         slider.setMinWidth(400);
     }
 
-    public Slider getSlider() {
+    public static Slider getSlider() {
         return slider;
-    }
-
-    public void setSlider(Slider slider) {
-        this.slider = slider;
     }
 
     public void initializeSliderListener() { // Listens if slider-value changes.

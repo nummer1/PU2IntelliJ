@@ -14,20 +14,20 @@ import java.util.Date;
 
 public class Course implements Comparable<Course>{
 
-    private String course_id;
-    private String course_name;
+    private String courseId;
+    private String courseName;
     private String description;
     private String faculty;
-    private Date exam_date;
+    private Date examDate;
     private int difficulty;
-    private ArrayList<Course> dependencies = new ArrayList<Course>();
+    private ArrayList<String> dependencies = new ArrayList<>();
     private boolean isSpring;
     private boolean isAutumn;
     private boolean isAgile;
     private int score;
 
-    public Course(String course_id, String season) {
-        this.course_id = course_id;
+    public Course(String courseId, String season) {
+        this.courseId = courseId;
         if (season.equals("agile")) {
             isAgile = true;
             isAutumn = true;
@@ -43,28 +43,28 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public String getCourse_id() {
-        return course_id;
+    public String getCourseId() {
+        return courseId;
     }
 
-    // Sanitize the input for course_id
+    // Sanitize the input for courseId
     // First 2-6 chars, followed by 4-6 numbers.
     // In CS there is mainly 3 chars followed by 4 numbers. (only exphil is 4 chars + 4 numbers)
-    public void setCourse_id(String course_id) {
+    public void setCourseId(String courseId) {
         String regex = "^[A-Z]{2,6}[0-9]{4,6}$";
-        if (course_id.matches(regex)) {
-            this.course_id = course_id;
+        if (courseId.matches(regex)) {
+            this.courseId = courseId;
         } else {
             throw new IllegalArgumentException("Invalid course ID");
         }
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public String getDescription() {
@@ -83,22 +83,24 @@ public class Course implements Comparable<Course>{
     // Sanitize the input for faculties
     // Faculties are only alphabetic
     public void setFaculty(String faculty) {
-        if (faculty.chars().allMatch(Character::isLetter)) {
+        if (faculty == null) {
+            this.faculty = null;
+        } else if (faculty.chars().allMatch(Character::isLetter)) {
             this.faculty = faculty;
         } else {
             throw new IllegalArgumentException("The faculty name can only contain alphabetic characters");
         }
     }
 
-    public Date getExam_date() {
-        return exam_date;
+    public Date getExamDate() {
+        return examDate;
     }
 
     public String getPrintable_date () {
         String dateString = null;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            dateString = df.format(this.exam_date);
+            dateString = df.format(this.examDate);
             return dateString;
         } catch (NullPointerException e) {
             return "The exam date can't be found";
@@ -107,24 +109,29 @@ public class Course implements Comparable<Course>{
 
     // Sanitize the input to make sure it is after the current day
     // May be better to take a string as input, and convert it into date in this method
-    public void setExam_date(String exam_string) {
-        Date exam_date;
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            exam_date = df.parse(exam_string);
-            String newDateString = df.format(exam_date);
-        } catch (ParseException e) {
-            exam_date = new Date(); // if parseException, sets date to now
-        }
-        if (exam_date.after(new Date())) {
-            this.exam_date = exam_date;
+    public void setExamDate(String exam_string) {
+        if (exam_string == null) {
+            this.examDate = null;
         } else {
-            throw new IllegalArgumentException("You must pick a date after the current date");
+            Date exam_date;
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                exam_date = df.parse(exam_string);
+                String newDateString = df.format(exam_date);
+                System.out.println(newDateString);
+            } catch (ParseException e) {
+                exam_date = new Date(); // if parseException, sets date to now
+            }
+            if (exam_date.after(new Date())) {
+                this.examDate = exam_date;
+            } else {
+                throw new IllegalArgumentException("You must pick a date after the current date");
+            }
         }
     }
 
     public void setExam_Date(Date exam_Date) {
-        this.exam_date = exam_date;
+        this.examDate = examDate;
     }
 
     public int getDifficulty() {
@@ -141,12 +148,11 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public void addDependency(Course dependency) {
-        //TODO THIS SHOULD BE STRINGS, NOT OBJECTS
+    public void addDependency(String dependency) {
         this.dependencies.add(dependency);
     }
 
-    public void removeDependency(Course dependency) {
+    public void removeDependency(String dependency) {
         if (this.dependencies.contains(dependency)) {
             this.dependencies.remove(dependency);
         } else {
@@ -154,7 +160,7 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public ArrayList<Course> getDependencies() {
+    public ArrayList<String> getDependencies() {
         return this.dependencies;
     }
 
@@ -173,11 +179,11 @@ public class Course implements Comparable<Course>{
 
     @Override
     public boolean equals(Object o) {
-        return (o instanceof Course) && course_id.equals(((Course) o).course_id);
+        return (o instanceof Course) && courseId.equals(((Course) o).courseId);
     }
 
     @Override
     public String toString() {
-        return course_id;
+        return courseName + Integer.toString(getScore());
     }
 }
