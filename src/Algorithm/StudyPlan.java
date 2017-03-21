@@ -41,11 +41,11 @@ public class StudyPlan {
         return this.major;
     }
 
-    public ArrayList<Course> getCourses() {
-        ArrayList<Course> array = new ArrayList<>();
+    public Collection<Course> getCourses() {
+        Collection<Course> collection = new ArrayList<>();
         for(Semester sem : this.semesters) {
-            array.addAll(sem.getCourses());
+            collection.addAll(sem.getCourses());
         }
-        return array;
+        return collection;
     }
 }

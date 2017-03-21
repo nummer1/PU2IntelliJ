@@ -11,6 +11,8 @@ import java.util.*;
 
 public class Selector {
 
+    DbCom db = new DbCom();
+
     //This will be called by the model. It chooses the correct function based on the json from api.ai
     public void action(String json_filename) {
         //TODO
@@ -18,12 +20,13 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many differt helping functions which can be implemented when needed.
-    public StudyPlan switch_major(Collection<Course> from, Collection<Course> to, String toName, int semesters) {
-        Collection<Course> needed_courses = new ArrayList<>(to);
-        DbCom db = new DbCom();
-        needed_courses.removeAll(from);
+    public StudyPlan switch_major( Collection<Course> finishedCourses, String toName, String season) {
+        StudyPlan<Course> majorCourses = db.getCoursesFromMajor("toName", 0);
+        Collection<Course> neededCourses = majorCourses.getCourses();
+        neededCourses.removeAll(finishedCourses);
 
-        for (Course course : needed_courses) {
+
+        for (Course course : neededCourses) {
             int semester = db.getSemester(course.getCourse_id(), toName);
             if (semester < 2) {
                 course.setScore(1000);
@@ -40,7 +43,7 @@ public class Selector {
             }
         }
 
-        for (Course course : needed_courses) {
+        for (Course course : neededCourses) {
             //Iterate over dependencies and alter the score based on it
         }
 

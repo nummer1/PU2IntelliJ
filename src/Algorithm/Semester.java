@@ -12,6 +12,8 @@ public class Semester {
     private boolean isSpring;
     private boolean isAutumn;
 
+    public Semester() { }
+
     public Semester(String season) {
         if(season.toLowerCase().equals("spring")) {
             this.isSpring = true;
@@ -22,6 +24,16 @@ public class Semester {
         } else {
             throw new IllegalArgumentException("The season must be either spring or autumn");
         }
+    }
+
+    public void setSpring() {
+        isAutumn = false;
+        isSpring = true;
+    }
+
+    public void setAutumn() {
+        isSpring = false;
+        isAutumn = true;
     }
 
     public void addCourse(Course course) {
