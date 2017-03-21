@@ -24,7 +24,7 @@ def makeSQL(tup):
             newTup.append(arg)
     return tuple(newTup)
 
-# if tupple is one element, could be the same function, but I'm tired
+# if tupple is one element, could be the same function
 def makeSQLSingle(arg):
     retVal = ''
     if arg is None:
@@ -178,9 +178,9 @@ db = MySQLdb.connect(host="188.166.85.212", user="default", db="Education")
 cur = db.cursor()
 
 #Create Tables
-# with open('createTables.sql', 'r') as f:
-#    sql = " ".join(f.readlines())
-# cur.execute(sql)
+with open('createTables.sql', 'r') as f:
+   sql = " ".join(f.readlines())
+cur.execute(sql)
 
 querries = 0
 
@@ -196,68 +196,68 @@ def executeSQL(Querry, args):
              continue
     print(querries)
 
-# print('course')
-# executeSQL(CourseQuerry, CourseArgs)
+print('course')
+executeSQL(CourseQuerry, CourseArgs)
 
-# db.commit()
+db.commit()
 
-# print('dependent')
-# executeSQL(DependentQuerry, DependentArgs)
+print('dependent')
+executeSQL(DependentQuerry, DependentArgs)
 
-# db.commit()
+db.commit()
 
-# print('credit')
-# executeSQL(CreditReducitonQuerry, CreditReductionArgs)
+print('credit')
+executeSQL(CreditReducitonQuerry, CreditReductionArgs)
 
-# db.commit()
+db.commit()
 
-# print('subject')
-# executeSQL(SubjectQuerry, SubjectArgs)
+print('subject')
+executeSQL(SubjectQuerry, SubjectArgs)
 
-# db.commit()
+db.commit()
 
-# print('study')
-# executeSQL(StudyProgramQuerry, StudyProgramArgs)
+print('study')
+executeSQL(StudyProgramQuerry, StudyProgramArgs)
 
-# db.commit()
+db.commit()
 
-# #usese different makeSQL, maybe fix
-# print('language')
-# for arg in LanguageArgs:
-#     arg = makeSQLSingle(arg)
-#     cur.execute(LanguageQuerry.format(arg))
+#usese different makeSQL, maybe fix
+print('language')
+for arg in LanguageArgs:
+    arg = makeSQLSingle(arg)
+    cur.execute(LanguageQuerry.format(arg))
 
-# db.commit()
+db.commit()
 
-# print('coursesubject')
-# executeSQL(CourseSubjectQuerry, CourseSubjectArgs)
+print('coursesubject')
+executeSQL(CourseSubjectQuerry, CourseSubjectArgs)
 
-# db.commit()
+db.commit()
 
 print('coursestudy')
 executeSQL(CourseStudyProgramQuerry, CourseStudyProgramArgs)
 
 db.commit()
 
-# print('courselanguage')
-# executeSQL(CourseLanguageQuerry, CourseLanguageArgs)
+print('courselanguage')
+executeSQL(CourseLanguageQuerry, CourseLanguageArgs)
 
-# db.commit()
+db.commit()
 
-# print('examcode')
-# executeSQL(ExamCodeQuerry, ExamCodeArgs)
+print('examcode')
+executeSQL(ExamCodeQuerry, ExamCodeArgs)
 
-# db.commit()
+db.commit()
 
-# print('exam')
-# executeSQL(ExamQuerry, ExamArgs)
+print('exam')
+executeSQL(ExamQuerry, ExamArgs)
 
-# db.commit()
+db.commit()
 
-# print('teacher')
-# executeSQL(TeacherQuerry, TeacherArgs)
+print('teacher')
+executeSQL(TeacherQuerry, TeacherArgs)
 
-# db.commit()
+db.commit()
 
 print('teachercourse')
 executeSQL(TeacherCourseQuerry, TeacherCourseArgs)
