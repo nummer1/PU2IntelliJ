@@ -19,7 +19,6 @@ public class MidSection {
     private static GridPane coursePlan = new GridPane();
     private int semesterCount = -1;
     private int count = 0;
-    private static ArrayList<ArrayList<Course>> courses = new ArrayList<ArrayList<Course>>();
 
     public static GridPane getCoursePlan () {
         return coursePlan;
@@ -35,16 +34,7 @@ public class MidSection {
 
         ArrayList<ArrayList<Algorithm.Course>> firstYear = Algorithm.Selector.get_first_year();
 
-        //TEST
-        for (int i = 0; i < 3; i++) {
-            addTestList(firstYear);
-        }
-
-        //SLUTT TEST
-
-        for (int i = 0; i < 3; i++) {
-            generateCoursePlan(firstYear);
-        }
+        generateCoursePlan(firstYear);
         return coursePlan;
     }
 
@@ -53,18 +43,6 @@ public class MidSection {
             for (Course course : semester) {
                 addCourse(course);
             }
-        }
-    }
-
-
-    //DENNE FJERNES NÅR SELECTOR FUNGERER
-    private void addTestList(ArrayList<ArrayList<Algorithm.Course>> firstYear) {
-        for (ArrayList<Course> semester : firstYear) {
-            ArrayList<Course> subList = new ArrayList<Course>();
-            for (Course course : semester) {
-                subList.add(course); // Legger til course i test-arraylist.
-            }
-            courses.add(subList);
         }
     }
 
@@ -82,11 +60,11 @@ public class MidSection {
             semesterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
             GridPane.setHalignment(semesterLabel, HPos.CENTER); // Center Semester-Label.
 
-            if (semesterCount < courses.size() / 2) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
+            if (semesterCount < Algorithm.Selector.get_first_year().size() / 2) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
                 GridPane.setConstraints(semesterLabel, semesterCount, 0);
             }
             else {
-                GridPane.setConstraints(semesterLabel, semesterCount - courses.size() / 2, 5);
+                GridPane.setConstraints(semesterLabel, semesterCount - Algorithm.Selector.get_first_year().size() / 2, 5);
             }
             coursePlan.getChildren().add(semesterLabel);
         }
@@ -98,13 +76,11 @@ public class MidSection {
         OnClickedColorCode.initializeOnClickedColorCode(fag);
         fag.setWrapText(true); // Forces newline if the text use more width than the textbox is given.
 
-        // if (semesterCount < Algorithm.Selector.get_first_year().size() / 2;
-
-        if (semesterCount < courses.size() / 2) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
+        if (semesterCount < Algorithm.Selector.get_first_year().size() / 2) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
             GridPane.setConstraints(fag, semesterCount, count + 1);
         }
         else {
-            GridPane.setConstraints(fag, semesterCount - courses.size() / 2, count + 6);
+            GridPane.setConstraints(fag, semesterCount - Algorithm.Selector.get_first_year().size() / 2, count + 6);
         }
         count++;
         count = count % 4; // Used to make each semester consist of 4 courses.
@@ -123,7 +99,7 @@ public class MidSection {
             }
         }
 
-        for (double semester = sliderValue * 2; semester < courses.size(); semester++) {
+        for (double semester = sliderValue * 2; semester < Algorithm.Selector.get_first_year().size(); semester++) {
             count++;
             for (int fag = 0; fag < 4; fag++) {
                 coursePlan.getChildren().get(count).getStyleClass().remove("all-courses");
