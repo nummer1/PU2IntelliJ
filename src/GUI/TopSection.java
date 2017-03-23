@@ -1,17 +1,15 @@
 package GUI;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-
 public class TopSection {
+
+    private SearchField searchField;
+
     private VBox topSection = new VBox(10);
 
     public TopSection() {
@@ -26,6 +24,10 @@ public class TopSection {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
         upperSection.setAlignment(Pos.CENTER);
+
+        ChatBox chatBox = new ChatBox();
+        upperSection.getChildren().add(chatBox.getChatBox());
+
 
         TilFraChoices tilFraChoices = new TilFraChoices();
         tilFraChoices.initializeTilFraListener(topSection);

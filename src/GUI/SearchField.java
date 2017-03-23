@@ -12,9 +12,9 @@ import java.util.Collection;
  */
 public class SearchField {
 
-    private ComboBox searchField = new ComboBox();
+    private static ComboBox searchField = new ComboBox();
 
-    public ComboBox getSearchField() {
+    public static ComboBox getSearchField() {
         return searchField;
     }
 
