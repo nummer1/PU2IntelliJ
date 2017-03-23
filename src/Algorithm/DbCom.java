@@ -29,6 +29,22 @@ public class DbCom {
         }
     }
 
+    // might return wrong name since studyName is not unique in database
+    public String getStudyCode(String studyName) {
+        try {
+            Statement stmt = this.con.createStatement();
+            String query = "SELECT StudyCode FROM StudyProgram WHERE StudyName = " + "\"" + studyName + "\"";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getString("StudyCode");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getStudyCode()", e);
+        }
+    }
+
     public Course getCourse(String courseInp) {
         // get course information from database and create course
         // SELECT CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn
