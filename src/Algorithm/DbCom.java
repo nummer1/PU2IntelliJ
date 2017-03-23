@@ -120,20 +120,16 @@ public class DbCom {
                 String mandatory = studyCourseRs.getString("MandatoryString");
                 Course course = this.getCourse(courseCode);
                 List<Course> courseList = courseMap.get(semesterNumber);
-                if (courseList == null) {
-                    //add a list with key semesterNumber to courseMap that contains course
-                    List<Course> list = new ArrayList<>();
-                    list.add(course);
-                    courseMap.put(semesterNumber, list);
-                } else {
-                    //add a course to existing list in courseMap with correct semesterNumber
-                    courseList.add(course);
-                }
-                //add placeholder elective course
-                while (courseList.size() < 4) {
-                    Course elect = new Course("valg", "agile");
-                    elect.setCourseName("Valgfag");
-                    courseList.add(elect);
+                if (mandatory == null || (!mandatory.equals("VA") && !mandatory.equals("VB") && !mandatory.equals("V"))) {
+                    if (courseList == null) {
+                        //add a list with key semesterNumber to courseMap that contains course
+                        List<Course> list = new ArrayList<>();
+                        list.add(course);
+                        courseMap.put(semesterNumber, list);
+                    } else {
+                        //add a course to existing list in courseMap with correct semesterNumber
+                        courseList.add(course);
+                    }
                 }
             }
 
@@ -142,6 +138,13 @@ public class DbCom {
 
             String season;
             for (Integer key : courseMap.keySet()) {
+
+                while (courseMap.get(key).size() < 4) {
+                    Course elect = new Course("valg", "agile");
+                    elect.setCourseName("Valgfag");
+                    courseMap.get(key).add(elect);
+                }
+
                 if (key % 2 == 0) {
                     season = "spring";
                 } else {
