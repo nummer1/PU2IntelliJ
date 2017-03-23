@@ -55,12 +55,11 @@ public class InputInterpreter {
                 }
                 textArea.setText("Anna: " + speech);
             }
-
-
+            return speech;
 
         } else {
             return "You have to write a question or request below"
         }
-        return speech;
+
     }
 }
