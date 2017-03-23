@@ -138,9 +138,7 @@ public class DbCom {
 
             String season;
             for (int i = 1; i <= 10; i++) {
-                if (courseMap.get(i) == null) {
-                    courseMap.put(i, new ArrayList<Course>());
-                }
+                courseMap.computeIfAbsent(i, k -> new ArrayList<Course>());
             }
             for (Integer key : courseMap.keySet()) {
                 while (courseMap.get(key).size() < 4) {
