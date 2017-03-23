@@ -1,5 +1,7 @@
 package Algorithm;
 
+import GUI.Study;
+
 import java.sql.Date;
 import java.util.*;
 import java.sql.*;
@@ -102,6 +104,15 @@ public class DbCom {
         } catch (SQLException e) {
             throw new IllegalStateException("SQLException in DbCom.getCourses()", e);
         }
+    }
+
+    public StudyPlan getCourseFromMajor(String studyCodeInp, int to) {
+        StudyPlan tempSp = this.getCoursesFromMajor(studyCodeInp);
+        StudyPlan returnSp = new StudyPlan(studyCodeInp);
+        for (int i = 0; i <= to; i++) {
+            returnSp.addSemester(tempSp.getSemester(i), i);
+        }
+        return returnSp;
     }
 
     //get all the courses in a given major in uppercase
