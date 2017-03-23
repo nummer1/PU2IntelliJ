@@ -8,8 +8,11 @@ import javafx.scene.layout.VBox;
 
 public class TopSection {
 
+<<<<<<< HEAD
     private SearchField searchField;
 
+=======
+>>>>>>> 405a252290080adfe3871b6fbb565ed55db1fbd3
     private VBox topSection = new VBox(10);
 
     public TopSection() {
@@ -46,6 +49,10 @@ public class TopSection {
         SemesterSlider slider = new SemesterSlider();
         slider.initializeSliderListener();
         slider.getSlider().setVisible(false);
+
+
+        //måtte plasere den nede her for å kunne referere til Searchfield osv
+        chatBox.setConfirmChatBoxAction(searchField);
 
         //GJØR SLIK AT SEARCHFIELD BLIR HØYRE-SENTRERT
         Region rightAlignTextField = new Region(); // Added because I want to right-align the search-field.
