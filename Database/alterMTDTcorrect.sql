@@ -6,3 +6,5 @@ UPDATE CourseStudyProgram SET Semester = 1 WHERE StudyCode = 'MTDT' AND CourseCo
 UPDATE CourseStudyProgram SET Semester = 2 WHERE StudyCode = 'MTDT' AND CourseCode IN('TDT4100', 'TDT4112', 'TFE4101', 'TMA4115');
 UPDATE CourseStudyProgram SET Semester = 3 WHERE StudyCode = 'MTDT' AND CourseCode IN('TDT4113', 'TDT4120', 'TDT4160', 'TMA4240');
 UPDATE CourseStudyProgram SET Semester = 4 WHERE StudyCode = 'MTDT' AND CourseCode IN('TDT4140', 'TDT4145', 'TDT4180', 'TTM4100');
+
+DELETE FROM CourseStudyProgram WHERE StudyCode = 'MTDT' AND CourseCode IN('HMS0002', 'TFY4125', 'TDT4102', 'TTM4185', 'MOL4010');
