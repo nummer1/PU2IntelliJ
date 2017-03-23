@@ -182,8 +182,8 @@ public class Course implements Comparable<Course>{
         return (o instanceof Course) && courseId.equals(((Course) o).courseId);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return courseName + " " + Integer.toString(getScore());
-    }
+    }*/
 }
