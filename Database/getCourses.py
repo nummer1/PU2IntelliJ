@@ -1,3 +1,5 @@
+# get names of courses from http://www.ime.ntnu.no/api/ and saves them to a file in JSON format
+
 import urllib.request as url
 
 urlapi = 'http://www.ime.ntnu.no/api/'
