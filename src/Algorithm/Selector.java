@@ -1,6 +1,5 @@
 package Algorithm;
 
-import GUI.Study;
 import java.util.*;
 
 //import com.google.gson.*;
@@ -33,7 +32,9 @@ public class Selector {
         System.out.println(majorCourses);
         System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
-        //neededCourses.remove(new Course("valg", "agile"));
+        //remove sall courses with id = "valg"
+        Course rC = new Course("valg", "agile");
+        while (neededCourses.remove(rC)) { }
         System.out.println(neededCourses);
 
         for (Course course : neededCourses) {

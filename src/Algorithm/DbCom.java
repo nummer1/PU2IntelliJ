@@ -1,7 +1,5 @@
 package Algorithm;
 
-import GUI.Study;
-
 import java.sql.Date;
 import java.util.*;
 import java.sql.*;
@@ -28,6 +26,22 @@ public class DbCom {
             this.con = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect the database!", e);
+        }
+    }
+
+    // might return wrong name since studyName is not unique in database
+    public String getStudyCode(String studyName) {
+        try {
+            Statement stmt = this.con.createStatement();
+            String query = "SELECT StudyCode FROM StudyProgram WHERE StudyName = " + "\"" + studyName + "\"";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getString("StudyCode");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getStudyCode()", e);
         }
     }
 
