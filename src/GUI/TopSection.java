@@ -37,7 +37,9 @@ public class TopSection {
         ConfirmButton confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
 
-        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn());
+        ChatBox chatBox = new ChatBox();
+
+        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn(), chatBox.getChatBox());
 
         SemesterSlider slider = new SemesterSlider();
         slider.initializeSliderListener();

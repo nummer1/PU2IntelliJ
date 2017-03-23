@@ -1,3 +1,7 @@
+#this script adds tables to he database defined createTables.sql
+#if the tales allready exist in teh database, you will get an error
+
+
 import MySQLdb
 import json
 import re
@@ -24,7 +28,7 @@ def makeSQL(tup):
             newTup.append(arg)
     return tuple(newTup)
 
-# if tupple is one element, could be the same function
+# if tupple consists one element
 def makeSQLSingle(arg):
     retVal = ''
     if arg is None:
@@ -43,8 +47,6 @@ def makeSQLSingle(arg):
         retVal = arg
     return retVal
 
-
-#this script adds courses to database crreated by createTables.sql
 
 CourseQuerry = "INSERT INTO Course(CourseCode, CourseName, Credit, CreditTypeCode, TaughtInSpring, TaughtInAutumn, StudyLevelCode, Difficulty, Faculty, URL, Description) VALUES({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})"
 DependentQuerry = "INSERT INTO Dependent(Dependent, Dependency, Necessary) VALUES({}, {}, {})"
@@ -184,6 +186,7 @@ cur.execute(sql)
 
 querries = 0
 
+#executes a MySQL querry in the connected database
 def executeSQL(Querry, args):
     global querries
     for arg in args:
@@ -191,7 +194,7 @@ def executeSQL(Querry, args):
         try:
             arg = makeSQL(arg)
             cur.execute(Querry.format(*arg))
-        except Exception: #!!!
+        except Exception:
              print(Querry.format(*arg))
              continue
     print(querries)
@@ -221,7 +224,7 @@ executeSQL(StudyProgramQuerry, StudyProgramArgs)
 
 db.commit()
 
-#usese different makeSQL, maybe fix
+#uses different makeSQL
 print('language')
 for arg in LanguageArgs:
     arg = makeSQLSingle(arg)

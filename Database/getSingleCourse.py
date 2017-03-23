@@ -1,3 +1,5 @@
+# get course information about specific course from http://www.ime.ntnu.no/api/
+
 import requests
 
 urlapi = 'http://www.ime.ntnu.no/api/'
