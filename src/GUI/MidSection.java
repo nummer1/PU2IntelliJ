@@ -1,14 +1,11 @@
 package GUI;
 
-import Algorithm.Selector;
-import Algorithm.Semester;
-import Algorithm.StudyPlan;
+import Algorithm.*;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import Algorithm.Course;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -43,8 +40,15 @@ public class MidSection {
 
         //ArrayList<ArrayList<Algorithm.Course>> firstYear = Algorithm.Selector.get_first_year();
         Selector sel = new Selector();
-        StudyPlan studyplan = sel.switchMajor(from, to, "autumn", finishedSemesters);
+
+        DbCom dbcom = new DbCom();
+
+        String fromStudyCode = dbcom.getStudyCode(from);
+        String toStudyCode = dbcom.getStudyCode(to);
+
+        StudyPlan studyplan = sel.switchMajor(fromStudyCode, toStudyCode, "autumn", finishedSemesters);
         Collection<Semester> semesters = studyplan.getSemesters();
+        System.out.println(studyplan + "studyplan");
 
         courses = new ArrayList<>();
 
