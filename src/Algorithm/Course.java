@@ -184,6 +184,6 @@ public class Course implements Comparable<Course>{
 
     @Override
     public String toString() {
-        return courseId;
+        return courseName + " " + Integer.toString(getScore());
     }
 }
