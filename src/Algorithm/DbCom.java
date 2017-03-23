@@ -1,7 +1,5 @@
 package Algorithm;
 
-import GUI.Study;
-
 import java.sql.Date;
 import java.util.*;
 import java.sql.*;
