@@ -137,8 +137,12 @@ public class DbCom {
             StudyPlan studyPlan = new StudyPlan(studyCodeInp);
 
             String season;
+            for (int i = 1; i <= 10; i++) {
+                if (courseMap.get(i) == null) {
+                    courseMap.put(i, new ArrayList<Course>());
+                }
+            }
             for (Integer key : courseMap.keySet()) {
-
                 while (courseMap.get(key).size() < 4) {
                     Course elect = new Course("valg", "agile");
                     elect.setCourseName("Valgfag");
