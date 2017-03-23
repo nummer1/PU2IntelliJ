@@ -106,10 +106,10 @@ public class DbCom {
         }
     }
 
-    public StudyPlan getCourseFromMajor(String studyCodeInp, int to) {
+    public StudyPlan getCoursesFromMajor(String studyCodeInp, int to) {
         StudyPlan tempSp = this.getCoursesFromMajor(studyCodeInp);
         StudyPlan returnSp = new StudyPlan(studyCodeInp);
-        for (int i = 0; i <= to; i++) {
+        for (int i = 1; i <= to; i++) {
             returnSp.addSemester(tempSp.getSemester(i), i);
         }
         return returnSp;
