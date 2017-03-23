@@ -27,9 +27,11 @@ public class Selector {
     public StudyPlan switchMajor( String fromName, String toName, String season, int currSemester) {
         DbCom db = new DbCom();
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
-        StudyPlan finished = db.getCoursesFromMajor(fromName, currSemester);
+        StudyPlan finished = db.getCoursesFromMajor(fromName);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
         ArrayList<Course> finishedCourses = finished.getCourses();
+        System.out.println(majorCourses);
+        System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
         //neededCourses.remove(new Course("valg", "agile"));
         System.out.println(neededCourses);

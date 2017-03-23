@@ -26,7 +26,7 @@ public class ConfirmButton {
                 searchField.getSearchField().setVisible(true); // Set search-field visible.
                 //checkCompletedCourses();
 
-                App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString()));
+                App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString(), 2));
                 SemesterSlider.getSlider().setMax(midSection.getCoursePlan().getChildren().size()/10); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
                 SemesterSlider.getSlider().setVisible(true);
                 App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
