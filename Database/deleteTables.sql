@@ -1,0 +1,14 @@
+DROP TABLE CreditReduction;
+DROP TABLE CourseSubject;
+DROP TABLE CourseStudyProgram;
+DROP TABLE CourseLanguage;
+DROP TABLE Exam;
+DROP TABLE ExamCode;
+DROP TABLE CourseTeacher;
+DROP TABLE Teacher;
+DROP TABLE Language;
+DROP TABLE StudyProgram;
+DROP TABLE AssessmentForm;
+DROP TABLE Dependent;
+DROP TABLE Course;
+DROP TABLE Subject;
