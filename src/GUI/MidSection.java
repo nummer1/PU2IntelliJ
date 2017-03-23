@@ -57,7 +57,7 @@ public class MidSection {
             courses.add(sem);
         }
 
-        //generateCoursePlan(firstYear);
+        generateCoursePlan(courses);
         return coursePlan;
     }
 
