@@ -13,6 +13,8 @@ public class Semester {
     private boolean isSpring;
     private boolean isAutumn;
 
+    public Semester() { }
+
     public Semester(String season) {
         if(season.toLowerCase().equals("spring")) {
             this.isSpring = true;
@@ -23,6 +25,16 @@ public class Semester {
         } else {
             throw new IllegalArgumentException("The season must be either spring or autumn");
         }
+    }
+
+    public void setSpring() {
+        isAutumn = false;
+        isSpring = true;
+    }
+
+    public void setAutumn() {
+        isSpring = false;
+        isAutumn = true;
     }
 
     public void addCourse(Course course) {
@@ -43,6 +55,14 @@ public class Semester {
         }
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Course c : courses) {
+            sb.append(c.toString());
+            sb.append(", ");
+        }
+        return sb.toString();
+    }
 
 }

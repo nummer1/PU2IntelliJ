@@ -74,6 +74,7 @@ CREATE TABLE CourseStudyProgram (
     CourseCode                  VARCHAR(12),
     StudyCode                   VARCHAR(12),
     Semester                    INTEGER,
+    MandatoryString             VARCHAR(2),
 
     PRIMARY KEY (CourseCode, StudyCode),
     FOREIGN KEY (CourseCode) REFERENCES Course(CourseCode),

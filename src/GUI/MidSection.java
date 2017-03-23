@@ -1,22 +1,15 @@
 package GUI;
 
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import Algorithm.Course;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
  * Created by andreaswilhelmflatt on 20.02.2017.
@@ -98,7 +91,7 @@ public class MidSection {
             coursePlan.getChildren().add(semesterLabel);
         }
 
-        TextArea fag = new TextArea(course.getCourse_id() + "\n" + course.getCourse_name() + "\n" + "Eksamensdato: " + course.getPrintable_date());
+        TextArea fag = new TextArea(course.getCourseId() + "\n" + course.getCourseName() + "\n" + "Eksamensdato: " + course.getPrintable_date());
         fag.getStyleClass().add("all-courses");
         fag.setEditable(false);
         DragAndDrop.initializeDragAndDrop(fag);

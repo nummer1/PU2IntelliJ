@@ -179,7 +179,7 @@ db = MySQLdb.connect(host="188.166.85.212", user="default", db="Education")
 
 cur = db.cursor()
 
-Create Tables
+#Create Tables
 with open('createTables.sql', 'r') as f:
    sql = " ".join(f.readlines())
 cur.execute(sql)
