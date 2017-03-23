@@ -1,13 +1,13 @@
 package GUI;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+        import javafx.scene.control.*;
+        import javafx.scene.input.KeyCode;
+        import javafx.scene.layout.*;
+        import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
 /**
  * Created by andreaswilhelmflatt on 20/03/2017.
@@ -19,8 +19,11 @@ public class ChatBox {
     private List<Label> messages = new ArrayList<>();
     private ScrollPane container = new ScrollPane();
     private int index = 0;
+    private TopSection topSection;
 
-    public ChatBox() {
+
+    public ChatBox(TopSection topSection) {
+        topSection = topSection;
         initChatBox();
     }
 
@@ -41,19 +44,23 @@ public class ChatBox {
                 "-fx-border-width: 1;\n" +
                 "-fx-background-color: white;\n");
 
+        InputInterpreter anna = new InputInterpreter(topSection);
         TextField userInput = new TextField();
 
         userInput.setOnKeyPressed(keyPressed -> {
             if (keyPressed.getCode().equals(KeyCode.ENTER) && userInput.getLength() != 0) {
 
                 messages.add(new Label(userInput.getText()));
+                String answer = anna.interpret(userInput.getText());
+                messages.add(new Message(user, answer));
 
-                if(index%2==0){
+
+                if (index % 2 == 0) {
 
                     messages.get(index).setAlignment(Pos.CENTER_LEFT);
                     System.out.println("1");
 
-                }else{
+                } else {
 
                     messages.get(index).setAlignment(Pos.CENTER_RIGHT);
                     System.out.println("2");
