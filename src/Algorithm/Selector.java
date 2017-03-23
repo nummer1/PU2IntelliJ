@@ -16,6 +16,12 @@ public class Selector {
         //TODO
     }
 
+
+    //A different aproach where the user only
+    public StudyPlan switchMajor(String from, String to, int currentSemester) {
+        return null;
+    }
+
     //This would be the initial call to our main algorithm.
     //It may have many different helping functions which can be implemented when needed.
     public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
@@ -46,10 +52,11 @@ public class Selector {
         for (Course course : neededCourses) {
             ArrayList<String> dependencies = course.getDependencies();
             for (Course course1 : neededCourses) {
+                Double d = 1.0;
                 if(dependencies.contains(course1.getCourseId())) {
-                    Double d = course1.getScore()*1.2;
-                    course1.setScore(d.intValue());
+                    d += 0.2;
                 }
+                course1.setScore(course1.getScore() * d);
             }
         }
 
@@ -106,6 +113,10 @@ public class Selector {
     private Course convertToCourse(Dictionary course) {
         //TODO
         return new Course("TDT4100", "spring");
+    }
+
+    public static void main(String[] args) {
+
     }
 
     //This function is only for demonstration purposes
