@@ -48,4 +48,16 @@ public class StudyPlan {
         return array;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Integer key : semesters.keySet()) {
+            sb.append(key);
+            sb.append(": ");
+            sb.append(semesters.get(key));
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
 }

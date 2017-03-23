@@ -1,6 +1,5 @@
 package Algorithm;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Date;
 import java.util.*;
 import java.sql.*;
@@ -65,7 +64,7 @@ public class DbCom {
                 }
 
                 Course course = new Course(courseCode, season);
-                course.setCourse_name(courseName);
+                course.setCourseName(courseName);
                 course.setDescription(description);
                 course.setFaculty(faculty);
                 course.setExam_Date(examDate);
@@ -110,13 +109,15 @@ public class DbCom {
         //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
         try {
             Statement studyCoursestmt = this.con.createStatement();
-            String courseStudyQuery = "SELECT CourseCode, Semester FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
+            String courseStudyQuery = "SELECT CourseCode, Semester, MandatoryString FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
             ResultSet studyCourseRs = studyCoursestmt.executeQuery(courseStudyQuery);
 
             Map<Integer, List<Course>> courseMap = new HashMap<>();
+            boolean addElect = false;
             while (studyCourseRs.next()) {
                 String courseCode = studyCourseRs.getString("CourseCode");
                 Integer semesterNumber = studyCourseRs.getInt("Semester");
+                String mandatory = studyCourseRs.getString("MandatoryString");
                 Course course = this.getCourse(courseCode);
                 List<Course> courseList = courseMap.get(semesterNumber);
                 if (courseList == null) {
@@ -127,6 +128,12 @@ public class DbCom {
                 } else {
                     //add a course to existing list in courseMap with correct semesterNumber
                     courseList.add(course);
+                }
+                //add placeholder elective course
+                while (courseList.size() < 4) {
+                    Course elect = new Course("valg", "agile");
+                    elect.setCourseName("Valgfag");
+                    courseList.add(elect);
                 }
             }
 
