@@ -24,11 +24,14 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many different helping functions which can be implemented when needed.
-    public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
+    public StudyPlan switchMajor( String fromName, String toName, String season, int currSemester) {
         DbCom db = new DbCom();
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
+        StudyPlan finished = db.getCoursesFromMajor(fromName, currSemester);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
+        ArrayList<Course> finishedCourses = finished.getCourses();
         neededCourses.removeAll(finishedCourses);
+        //neededCourses.remove(new Course("valg", "agile"));
         System.out.println(neededCourses);
 
         for (Course course : neededCourses) {

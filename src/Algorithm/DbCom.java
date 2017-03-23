@@ -1,5 +1,7 @@
 package Algorithm;
 
+import GUI.Study;
+
 import java.sql.Date;
 import java.util.*;
 import java.sql.*;
@@ -104,6 +106,15 @@ public class DbCom {
         }
     }
 
+    public StudyPlan getCoursesFromMajor(String studyCodeInp, int to) {
+        StudyPlan tempSp = this.getCoursesFromMajor(studyCodeInp);
+        StudyPlan returnSp = new StudyPlan(studyCodeInp);
+        for (int i = 1; i <= to; i++) {
+            returnSp.addSemester(tempSp.getSemester(i), i);
+        }
+        return returnSp;
+    }
+
     //get all the courses in a given major in uppercase
     public StudyPlan getCoursesFromMajor(String studyCodeInp) {
         //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
@@ -138,9 +149,7 @@ public class DbCom {
 
             String season;
             for (int i = 1; i <= 10; i++) {
-                if (courseMap.get(i) == null) {
-                    courseMap.put(i, new ArrayList<Course>());
-                }
+                courseMap.computeIfAbsent(i, k -> new ArrayList<Course>());
             }
             for (Integer key : courseMap.keySet()) {
                 while (courseMap.get(key).size() < 4) {
