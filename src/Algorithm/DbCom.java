@@ -70,7 +70,7 @@ public class DbCom {
         try {
             Statement courseStmt = this.con.createStatement();
             Statement dependentStmt = this.con.createStatement();
-            String courseQuery = "SELECT Course.CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode IN (" + sb + ")";
+            String courseQuery = "SELECT Course.CourseCode, CourseName, Credit, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode IN (" + sb + ")";
             String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependent IN (" + sb + ")";
             ResultSet courseRs = courseStmt.executeQuery(courseQuery);
             ResultSet dependentRs = dependentStmt.executeQuery(dependentQuery);
@@ -78,6 +78,7 @@ public class DbCom {
             while (courseRs.next()) {
                 String courseCode = courseRs.getString("CourseCode");
                 String courseName = courseRs.getString("CourseName");
+                double credit = courseRs.getDouble("Credit");
                 String description = courseRs.getString("Description");
                 String faculty = courseRs.getString("Faculty");
                 Date examDate = courseRs.getDate("ExamDate");
@@ -92,6 +93,7 @@ public class DbCom {
 
                 Course course = new Course(courseCode, season);
                 course.setCourseName(courseName);
+                course.setCredit(credit);
                 course.setDescription(description);
                 course.setFaculty(faculty);
                 course.setExam_Date(examDate);
@@ -222,5 +224,11 @@ public class DbCom {
         } catch (SQLException e) {
             throw new IllegalStateException("SQLException in DbCom.getSemester()", e);
         }
+    }
+
+    public static void main(String[] args) {
+        DbCom db = new DbCom();
+        Course c = db.getCourseSingle("TDT4100");
+        System.out.println(c.getCredit());
     }
 }

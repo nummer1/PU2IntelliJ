@@ -21,6 +21,7 @@ public class Course implements Comparable<Course>{
     private Date examDate;
     private int difficulty;
     private ArrayList<String> dependencies = new ArrayList<>();
+    private double credit;
     private boolean isSpring;
     private boolean isAutumn;
     private boolean isAgile;
@@ -171,6 +172,10 @@ public class Course implements Comparable<Course>{
     public void setScore(double score) {
         this.score = score;
     }
+
+    public void setCredit(double credit) { this.credit = credit; }
+
+    public double getCredit() { return this.credit; }
 
     @Override
     public int compareTo(Course o) {
