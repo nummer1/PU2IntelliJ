@@ -13,6 +13,11 @@ import java.util.ArrayList;
 
 public class TopSection {
     private VBox topSection = new VBox(10);
+    private SearchField searchField;
+    private ConfirmButton confirmBtn;
+    private ChatBox chatBox;
+    private TilFraChoices tilFraChoices;
+    private SemesterSlider slider;
 
     public TopSection() {
         initializeTopSection();
@@ -22,26 +27,50 @@ public class TopSection {
         return topSection;
     }
 
+    public SearchField getSearchField() {
+        return searchField;
+    }
+
+    public ConfirmButton getConfirmBtn() {
+        return confirmBtn;
+    }
+
+    public ChatBox getChatBox() {
+        return chatBox;
+    }
+
+    public TilFraChoices getTilFraChoices() {
+        return tilFraChoices;
+    }
+
+    public SemesterSlider getSlider() {
+        return slider;
+    }
+
+    private void initializeTopSection1() {
+
+    }
+
     private void initializeTopSection() {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
         upperSection.setAlignment(Pos.CENTER);
 
-        TilFraChoices tilFraChoices = new TilFraChoices();
+        tilFraChoices = new TilFraChoices();
         tilFraChoices.initializeTilFraListener(topSection);
         tilFraChoices.initializeConnectedComboBox();
 
-        SearchField searchField = new SearchField();
+        searchField = new SearchField();
         searchField.initializeSearchField(lowerSection);
 
-        ConfirmButton confirmBtn = new ConfirmButton();
+        confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
+        confirmBtn.getConfirmBtn().setDisable(true);
 
-        ChatBox chatBox = new ChatBox();
 
-        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn(), chatBox.getChatBox());
+        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn()); //chatBox.getChatBox()
 
-        SemesterSlider slider = new SemesterSlider();
+        slider = new SemesterSlider();
         slider.initializeSliderListener();
         slider.getSlider().setVisible(false);
 

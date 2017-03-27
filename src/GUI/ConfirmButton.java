@@ -10,9 +10,9 @@ import javafx.scene.control.ChoiceBox;
  */
 public class ConfirmButton {
 
-    private final Button confirmBtn = new Button("Bekreft");
+    private static final Button confirmBtn = new Button("Bekreft");
 
-    public Button getConfirmBtn() {
+    public static Button getConfirmBtn() {
         return confirmBtn;
     }
 
