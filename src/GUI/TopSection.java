@@ -67,6 +67,7 @@ public class TopSection {
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
         confirmBtn.getConfirmBtn().setDisable(true);
 
+        //chatBox = new ChatBox();
 
         upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn()); //chatBox.getChatBox()
 

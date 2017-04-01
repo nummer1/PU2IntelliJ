@@ -22,40 +22,20 @@ public class TilFraChoices {
         return studies;
     }
 
-    public void setStudies(ObservableList<Study> studies) {
-        studies = studies;
-    }
-
     public ChoiceBox getTilChoices() {
         return tilChoices;
-    }
-
-    public static void setTilChoices(ChoiceBox tilChoices) {
-        tilChoices = tilChoices;
     }
 
     public ChoiceBox getFraChoices() {
         return fraChoices;
     }
 
-    public static void setFraChoices(ChoiceBox fraChoices) {
-        fraChoices = fraChoices;
-    }
-
     public Label getFraLabel() {
         return fraLabel;
     }
 
-    public void setFraLabel(Label fraLabel) {
-        this.fraLabel = fraLabel;
-    }
-
     public Label getTilLabel() {
         return tilLabel;
-    }
-
-    public void setTilLabel(Label tilLabel) {
-        this.tilLabel = tilLabel;
     }
 
     public TilFraChoices() {

@@ -29,6 +29,22 @@ public class DbCom {
         }
     }
 
+    // might return wrong name since studyName is not unique in database
+    public String getStudyCode(String studyName) {
+        try {
+            Statement stmt = this.con.createStatement();
+            String query = "SELECT StudyCode FROM StudyProgram WHERE StudyName = " + "\"" + studyName + "\"";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getString("StudyCode");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getStudyCode()", e);
+        }
+    }
+
     public Course getCourse(String courseInp) {
         // get course information from database and create course
         // SELECT CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn
@@ -104,6 +120,15 @@ public class DbCom {
         }
     }
 
+    public StudyPlan getCoursesFromMajor(String studyCodeInp, int to) {
+        StudyPlan tempSp = this.getCoursesFromMajor(studyCodeInp);
+        StudyPlan returnSp = new StudyPlan(studyCodeInp);
+        for (int i = 1; i <= to; i++) {
+            returnSp.addSemester(tempSp.getSemester(i), i);
+        }
+        return returnSp;
+    }
+
     //get all the courses in a given major in uppercase
     public StudyPlan getCoursesFromMajor(String studyCodeInp) {
         //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
@@ -120,20 +145,16 @@ public class DbCom {
                 String mandatory = studyCourseRs.getString("MandatoryString");
                 Course course = this.getCourse(courseCode);
                 List<Course> courseList = courseMap.get(semesterNumber);
-                if (courseList == null) {
-                    //add a list with key semesterNumber to courseMap that contains course
-                    List<Course> list = new ArrayList<>();
-                    list.add(course);
-                    courseMap.put(semesterNumber, list);
-                } else {
-                    //add a course to existing list in courseMap with correct semesterNumber
-                    courseList.add(course);
-                }
-                //add placeholder elective course
-                while (courseList.size() < 4) {
-                    Course elect = new Course("valg", "agile");
-                    elect.setCourseName("Valgfag");
-                    courseList.add(elect);
+                if (mandatory == null || (!mandatory.equals("VA") && !mandatory.equals("VB") && !mandatory.equals("V"))) {
+                    if (courseList == null) {
+                        //add a list with key semesterNumber to courseMap that contains course
+                        List<Course> list = new ArrayList<>();
+                        list.add(course);
+                        courseMap.put(semesterNumber, list);
+                    } else {
+                        //add a course to existing list in courseMap with correct semesterNumber
+                        courseList.add(course);
+                    }
                 }
             }
 
@@ -141,7 +162,16 @@ public class DbCom {
             StudyPlan studyPlan = new StudyPlan(studyCodeInp);
 
             String season;
+            for (int i = 1; i <= 10; i++) {
+                courseMap.computeIfAbsent(i, k -> new ArrayList<Course>());
+            }
             for (Integer key : courseMap.keySet()) {
+                while (courseMap.get(key).size() < 4) {
+                    Course elect = new Course("valg", "agile");
+                    elect.setCourseName("Valgfag");
+                    courseMap.get(key).add(elect);
+                }
+
                 if (key % 2 == 0) {
                     season = "spring";
                 } else {

@@ -62,7 +62,7 @@ public class SwitchMasterTest extends TestCase{
         ArrayList<Course> to = new ArrayList<>(b.getCourses());
         String toMajor = "MTDT";
 
-        this.actual = sel.switchMajor(to, toMajor, "spring");
+        //this.actual = sel.switchMajor(to, toMajor, "spring", 0)
 
         boolean correct = this.actual.getCourses().containsAll(this.expected.getCourses());
 

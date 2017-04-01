@@ -1,6 +1,7 @@
 package Algorithm;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,10 @@ public class StudyPlan {
     }
 
     public Semester getSemester(int i) { return semesters.get(i); }
+
+    public Collection<Semester> getSemesters() {
+        return this.semesters.values();
+    }
 
     public void setScore(int score) {
         this.score = score;
