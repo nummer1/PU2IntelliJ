@@ -151,8 +151,8 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public void setExam_Date(Date exam_Date) {
-        this.examDate = examDate;
+    public void setExam_Date(Date exam_date) {
+        this.examDate = exam_date;
     }
 
     public int getDifficulty() {
@@ -192,6 +192,7 @@ public class Course implements Comparable<Course>{
     public void setScore(double score) {
         this.score = score;
     }
+
 
     public double getStudypoints() {
         return studypoints;

@@ -47,6 +47,10 @@ public class TopSection {
         return slider;
     }
 
+    private void initializeTopSection1() {
+
+    }
+
     private void initializeTopSection() {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
@@ -57,10 +61,11 @@ public class TopSection {
         tilFraChoices.initializeConnectedComboBox();
 
         searchField = new SearchField();
-        searchField.initializeSearchField(lowerSection);
+        searchField.initializeSearchField();
 
         confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
+        confirmBtn.getConfirmBtn().setDisable(true);
 
         //chatBox = new ChatBox();
 

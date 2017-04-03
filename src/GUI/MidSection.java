@@ -21,6 +21,7 @@ public class MidSection {
     private int semesterCount = -1;
     private int count = 0;
     private static ArrayList<ArrayList<Course>> courses;
+    private static ArrayList<Course> finishedCourses = new ArrayList<Course>();
 
     public static GridPane getCoursePlan () {
         return coursePlan;
@@ -35,10 +36,33 @@ public class MidSection {
         return courses;
     }
 
+    public GridPane showAllCoursesFrom(String from) {
+        makeBasicGridPane();
+
+        DbCom dbcom = new DbCom();
+
+        String fromStudyCode = dbcom.getStudyCode(from);
+
+        StudyPlan studyPlan = dbcom.getCoursesFromMajor(fromStudyCode);
+
+        Collection<Semester> semesters = studyPlan.getSemesters();
+
+        courses = new ArrayList<>();
+
+        for (Semester semester : semesters) {
+            ArrayList<Course> sem = new ArrayList<>(semester.getCourses());
+            courses.add(sem);
+        }
+
+        generateCoursePlan(courses);
+
+        return coursePlan;
+    }
+
+
     public GridPane generateMidSection(String from, String to, int finishedSemesters) { // Initializes GridPane and adds courses.
         makeBasicGridPane();
 
-        //ArrayList<ArrayList<Algorithm.Course>> firstYear = Algorithm.Selector.get_first_year();
         Selector sel = new Selector();
 
         DbCom dbcom = new DbCom();
@@ -48,12 +72,12 @@ public class MidSection {
 
         StudyPlan studyplan = sel.switchMajor(fromStudyCode, toStudyCode, "autumn", finishedSemesters);
         Collection<Semester> semesters = studyplan.getSemesters();
-        System.out.println(studyplan + "studyplan");
 
-        courses = new ArrayList<>();
+        courses.clear();
 
         for (Semester semester : semesters) {
             ArrayList<Course> sem = new ArrayList<>(semester.getCourses());
+            System.out.println(sem);
             courses.add(sem);
         }
 
@@ -134,5 +158,29 @@ public class MidSection {
                 }
             }
         }
+    }
+
+    public static ArrayList<Course> getCompletedCourses() {
+        finishedCourses = new ArrayList<>();
+        for (int i = 0; i < coursePlan.getChildren().size(); i++) {
+            if (i % 5 == 0) {
+                continue;
+            }
+            TextArea course = (TextArea) coursePlan.getChildren().get(i);
+            String courseID = course.getText().split("\n")[0];
+
+
+            if (course.getStyleClass().get(2).equals("completed-courses")) {
+
+                for (ArrayList<Course> semester : courses) {
+                    for (Course arrayCourse : semester) {
+                        if (arrayCourse.getCourseId().toUpperCase().trim().equals(courseID.toUpperCase().trim())) {
+                            finishedCourses.add(arrayCourse);
+                        }
+                    }
+                }
+            }
+        }
+        return finishedCourses;
     }
 }
