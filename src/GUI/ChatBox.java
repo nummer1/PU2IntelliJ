@@ -11,7 +11,7 @@ import javafx.geometry.Pos;
 
 /**
  * Created by andreaswilhelmflatt on 20/03/2017.
- */
+
 public class ChatBox {
 
     private VBox chatBoxSection = new VBox(5);
@@ -84,3 +84,4 @@ public class ChatBox {
         chatBoxSection.getChildren().addAll(annaLabel, container, userInput);
     }
 }
+ */

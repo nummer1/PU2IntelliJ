@@ -53,12 +53,11 @@ public class InputInterpreter {
                         //TODO:
                         break;
                 }
-                textArea.setText("Anna: " + speech);
             }
             return speech;
 
         } else {
-            return "You have to write a question or request below"
+            return "You have to write a question or request below";
         }
 
     }
