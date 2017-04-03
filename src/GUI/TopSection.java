@@ -24,10 +24,10 @@ public class TopSection {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
         upperSection.setAlignment(Pos.CENTER);
-        /*
+
         ChatBox chatBox = new ChatBox(this);
         upperSection.getChildren().add(chatBox.getChatBox());
-        */
+
 
 
         TilFraChoices tilFraChoices = new TilFraChoices();

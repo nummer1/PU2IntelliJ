@@ -19,7 +19,7 @@ public class InputInterpreter {
         this.topSection = topSection;
     }
 
-    public String interpreter(String request) {
+    public String interpret(String request) {
 
 
         if (!request.trim().isEmpty()) {
@@ -46,10 +46,10 @@ public class InputInterpreter {
                         App.getLayout().setCenter(midSection.generateMidSection(switchFromMajor, switchToMajor));  //should have a field for years_studied/semester_studied
                         App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
                         break;
-                    case "change.interface": // finn ut ka det heite
+                    case "change.interface": // Are we going to have this function. In that case we need to hide the other interface..
                         //TODO:
                         break;
-                    case "when is the exam og TDT4100":
+                    case "get more information about TDT4240": // return link to webpage to course
                         //TODO:
                         break;
                 }
