@@ -25,9 +25,11 @@ public class Course implements Comparable<Course>{
     private boolean isAutumn;
     private boolean isAgile;
     private double score;
+    private double studypoints;
 
-    public Course(String courseId, String season) {
+    public Course(String courseId, String season, Double studypoints) {
         this.courseId = courseId;
+        this.studypoints = studypoints;
         if (season.equals("agile")) {
             isAgile = true;
             isAutumn = true;
@@ -42,6 +44,25 @@ public class Course implements Comparable<Course>{
             isAgile = false;
         }
     }
+
+    public Course(String courseId, String season) {
+        this.courseId = courseId;
+        this.studypoints = 7.5;
+        if (season.equals("agile")) {
+            isAgile = true;
+            isAutumn = true;
+            isSpring = true;
+        } else if (season.equals("spring")) {
+            isSpring = true;
+            isAutumn = false;
+            isAgile = false;
+        } else if (season.equals("autumn")) {
+            isAutumn = true;
+            isSpring = false;
+            isAgile = false;
+        }
+    }
+
 
     public String getCourseId() {
         return courseId;
@@ -170,6 +191,14 @@ public class Course implements Comparable<Course>{
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    public double getStudypoints() {
+        return studypoints;
+    }
+
+    public void setStudypoints(double studypoints) {
+        this.studypoints = studypoints;
     }
 
     @Override

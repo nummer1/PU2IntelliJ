@@ -33,7 +33,7 @@ public class Selector {
         System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
         //remove sall courses with id = "valg"
-        Course rC = new Course("valg", "agile");
+        Course rC = new Course("valg", "agile", 7.5);
         while (neededCourses.remove(rC)) { }
         System.out.println(neededCourses);
 
@@ -70,18 +70,41 @@ public class Selector {
         Collections.sort(neededCourses);
 
         //Set courses in semester based on the sorted set of courses
-        Stack<Course> stack = new Stack<>();
-        stack.addAll(neededCourses);
         StudyPlan studyplan = new StudyPlan("Custom studyplan");
         boolean autumn = season.equals("autumn");
         int semNumber = 1;
-        while (!stack.isEmpty()) {
+        while (!neededCourses.isEmpty()) {
             Semester semester = new Semester((autumn) ? "autumn" : "spring");
-            for(int j=0; j<4; j++) {
+            while (!semester.isFilled() && !neededCourses.isEmpty()) {
+                int i = 1;
+                Course c = neededCourses.get(neededCourses.size() - i);
+                if (semester.getStudypoints() <= 30.0 - c.getStudypoints()) {
+                    semester.addCourse(c);
+                    neededCourses.remove(c);
+                    System.out.println("REMOVED A COURSE");
+                    System.out.println(neededCourses);
+                } else {
+                    if (i < neededCourses.size()) {
+                        i++;
+                    } else {
+                        autumn = !autumn;
+                        studyplan.addSemester(semester, semNumber);
+                        semNumber += 1;
+                        System.out.println("BREAK");
+                        break;
+                    }
+                }
+                if (semester.isFilled()) {
+                    autumn = !autumn;
+                    studyplan.addSemester(semester, semNumber);
+                    semNumber += 1;
+                }
+            }
+            /*for(int j=0; j<4; j++) {
                 if (!stack.isEmpty()) {
                     semester.addCourse(stack.pop());
                 }
-            }
+            }*/
             autumn = !autumn;
             studyplan.addSemester(semester, semNumber);
             semNumber += 1;
@@ -118,7 +141,7 @@ public class Selector {
     //Takes in information gotten from the database and puts it into a Algorithm.Course object.
     private Course convertToCourse(Dictionary course) {
         //TODO
-        return new Course("TDT4100", "spring");
+        return new Course("TDT4100", "spring", 7.5);
     }
 
     public static void main(String[] args) {
@@ -133,41 +156,41 @@ public class Selector {
         ArrayList<Course> first = new ArrayList<>();
         ArrayList<Course> second = new ArrayList<>();
 
-        Course tdt4110 = new Course("TDT4110", "autumn");
+        Course tdt4110 = new Course("TDT4110", "autumn",7.5);
         tdt4110.setCourseName("Informasjonsteknologi, grunnkurs");
         tdt4110.setExamDate("12/12/2017");
         first.add(tdt4110);
 
-        Course tma4100 = new Course("TMA4100", "autumn");
+        Course tma4100 = new Course("TMA4100", "autumn",7.5);
         tma4100.setCourseName("Matematikk 1");
         tma4100.setExamDate("08/12/2017");
         first.add(tma4100);
 
-        Course tma4140 = new Course("TMA4140", "autumn");
+        Course tma4140 = new Course("TMA4140", "autumn",7.5);
         tma4140.setCourseName("Diskret matematikk");
         tma4140.setExamDate("02/12/2017");
         first.add(tma4140);
 
-        Course exph0004 = new Course("EXPH0004", "autumn");
+        Course exph0004 = new Course("EXPH0004", "autumn",7.5);
         exph0004.setCourseName("Examen philosophicum for naturvitenskap og teknologi");
         exph0004.setExamDate("27/11/2017");
         first.add(exph0004);
 
-        Course tdt4100 = new Course("TDT4100", "spring");
+        Course tdt4100 = new Course("TDT4100", "spring",7.5);
         tdt4100.setCourseName("Objektorientert programmering");
         tdt4100.setExamDate("15/05/2017");
         second.add(tdt4100);
 
-        Course tdt4112 = new Course("TDT4112", "spring");
+        Course tdt4112 = new Course("TDT4112", "spring",7.5);
         tdt4112.setCourseName("Programmeringslab for datateknologi");
         second.add(tdt4112);
 
-        Course tfe4101 = new Course("TFE4101", "spring");
+        Course tfe4101 = new Course("TFE4101", "spring",7.5);
         tfe4101.setCourseName("Krets- og digitalteknikk");
         tfe4101.setExamDate("25/05/2017");
         second.add(tfe4101);
 
-        Course tma4115 = new Course("TMA4115", "spring");
+        Course tma4115 = new Course("TMA4115", "spring",7.5);
         tma4115.setCourseName("Matematikk 3");
         tma4115.setExamDate("06/06/2017");
         second.add(tma4115);
