@@ -175,12 +175,14 @@ public class MidSection {
                 for (ArrayList<Course> semester : courses) {
                     for (Course arrayCourse : semester) {
                         if (arrayCourse.getCourseId().toUpperCase().trim().equals(courseID.toUpperCase().trim())) {
+                            System.out.println(arrayCourse.getCourseId() + ": " + courseID);
                             finishedCourses.add(arrayCourse);
                         }
                     }
                 }
             }
         }
+        System.out.println("Antall courses i finishedCourses: " + finishedCourses.size());
         return finishedCourses;
     }
 }
