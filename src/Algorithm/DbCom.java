@@ -45,28 +45,40 @@ public class DbCom {
         }
     }
 
-    public Course getCourse(String courseInp) {
-        // get course information from database and create course
-        // SELECT CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn
-        // FROM Course JOIN Exam ON Exam.CourseCode == Course.CourseCode
-        // WHERE Course.CourseCode == courseCode
+    // returns a single course
+    public Course getCourseSingle(String courseInp) {
+        List<String> inp = new ArrayList<>();
+        inp.add(courseInp);
+        Map<String, Course> c = this.getCourses(inp);
+        return c.get(courseInp);
+    }
 
-        // get requirements
-        // SELECT C.CourseCode, D.CourseCode, Necessary
-        // FROM Course AS dep JOIN Dependent ON Dep.CourseCode == Dependent.CourseCode JOIN Course AS req ON req.CourseCode == Dependent.Dependency
-        // WHERE dep.CourseCode == courseCode
+    // returns a map of courses with coursecode as key
+    public Map<String, Course> getCourses(Collection<String> courseInp) {
 
+        StringBuilder sb = new StringBuilder();
+        for(String c : courseInp) {
+            sb.append("\'");
+            sb.append(c);
+            sb.append("\'");
+            sb.append(", ");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length()-1);
+
+        Map<String, Course> courses = new HashMap<>();
         try {
             Statement courseStmt = this.con.createStatement();
             Statement dependentStmt = this.con.createStatement();
-            String courseQuery = "SELECT Course.CourseCode, CourseName, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode = " + "\"" + courseInp + "\"";
-            String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependent = " + "\"" + courseInp + "\"";
+            String courseQuery = "SELECT Course.CourseCode, CourseName, Credit, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode IN (" + sb + ")";
+            String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependent IN (" + sb + ")";
             ResultSet courseRs = courseStmt.executeQuery(courseQuery);
             ResultSet dependentRs = dependentStmt.executeQuery(dependentQuery);
 
-            if (courseRs.next()) {
+            while (courseRs.next()) {
                 String courseCode = courseRs.getString("CourseCode");
                 String courseName = courseRs.getString("CourseName");
+                double credit = courseRs.getDouble("Credit");
                 String description = courseRs.getString("Description");
                 String faculty = courseRs.getString("Faculty");
                 Date examDate = courseRs.getDate("ExamDate");
@@ -81,6 +93,7 @@ public class DbCom {
 
                 Course course = new Course(courseCode, season);
                 course.setCourseName(courseName);
+                course.setCredit(credit);
                 course.setDescription(description);
                 course.setFaculty(faculty);
                 course.setExam_Date(examDate);
@@ -92,19 +105,17 @@ public class DbCom {
                     course.addDependency(d);
                 }
 
-                return course;
-            } else {
-                return null;
+                courses.put(courseCode, course);
             }
         } catch (SQLException e) {
             throw new IllegalStateException("SQLException in DbCom.getCourse()", e);
         }
+
+        return courses;
     }
 
-    public Collection<String> getCourses() {
-        // return all course codes and courseNames
-        // seperate scoursecode from respective coursename with space
-        // SELECT CourseCode, CourseName FROM Course
+    // return courseCode and courseName from database as string with space in between
+    public Collection<String> getCoursesAsString() {
         try {
             Statement courseStmt = this.con.createStatement();
             String courseQuery = "SELECT CourseCode, CourseName FROM Course";
@@ -120,6 +131,7 @@ public class DbCom {
         }
     }
 
+    // overload getCoursesFromMajor that only gives you the 'to' first semesters
     public StudyPlan getCoursesFromMajor(String studyCodeInp, int to) {
         StudyPlan tempSp = this.getCoursesFromMajor(studyCodeInp);
         StudyPlan returnSp = new StudyPlan(studyCodeInp);
@@ -131,20 +143,29 @@ public class DbCom {
 
     //get all the courses in a given major in uppercase
     public StudyPlan getCoursesFromMajor(String studyCodeInp) {
-        //SELECT Course FROM CourseStudyProgram WHERE StudyCode = studyCodeInp
         try {
-            Statement studyCoursestmt = this.con.createStatement();
+            Statement stmt1 = this.con.createStatement();
+            Statement stmt2 = this.con.createStatement();
             String courseStudyQuery = "SELECT CourseCode, Semester, MandatoryString FROM CourseStudyProgram WHERE StudyCode = " + "\"" + studyCodeInp + "\"";
-            ResultSet studyCourseRs = studyCoursestmt.executeQuery(courseStudyQuery);
+            ResultSet rs1 = stmt1.executeQuery(courseStudyQuery);
+            ResultSet rs2 = stmt2.executeQuery(courseStudyQuery);
 
+            // creates courseStrings which is a List containing names of all courses needed
+            List<String> courseStrings = new ArrayList<>();
+            while (rs1.next()) {
+                courseStrings.add(rs1.getString("CourseCode"));
+            }
+            Map<String, Course> courseCourse = this.getCourses(courseStrings);
+
+            // creates map with semester as key, and all courseCode in that semester as value
             Map<Integer, List<Course>> courseMap = new HashMap<>();
-            boolean addElect = false;
-            while (studyCourseRs.next()) {
-                String courseCode = studyCourseRs.getString("CourseCode");
-                Integer semesterNumber = studyCourseRs.getInt("Semester");
-                String mandatory = studyCourseRs.getString("MandatoryString");
-                Course course = this.getCourse(courseCode);
+            while (rs2.next()) {
+                String courseCode = rs2.getString("CourseCode");
+                Integer semesterNumber = rs2.getInt("Semester");
+                String mandatory = rs2.getString("MandatoryString");
+                Course course = courseCourse.get(courseCode);
                 List<Course> courseList = courseMap.get(semesterNumber);
+                // removes not mandatory courses
                 if (mandatory == null || (!mandatory.equals("VA") && !mandatory.equals("VB") && !mandatory.equals("V"))) {
                     if (courseList == null) {
                         //add a list with key semesterNumber to courseMap that contains course
@@ -189,9 +210,8 @@ public class DbCom {
         }
     }
 
+    // reuturn the respective semester from coursecode and studycode
     public int getSemester(String courseCode, String studyCode) {
-        // reuturn the respective semester from coursecode and studycode
-        // SELECT Semester FROM CourseStudyProgram WHERE CourseCode = courseCode AND StudyCode = studyCode
         try {
             Statement stmt = this.con.createStatement();
             String query = "SELECT Semester FROM CourseStudyProgram WHERE CourseCode = " + "\"" + courseCode + "\"" + "AND StudyCode = " + "\"" + studyCode + "\"";
@@ -205,5 +225,10 @@ public class DbCom {
             throw new IllegalStateException("SQLException in DbCom.getSemester()", e);
         }
     }
-    //possible other methods
+
+    public static void main(String[] args) {
+        DbCom db = new DbCom();
+        Course c = db.getCourseSingle("TDT4100");
+        System.out.println(c.getCredit());
+    }
 }
