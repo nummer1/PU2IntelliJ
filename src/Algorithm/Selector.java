@@ -23,12 +23,10 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many different helping functions which can be implemented when needed.
-    public StudyPlan switchMajor( String fromName, String toName, String season, int currSemester) {
+    public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season, int currSemester) {
         DbCom db = new DbCom();
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
-        StudyPlan finished = db.getCoursesFromMajor(fromName);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
-        ArrayList<Course> finishedCourses = finished.getCourses();
         System.out.println(majorCourses);
         System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
@@ -75,8 +73,11 @@ public class Selector {
         int semNumber = 1;
         while (!neededCourses.isEmpty()) {
             Semester semester = new Semester((autumn) ? "autumn" : "spring");
+            int i = 1;
             while (!semester.isFilled() && !neededCourses.isEmpty()) {
-                int i = 1;
+                if (i > neededCourses.size()) {
+                    break;
+                }
                 Course c = neededCourses.get(neededCourses.size() - i);
                 if (semester.getStudypoints() <= 30.0 - c.getStudypoints()) {
                     semester.addCourse(c);
@@ -84,20 +85,15 @@ public class Selector {
                     System.out.println("REMOVED A COURSE");
                     System.out.println(neededCourses);
                 } else {
-                    if (i < neededCourses.size()) {
+                    if (i <= neededCourses.size()) {
                         i++;
                     } else {
-                        autumn = !autumn;
-                        studyplan.addSemester(semester, semNumber);
-                        semNumber += 1;
                         System.out.println("BREAK");
                         break;
                     }
                 }
                 if (semester.isFilled()) {
-                    autumn = !autumn;
-                    studyplan.addSemester(semester, semNumber);
-                    semNumber += 1;
+                    break;
                 }
             }
             /*for(int j=0; j<4; j++) {
@@ -111,6 +107,7 @@ public class Selector {
         }
 
         //return the studyplan
+        System.out.println(studyplan);
         return studyplan;
     }
 

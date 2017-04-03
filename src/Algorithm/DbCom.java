@@ -93,7 +93,7 @@ public class DbCom {
 
                 Course course = new Course(courseCode, season, 7.5);
                 course.setCourseName(courseName);
-                course.setCredit(credit);
+                course.setStudypoints(credit);
                 course.setDescription(description);
                 course.setFaculty(faculty);
                 course.setExam_Date(examDate);
@@ -230,6 +230,6 @@ public class DbCom {
     public static void main(String[] args) {
         DbCom db = new DbCom();
         Course c = db.getCourseSingle("TDT4100");
-        System.out.println(c.getCredit());
+        System.out.println(c.getStudypoints());
     }
 }
