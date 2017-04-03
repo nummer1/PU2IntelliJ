@@ -29,8 +29,8 @@ public class PrintableSwitchMajorTest {
     }
 
     private void printSwitch() {
-        StudyPlan newPlan = sel.switchMajor("MTKOM", "MTDT", "autumn", 2);
-        System.out.println(newPlan);
+        //StudyPlan newPlan = sel.switchMajor("MTDT", "autumn", 2);
+        //System.out.println(newPlan);
     }
 
     public static void main(String[] args) {
