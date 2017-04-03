@@ -26,6 +26,7 @@ public class Course implements Comparable<Course>{
     private boolean isAgile;
     private double score;
     private double studypoints;
+    private String URL;
 
     public Course(String courseId, String season, Double studypoints) {
         this.courseId = courseId;
@@ -201,6 +202,10 @@ public class Course implements Comparable<Course>{
     public void setStudypoints(double studypoints) {
         this.studypoints = studypoints;
     }
+
+    public String getURL() { return this.URL; }
+
+    public void setURL(String URL) { this.URL = URL; }
 
     @Override
     public int compareTo(Course o) {
