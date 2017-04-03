@@ -18,8 +18,8 @@ import java.util.Collection;
 public class MidSection {
 
     private static GridPane coursePlan = new GridPane();
-    private int semesterCount = -1;
-    private int count = 0;
+    private static int semesterCount = -1;
+    private static int count = 0;
     private static ArrayList<ArrayList<Course>> courses;
     private static ArrayList<Course> finishedCourses = new ArrayList<Course>();
 
@@ -27,7 +27,7 @@ public class MidSection {
         return coursePlan;
     } // Returns courseplan.
 
-    public void resetCounts() { // Resets counts.
+    public static void resetCounts() { // Resets counts.
         semesterCount = -1;
         count = 0;
     }
@@ -82,6 +82,9 @@ public class MidSection {
             System.out.println(sem);
             courses.add(sem);
         }
+
+        getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
+        resetCounts(); // Reset counts for indexing courses.
 
         generateCoursePlan(courses);
         return coursePlan;

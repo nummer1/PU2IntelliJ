@@ -27,8 +27,8 @@ public class ConfirmButton {
             if (tilFraChoices.studiesIsSelected()) {
                 ArrayList<Course> completeCourses = getCompletedCourses();
                 MidSection midSection = new MidSection();
-                midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
-                midSection.resetCounts(); // Reset counts for indexing courses.
+                //midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
+                //midSection.resetCounts(); // Reset counts for indexing courses.
                 searchField.getSearchField().setVisible(true); // Set search-field visible.
 
                 App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString(), 2));
