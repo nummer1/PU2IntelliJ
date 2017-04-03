@@ -31,6 +31,6 @@ public class SearchField {
     }
 
     private void addSearchAbleCourses() {
-        searchField.getItems().addAll(new DbCom().getCourses());
+        searchField.getItems().addAll(new DbCom().getCoursesAsString());
     }
 }

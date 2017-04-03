@@ -69,8 +69,10 @@ public class MidSection {
 
         String fromStudyCode = dbcom.getStudyCode(from);
         String toStudyCode = dbcom.getStudyCode(to);
-
-        StudyPlan studyplan = sel.switchMajor(fromStudyCode, toStudyCode, "autumn", finishedSemesters);
+        ArrayList<Course> finishedCourses = new ArrayList<>();
+        finishedCourses.addAll(getCompletedCourses());
+        System.out.println(getCompletedCourses());
+        StudyPlan studyplan = sel.switchMajor(finishedCourses, toStudyCode, "autumn", finishedSemesters);
         Collection<Semester> semesters = studyplan.getSemesters();
 
         courses.clear();

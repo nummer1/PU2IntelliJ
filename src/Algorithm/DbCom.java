@@ -227,5 +227,6 @@ public class DbCom {
         DbCom db = new DbCom();
         Course c = db.getCourseSingle("TDT4100");
         System.out.println(c.getURL());
+        System.out.println(c.getStudypoints());
     }
 }
