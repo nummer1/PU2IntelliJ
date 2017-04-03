@@ -187,12 +187,6 @@ public class DbCom {
                 courseMap.computeIfAbsent(i, k -> new ArrayList<Course>());
             }
             for (Integer key : courseMap.keySet()) {
-                while (courseMap.get(key).size() < 4) {
-                    Course elect = new Course("valg", "agile");
-                    elect.setCourseName("Valgfag");
-                    courseMap.get(key).add(elect);
-                }
-
                 if (key % 2 == 0) {
                     season = "spring";
                 } else {
