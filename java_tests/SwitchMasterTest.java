@@ -19,7 +19,7 @@ public class SwitchMasterTest extends TestCase{
         StudyPlan b = new StudyPlan("b");
 
         for (int i=8; i<10; i++) {
-            Course c = new Course(Integer.toString(i), "autumn");
+            Course c = new Course(Integer.toString(i), "autumn", 7.5);
             this.sem.addCourse(c);
         }
         this.expected.addSemester(this.sem, 0);
@@ -30,18 +30,18 @@ public class SwitchMasterTest extends TestCase{
         Semester bsem2 = new Semester("spring");
 
         for(int i=0; i<4; i++) {
-            Course c = new Course(Integer.toString(i), "autumn");
+            Course c = new Course(Integer.toString(i), "autumn",7.5);
             asem1.addCourse(c);
             bsem1.addCourse(c);
         }
 
         for(int i=0; i<4; i++) {
-            Course c = new Course(Integer.toString(i+4), "autumn");
+            Course c = new Course(Integer.toString(i+4), "autumn",7.5);
             asem2.addCourse(c);
         }
 
         for(int i=0; i<4; i++) {
-            Course c = new Course(Integer.toString(i+6), "autumn");
+            Course c = new Course(Integer.toString(i+6), "autumn",7.5);
             bsem2.addCourse(c);
         }
 

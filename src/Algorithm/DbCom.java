@@ -91,7 +91,7 @@ public class DbCom {
                     season = "agile";
                 }
 
-                Course course = new Course(courseCode, season);
+                Course course = new Course(courseCode, season, 7.5);
                 course.setCourseName(courseName);
                 course.setCredit(credit);
                 course.setDescription(description);
@@ -188,7 +188,7 @@ public class DbCom {
             }
             for (Integer key : courseMap.keySet()) {
                 while (courseMap.get(key).size() < 4) {
-                    Course elect = new Course("valg", "agile");
+                    Course elect = new Course("valg", "agile", 7.5);
                     elect.setCourseName("Valgfag");
                     courseMap.get(key).add(elect);
                 }
@@ -199,6 +199,7 @@ public class DbCom {
                     season = "autumn";
                 }
                 Semester sem = new Semester(season);
+
                 sem.addCourseList(courseMap.get(key));
                 studyPlan.addSemester(sem, key);
             }
