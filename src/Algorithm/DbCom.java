@@ -70,7 +70,7 @@ public class DbCom {
         try {
             Statement courseStmt = this.con.createStatement();
             Statement dependentStmt = this.con.createStatement();
-            String courseQuery = "SELECT Course.CourseCode, CourseName, Credit, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode IN (" + sb + ")";
+            String courseQuery = "SELECT Course.CourseCode, CourseName, Credit, Description, Faculty, ExamDate, Difficulty, TaughtInSpring, TaughtInAutumn, URL FROM Course LEFT JOIN Exam ON Exam.CourseCode = Course.CourseCode WHERE Course.CourseCode IN (" + sb + ")";
             String dependentQuery = "SELECT Dependency FROM Dependent WHERE Dependent IN (" + sb + ")";
             ResultSet courseRs = courseStmt.executeQuery(courseQuery);
             ResultSet dependentRs = dependentStmt.executeQuery(dependentQuery);
@@ -85,6 +85,7 @@ public class DbCom {
                 int difficulty = courseRs.getInt("Difficulty");
                 boolean taughtInSpring = courseRs.getBoolean("TaughtInSpring");
                 boolean taughtInAutumn = courseRs.getBoolean("TaughtInAutumn");
+                String url = courseRs.getString("URL");
 
                 String season = (taughtInSpring) ? "spring" : "autumn";
                 if (taughtInSpring && taughtInAutumn) {
@@ -98,6 +99,7 @@ public class DbCom {
                 course.setFaculty(faculty);
                 course.setExam_Date(examDate);
                 course.setDifficulty(difficulty);
+                course.setURL(url);
 
                 // add dependencies
                 while (dependentRs.next()) {
@@ -187,12 +189,6 @@ public class DbCom {
                 courseMap.computeIfAbsent(i, k -> new ArrayList<Course>());
             }
             for (Integer key : courseMap.keySet()) {
-                while (courseMap.get(key).size() < 4) {
-                    Course elect = new Course("valg", "agile", 7.5);
-                    elect.setCourseName("Valgfag");
-                    courseMap.get(key).add(elect);
-                }
-
                 if (key % 2 == 0) {
                     season = "spring";
                 } else {
@@ -230,6 +226,7 @@ public class DbCom {
     public static void main(String[] args) {
         DbCom db = new DbCom();
         Course c = db.getCourseSingle("TDT4100");
+        System.out.println(c.getURL());
         System.out.println(c.getStudypoints());
     }
 }
