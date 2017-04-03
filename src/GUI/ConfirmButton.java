@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 
+import static GUI.MidSection.getCompletedCourses;
+
 /**
  * Created by andreaswilhelmflatt on 05.03.2017.
  */
@@ -20,6 +22,7 @@ public class ConfirmButton {
         // Checks if the user selected their preferred change.
         confirmBtn.setOnAction(e -> {
             if (tilFraChoices.studiesIsSelected()) {
+                getCompletedCourses();
                 MidSection midSection = new MidSection();
                 midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
                 midSection.resetCounts(); // Reset counts for indexing courses.

@@ -1,10 +1,13 @@
 package GUI;
 
 import Algorithm.DbCom;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -18,17 +21,16 @@ public class SearchField {
         return searchField;
     }
 
-    public void initializeSearchField(HBox lowerSection) { // Initializes search-field.
+    public void initializeSearchField() { // Initializes search-field.
         searchField.setPromptText("Search for courses.");
         searchField.setVisible(false);
 
         new AutoCompleteComboBoxListener<>(searchField);
 
-        addExampleCourses();
-        //searchField.getItems().addAll(new DbCom().getCourses());
+        addSearchAbleCourses();
     }
 
-    public void addExampleCourses() {
-        searchField.getItems().addAll("TDT4120 Algdat", "TDT4130 Blabla", "TDT4140 Fag");
+    private void addSearchAbleCourses() {
+        searchField.getItems().addAll(new DbCom().getCourses());
     }
 }

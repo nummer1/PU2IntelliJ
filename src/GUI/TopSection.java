@@ -61,7 +61,7 @@ public class TopSection {
         tilFraChoices.initializeConnectedComboBox();
 
         searchField = new SearchField();
-        searchField.initializeSearchField(lowerSection);
+        searchField.initializeSearchField();
 
         confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
