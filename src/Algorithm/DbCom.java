@@ -86,7 +86,7 @@ public class DbCom {
         }
     }
 
-    public Collection<String> getCourses() {
+    public ArrayList<String> getCourses() {
         // return all course codes and courseNames
         // seperate scoursecode from respective coursename with space
         // SELECT CourseCode, CourseName FROM Course
@@ -94,7 +94,7 @@ public class DbCom {
             Statement courseStmt = this.con.createStatement();
             String courseQuery = "SELECT CourseCode, CourseName FROM Course";
             ResultSet rs = courseStmt.executeQuery(courseQuery);
-            Collection<String> rCol = new ArrayList<>();
+            ArrayList<String> rCol = new ArrayList<>();
             while (rs.next()) {
                 String s = rs.getString("CourseCode") + " " + rs.getString("CourseName");
                 rCol.add(s);

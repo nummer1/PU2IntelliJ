@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 public class TopSection {
 
-    private SearchField searchField;
+    public SearchField searchField;
 
     private VBox topSection = new VBox(10);
 
@@ -25,8 +25,9 @@ public class TopSection {
         HBox lowerSection = new HBox(10);
         upperSection.setAlignment(Pos.CENTER);
 
-        ChatBox chatBox = new ChatBox();
+        ChatBox chatBox = new ChatBox(this);
         upperSection.getChildren().add(chatBox.getChatBox());
+
 
 
         TilFraChoices tilFraChoices = new TilFraChoices();
@@ -39,9 +40,7 @@ public class TopSection {
         ConfirmButton confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
 
-        ChatBox chatBox = new ChatBox();
-
-        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn(), chatBox.getChatBox());
+        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn()/*, chatBox.getChatBox()*/);
 
         SemesterSlider slider = new SemesterSlider();
         slider.initializeSliderListener();
