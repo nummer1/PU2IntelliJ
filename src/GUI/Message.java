@@ -19,11 +19,6 @@ public class Message {
 
     public Message (Boolean isBot, String speech) {
         this.isBot = isBot;
-        if (isBot) {
-            message = "Anna: " + speech;
-        }
-        else {
-            message = "You: " + speech;
-        }
+        message = speech;
     }
 }
