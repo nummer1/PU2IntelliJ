@@ -45,6 +45,22 @@ public class DbCom {
         }
     }
 
+    //returns list off all studyCodes
+    public List<String> getStudyCodesAsList() {
+        try {
+            Statement stmt = this.con.createStatement();
+            String query = "SELECT StudyCode FROM StudyProgram";
+            ResultSet rs = stmt.executeQuery(query);
+            List<String> codeList = new ArrayList<>();
+            while(rs.next()) {
+                codeList.add(rs.getString("StudyCode"));
+            }
+            return codeList;
+        } catch (SQLException e) {
+            throw new IllegalStateException("SQLException in DbCom.getStudyCodesAsList()", e);
+        }
+    }
+
     // returns a single course
     public Course getCourseSingle(String courseInp) {
         List<String> inp = new ArrayList<>();
@@ -225,8 +241,7 @@ public class DbCom {
 
     public static void main(String[] args) {
         DbCom db = new DbCom();
-        Course c = db.getCourseSingle("TDT4100");
-        System.out.println(c.getURL());
-        System.out.println(c.getStudypoints());
+        List<String> c = db.getStudyCodesAsList();
+        System.out.println(c);
     }
 }
