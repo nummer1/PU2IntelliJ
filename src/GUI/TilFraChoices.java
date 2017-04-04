@@ -47,18 +47,16 @@ public class TilFraChoices {
         fraChoices.valueProperty().addListener(e -> {
             topSection.getChildren().get(1).setVisible(true);
 
-            if (!fraChoices.getSelectionModel().isEmpty()) {
-                MidSection midSection = new MidSection();
-                midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
-                midSection.resetCounts(); // Reset counts for indexing courses.
-                SearchField.getSearchField().setVisible(true); // Set search-field visible.
-                //checkCompletedCourses();
+            MidSection midSection = new MidSection();
+            midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
+            midSection.resetCounts(); // Reset counts for indexing courses.
+            SearchField.getSearchField().setVisible(true); // Set search-field visible.
+            //checkCompletedCourses();
 
-                App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
-                SemesterSlider.getSlider().setMax(midSection.getCoursePlan().getChildren().size()/10); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
-                SemesterSlider.getSlider().setVisible(true);
-                App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
-            }
+            App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
+            SemesterSlider.getSlider().setMax(midSection.getCoursePlan().getChildren().size()/10); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
+            SemesterSlider.getSlider().setVisible(true);
+            App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
 
             if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {
                 ConfirmButton.getConfirmBtn().setDisable(true);
