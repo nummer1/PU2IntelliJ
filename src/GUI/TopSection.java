@@ -8,8 +8,7 @@ import javafx.scene.layout.VBox;
 
 public class TopSection {
 
-    public SearchField searchField;
-
+    private SearchField searchField;
     private VBox topSection = new VBox(10);
 
     public TopSection() {
@@ -20,22 +19,24 @@ public class TopSection {
         return topSection;
     }
 
+    public SearchField getSearchField(){
+        return searchField;
+    }
+
     private void initializeTopSection() {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
         upperSection.setAlignment(Pos.CENTER);
 
-        ChatBox chatBox = new ChatBox(this);
+        ChatBox chatBox = new ChatBox();
         upperSection.getChildren().add(chatBox.getChatBox());
-
-
 
         TilFraChoices tilFraChoices = new TilFraChoices();
         tilFraChoices.initializeTilFraListener(topSection);
         tilFraChoices.initializeConnectedComboBox();
 
-        SearchField searchField = new SearchField();
-        searchField.initializeSearchField(lowerSection);
+        searchField = new SearchField();
+        searchField.initializeSearchField();
 
         ConfirmButton confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="libai">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../apiai-java-sdk/libai/target/libai.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../JARs/libai.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

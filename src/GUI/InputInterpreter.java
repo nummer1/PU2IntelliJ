@@ -13,14 +13,8 @@ import java.util.HashMap;
 public class InputInterpreter {
 
     private TextClientApplication anna = new TextClientApplication();
-    private TopSection topSection;
-
-    public InputInterpreter (TopSection topSection) {
-        this.topSection = topSection;
-    }
 
     public String interpret(String request) {
-
 
         if (!request.trim().isEmpty()) {
             AIResponse response = anna.GetResponse(request);
@@ -42,8 +36,10 @@ public class InputInterpreter {
                         MidSection midSection = new MidSection();
                         midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
                         midSection.resetCounts(); // Reset counts for indexing courses.
-                        topSection.searchField.getSearchField().setVisible(true); // Set search-field visible.
-                        App.getLayout().setCenter(midSection.generateMidSection(switchFromMajor, switchToMajor));  //should have a field for years_studied/semester_studied
+
+                        TopSection topSection = new TopSection();
+                        topSection.getSearchField().getSearchField().setVisible(true);
+                        App.getLayout().setCenter(midSection.generateMidSection(switchFromMajor, switchToMajor,2));  //should have a field for years_studied/semester_studied
                         App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
                         break;
                     case "change.interface": // Are we going to have this function. In that case we need to hide the other interface..
@@ -59,6 +55,5 @@ public class InputInterpreter {
         } else {
             return "You have to write a question or request below";
         }
-
     }
 }

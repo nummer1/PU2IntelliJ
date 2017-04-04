@@ -13,10 +13,10 @@ public class AIStringBuilder {
     private DbCom dbCom = new DbCom();
 
 
-    private void MakeString() {
+    /*private void MakeString() {
         ArrayList<String> courses;
         courses = dbCom.getCourses();
-        // String s = "'[";
+        String s = "'[";
         System.out.println("before for-loop");
 
         for (int i = 0; i < courses.size(); i++) {
@@ -38,11 +38,9 @@ public class AIStringBuilder {
                 e.printStackTrace();
             }
 
-            /*
             if (i != courses.size() - 1) {
                 s += ",";
             }
-            */
         }
     }
 
@@ -57,6 +55,7 @@ public class AIStringBuilder {
         catch (IOException e){
             e.printStackTrace();
         }
-        */
+
     }
+    */
 }

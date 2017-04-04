@@ -17,6 +17,10 @@ public class App extends Application {
         launch(args);
     }
 
+    public Stage getStage() {
+        return window;
+    }
+
     @Override
     public void start(Stage primaryStage) {
         window = primaryStage;
