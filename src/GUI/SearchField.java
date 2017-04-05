@@ -21,7 +21,7 @@ public class SearchField {
         return searchField;
     }
 
-    public void initializeSearchField() { // Initializes search-field.
+    public static void initializeSearchField() { // Initializes search-field.
         searchField.setPromptText("Search for courses.");
         searchField.setVisible(false);
 
@@ -30,7 +30,7 @@ public class SearchField {
         addSearchAbleCourses();
     }
 
-    private void addSearchAbleCourses() {
+    private static void addSearchAbleCourses() {
         searchField.getItems().addAll(new DbCom().getCoursesAsString());
     }
 }

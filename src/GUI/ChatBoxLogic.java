@@ -11,7 +11,7 @@ import javafx.scene.layout.Region;
 public class ChatBoxLogic {
 
     private static MidSection midSection;
-    private static HBox searchField;
+    private static HBox searchFieldHBox;
     private static GridPane coursePlan;
 
     private static void showAllCoursesFrom(String from) {
@@ -24,17 +24,16 @@ public class ChatBoxLogic {
     }
 
     private static void searchField() { // Call this method _after_ calling showAllCoursesFrom.
-        searchField = new HBox(10);
+        searchFieldHBox = new HBox(10);
 
         Region region = new Region();
-        searchField.setHgrow(region, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
+        searchFieldHBox.setHgrow(region, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
 
-        SearchField searchField = new SearchField();
-        searchField.getSearchField().setMaxWidth(300);
-        searchField.initializeSearchField();
-        searchField.getSearchField().setVisible(true);
+        SearchField.getSearchField().setMaxWidth(300);
+        SearchField.initializeSearchField();
+        SearchField.getSearchField().setVisible(true);
 
-        ChatBoxLogic.searchField.getChildren().addAll(region, searchField.getSearchField());
+        ChatBoxLogic.searchFieldHBox.getChildren().addAll(region, SearchField.getSearchField());
     }
 
     public static void showUserCoursesFrom(String from, int fininishedSemesters) { // Call this method when you want to show the user all courses from the Study he/she's been taking.
@@ -42,6 +41,6 @@ public class ChatBoxLogic {
         searchField();
         MidSection.colorCompleteCourses(fininishedSemesters);
 
-        App2.getLayout().getChildren().addAll(searchField, coursePlan);
+        App2.getLayout().getChildren().addAll(searchFieldHBox, coursePlan);
     }
 }
