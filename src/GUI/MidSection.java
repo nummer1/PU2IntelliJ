@@ -139,11 +139,45 @@ public class MidSection {
         coursePlan.getChildren().add(fag);
     }
 
+    public static void colorCompleteCourses(int finishedSemesters) {
+        int count = 0;
+        for (double semester = 0; semester < finishedSemesters; semester++) {
+            count++;
+            for (int fag = 0; fag < 4; fag++) {
+                if (count == coursePlan.getChildren().size()) {
+                    return;
+                }
+                coursePlan.getChildren().get(count).getStyleClass().remove("completed-courses");
+                coursePlan.getChildren().get(count).getStyleClass().remove("all-courses");
+                coursePlan.getChildren().get(count).getStyleClass().add("completed-courses");
+                count++;
+            }
+        }
+
+        for (double semester = finishedSemesters; semester < getCourses().size(); semester++) {
+            count++;
+            for (int fag = 0; fag < 4; fag++) {
+                if (count == coursePlan.getChildren().size()) {
+                    System.out.println("Antall elementer " + coursePlan.getChildren().size());
+                    return;
+                }
+                System.out.println(coursePlan.getChildren().size());
+                coursePlan.getChildren().get(count).getStyleClass().remove("all-courses");
+                coursePlan.getChildren().get(count).getStyleClass().remove("completed-courses");
+                coursePlan.getChildren().get(count).getStyleClass().add("all-courses");
+                count++;
+            }
+        }
+    }
+
     public static void colorCompleteSliderCourses(double sliderValue) { // Slider's functionality. Colors courses based on finished semesters.
         int count = 0;
         for (double semester = 0; semester < sliderValue * 2; semester++) {
             count++;
             for (int fag = 0; fag < 4; fag++) {
+                if (count == coursePlan.getChildren().size()) {
+                    return;
+                }
                 coursePlan.getChildren().get(count).getStyleClass().remove("completed-courses");
                 coursePlan.getChildren().get(count).getStyleClass().remove("all-courses");
                 coursePlan.getChildren().get(count).getStyleClass().add("completed-courses");
@@ -154,13 +188,15 @@ public class MidSection {
         for (double semester = sliderValue * 2; semester < getCourses().size(); semester++) {
             count++;
             for (int fag = 0; fag < 4; fag++) {
+                if (count == coursePlan.getChildren().size()) {
+                    System.out.println("Antall elementer " + coursePlan.getChildren().size());
+                    return;
+                }
+                System.out.println(coursePlan.getChildren().size());
                 coursePlan.getChildren().get(count).getStyleClass().remove("all-courses");
                 coursePlan.getChildren().get(count).getStyleClass().remove("completed-courses");
                 coursePlan.getChildren().get(count).getStyleClass().add("all-courses");
                 count++;
-                if (count == 51) {
-                    break;
-                }
             }
         }
     }

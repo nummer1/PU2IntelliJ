@@ -41,7 +41,7 @@ public class ChatBox {
 
     private void initChatBox() {
         container.setContent(chatBox);
-        setWidth(600);
+        setWidth(400);
         container.setStyle("-fx-background: white");
 
         chatBoxSection.setAlignment(Pos.CENTER);
