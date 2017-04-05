@@ -54,7 +54,7 @@ public class TilFraChoices {
             //checkCompletedCourses();
 
             App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
-            SemesterSlider.getSlider().setMax(midSection.getCoursePlan().getChildren().size()/10); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
+            SemesterSlider.getSlider().setMax(Math.ceil(midSection.getCoursePlan().getChildren().size()/10.0 * 2) / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
             SemesterSlider.getSlider().setVisible(true);
             App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
 

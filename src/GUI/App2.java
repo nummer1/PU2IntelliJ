@@ -7,12 +7,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App2 extends Application {
 
-    private Stage window;
+    private static Stage window;
     private static VBox layout = new VBox(10);
 
     public static void main(String[] args) {
@@ -40,6 +41,11 @@ public class App2 extends Application {
 
         ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2);
 
+        if (App.getStage() != null) {
+            App.getStage().getScene().setRoot(new Region());
+            App.getLayout().getChildren().clear();
+        }
+
         window.setScene(new Scene(layout, 800, 400));
         layout.getStylesheets().add(getClass().getResource("stylesheets.css").toExternalForm());
         window.show();
@@ -47,5 +53,9 @@ public class App2 extends Application {
 
     public static VBox getLayout() {
         return layout;
+    }
+
+    public static Stage getStage() {
+        return window;
     }
 }
