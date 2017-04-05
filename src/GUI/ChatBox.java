@@ -46,16 +46,6 @@ public class ChatBox {
 
         chatBoxSection.setAlignment(Pos.CENTER);
 
-        /*Label annaLabel = new Label("Anna");
-
-        annaLabel.setMinHeight(25);
-        annaLabel.setMaxHeight(25);
-        annaLabel.setMinWidth(200);
-        annaLabel.setStyle("-fx-border-color: black;\n" +
-                "-fx-border-width: 1;\n" +
-                "-fx-background-color: white;\n");
-        */
-
         InputInterpreter anna = new InputInterpreter();
         TextField userInput = new TextField();
         userInput.setPromptText("Ask ANNA.");
@@ -110,20 +100,11 @@ public class ChatBox {
 
         if (m.isBot) {
             content.getChildren().addAll(label, rightAlignTextField);
-            label.setStyle("-fx-border-width: 1; " +
-                    "-fx-background-color: #55ACEE; " +
-                    "-fx-font-size: 16pt; " +
-                    "-fx-border-radius: 5px; " +
-                    "-fx-background-radius: 5px;" +
-                    "-fx-text-fill: white;");
+            label.getStyleClass().add("aichat");
         }
         else {
             content.getChildren().addAll(rightAlignTextField, label);
-            label.setStyle("-fx-border-width: 1; " +
-                    "-fx-background-color: #D0D6D8; " +
-                    "-fx-font-size: 16pt; " +
-                    "-fx-border-radius: 5px; " +
-                    "-fx-background-radius: 5px;");
+            label.getStyleClass().add("userchat");
         }
 
         //label.setMinWidth(chatBoxSection.getWidth() - 2); // Subtract 2 in order to show the borders.
