@@ -20,7 +20,7 @@ public class ChatBoxLogic {
         midSection.resetCounts(); // Reset counts for indexing courses.
 
         coursePlan = midSection.showAllCoursesFrom(from);
-        coursePlan.setMaxHeight(450);
+        coursePlan.setMaxHeight(720);
     }
 
     private static void searchField() { // Call this method _after_ calling showAllCoursesFrom.

@@ -21,7 +21,7 @@ public class MidSection {
     private static int semesterCount = -1;
     private static int count = 0;
     private static ArrayList<ArrayList<Course>> courses;
-    private static ArrayList<Course> finishedCourses = new ArrayList<Course>();
+    private static ArrayList<Course> finishedCourses = new ArrayList<>();
 
     public static GridPane getCoursePlan () {
         return coursePlan;
@@ -98,14 +98,14 @@ public class MidSection {
         }
     }
 
-    public void makeBasicGridPane() { // Initializes GridPane.
+    private void makeBasicGridPane() { // Initializes GridPane.
         coursePlan.getStylesheets().add(MidSection.class.getResource("stylesheets.css").toExternalForm());
         coursePlan.setPadding(new Insets(10, 10, 10, 10));
-        coursePlan.setVgap(10);
-        coursePlan.setHgap(10);
+        coursePlan.setVgap(3);
+        coursePlan.setHgap(3);
     }
 
-    public void addCourse(Course course) { // Adds a course to the courseplan.
+    private void addCourse(Course course) { // Adds a course to the courseplan.
         if (count == 0) { // Checks if it needs to start a new semester.
             semesterCount++;
             Label semesterLabel = new Label("Semester " + Integer.toString(semesterCount + 1));
@@ -124,6 +124,11 @@ public class MidSection {
         TextArea fag = new TextArea(course.getCourseId() + "\n" + course.getCourseName() + "\n" + "Eksamensdato: " + course.getPrintable_date());
         fag.getStyleClass().add("all-courses");
         fag.setEditable(false);
+
+        Font font = fag.getFont();
+        double size = 12;
+        fag.setFont(Font.font(size));
+
         DragAndDrop.initializeDragAndDrop(fag);
         OnClickedColorCode.initializeOnClickedColorCode(fag);
         fag.setWrapText(true); // Forces newline if the text use more width than the textbox is given.
