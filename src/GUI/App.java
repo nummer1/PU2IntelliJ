@@ -22,7 +22,10 @@ public class App extends Application {
         window = primaryStage;
         window.setTitle("ANNABot");
 
-        layout.setTop(TopSection.generateTopSection());
+        TopSection topSection = new TopSection();
+
+        layout.setStyle("-fx-background-color: #fff9c4;");
+        layout.setTop(topSection.getTopSection());
 
         window.setScene(new Scene(layout, 800, 400));
         window.show();
