@@ -24,6 +24,7 @@ public class SemesterTest extends TestCase {
 
     public void testStudypoints() {
         setup();
+        assertEquals(this.sem.getStudypoints(), 0.0);
         fillWithCourses();
         assertEquals(this.sem.getStudypoints(), 30.0);
     }
