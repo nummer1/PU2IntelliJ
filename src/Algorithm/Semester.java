@@ -14,7 +14,7 @@ public class Semester {
     private boolean isAutumn;
     private double studypoints;
 
-    public Semester() { }
+    public Semester() { this.studypoints = 0.0; }
 
     public Semester(String season) {
         this.studypoints = 0.0;
@@ -37,6 +37,10 @@ public class Semester {
     public void setAutumn() {
         isSpring = false;
         isAutumn = true;
+    }
+
+    public String getSeason() {
+        return (isAutumn) ? "autumn" : "spring";
     }
 
     public void addCourse(Course course) {

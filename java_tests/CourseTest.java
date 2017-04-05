@@ -17,43 +17,43 @@ public class CourseTest extends TestCase{
 
 
     private void setup() {
-        this.tdt4100 = new Course("TDT4100");
+        this.tdt4100 = new Course("TDT4100", "agile");
         tdt4100.setDescription("This is a description");
         tdt4100.setDifficulty(5);
         c.setTime(dt);
         c.add(Calendar.DATE, 1);
         dt = c.getTime();
-        tdt4100.setExam_date("30/12/2017");
+        tdt4100.setExamDate("30/12/2017");
         tdt4100.setFaculty("IME");
     }
 
     public void testSetup() {
         setup();
-        assertNotNull(tdt4100.getCourse_id());
+        assertNotNull(tdt4100.getCourseId());
         assertNotNull(tdt4100.getDescription());
         assertNotNull(tdt4100.getFaculty());
         assertNotNull(tdt4100.getDifficulty());
-        assertNotNull(tdt4100.getExam_date());
+        assertNotNull(tdt4100.getExamDate());
     }
 
-    public void testCourse_id() {
+    public void testCourseId() {
         setup();
-        tdt4100.setCourse_id("TMA4100");
-        assertEquals(tdt4100.getCourse_id(), "TMA4100");
+        tdt4100.setCourseId("TMA4100");
+        assertEquals(tdt4100.getCourseId(), "TMA4100");
         try {
-            tdt4100.setCourse_id("Objekt-orientert programmering");
+            tdt4100.setCourseId("Objekt-orientert programmering");
             Assert.fail("Only chars is not allowed");
         } catch (IllegalArgumentException e) {
             //An error is expected here
         }
         try {
-            tdt4100.setCourse_id("235781487378141");
+            tdt4100.setCourseId("235781487378141");
             Assert.fail("Only numbers is not allowed");
         } catch (IllegalArgumentException e) {
             //An error is expected here
         }
         try {
-            tdt4100.setCourse_id("T4125");
+            tdt4100.setCourseId("T4125");
             Assert.fail("One char and 4 numbers is not allowed");
         } catch (IllegalArgumentException e) {
             //An error is expected here

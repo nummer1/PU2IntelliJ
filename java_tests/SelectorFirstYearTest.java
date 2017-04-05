@@ -19,9 +19,9 @@ public class SelectorFirstYearTest extends TestCase {
         setup();
         ArrayList<Course> some_semester = this.plan.get(0);
         Course some_course = some_semester.get(2);
-        System.out.println(some_course.getCourse_id() + " " + some_course.getCourse_name() + " " + some_course.getExam_date());
-        assertEquals("TMA4140", some_course.getCourse_id());
-        assertEquals("Diskret matematikk", some_course.getCourse_name());
+        System.out.println(some_course.getCourseId() + " " + some_course.getCourseName() + " " + some_course.getExamDate());
+        assertEquals("TMA4140", some_course.getCourseId());
+        assertEquals("Diskret matematikk", some_course.getCourseName());
     }
 
 }
