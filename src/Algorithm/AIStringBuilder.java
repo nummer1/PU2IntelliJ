@@ -1,6 +1,10 @@
 package Algorithm;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.lang.Runtime;
@@ -19,7 +23,7 @@ public class AIStringBuilder {
         // String s = "'[";
         System.out.println("before for-loop");
 
-        for (int i = 0; i < courses.size(); i++) {
+        for (int i = 0; i < courses.size(); i += 100) {
             System.out.println("inside forloop, i= " + i);
             System.out.println();
             String[] course = courses.get(i).split(" ");
@@ -28,25 +32,39 @@ public class AIStringBuilder {
             String courseCode = course[0];
             String courseName = course[1];
 
-            String s = "[{\"values\": \"" + courseCode + "\",\"synonyms\": [\"" + courseCode + "\", \"" + courseName + "\"]}]";
+            String s = "'[{\"values\": \"" + courseCode + "\",\"synonyms\": [\"" + courseCode + "\", \"" + courseName + "\"]}]'";
+            String[] command = {"/bin/bash", "curl", "-i", "-X", "POST", "-H", "\"Content-Type:application/json\",", "-H", "\"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\"", "-d", s, "'https://api.api.ai/v1/entities/Subject/entries'"};
+
 
             try {
-                Runtime.getRuntime().exec("/bin/bash -c curl -i -X POST -H \"Content-Type:application/json\" -H \"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\" -d " + s + "'https://console.api.ai/api-client/#/agent/d25c77d3-dd43-4d57-9e4a-16f47a40dee4/editEntity/e8fafbbb-2be7-4305-9bb5-4104a1513168'");
-                System.out.print("it worked?!?");                                                                                                                                               // 'https://api.api.ai/v1/entities/cdc72cfd-78da-41cb-8af4-e4237bd93101/entries?v=20150910'
+                // Process proc = new ProcessBuilder(command).start();         // "curl -i -X POST -H \"Content-Type:application/json\" -H \"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\" -d '" + s + "' 'https://api.api.ai/v1/entities/Subject/entries'"
+                String[] ccc = {"/bin/bash","cd", "Github"}; //hvordan teste hvordan det funker?
+                Process p = new ProcessBuilder(command).start();
+                InputStream is = p.getInputStream();
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr);
+                String line = "";
+                System.out.println(line);
+                while((line = br.readLine()) != null) {
+                    System.out.println("Inside WHILE");
+                    System.out.println(line);
+                }
+
+                // Runtime.getRuntime().exec(command);
+                System.out.println(s);
             }
             catch (IOException e){
                 e.printStackTrace();
             }
-
-            /*
-            if (i != courses.size() - 1) {
-                s += ",";
-            }
-            */
         }
     }
 
+    //Hvordan skal jeg finne ut hvordan den tolker input?
+    //
+
     public static void main(String[] args) {
+
+
         AIStringBuilder a = new AIStringBuilder();
         a.MakeString();
         /*
