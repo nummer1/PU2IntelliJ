@@ -30,6 +30,7 @@ public class ChatBoxLogic {
         searchFieldHBox.setHgrow(region, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
 
         SearchField.getSearchField().setMaxWidth(300);
+        SearchField.getSearchField().getItems().clear();
         SearchField.initializeSearchField();
         SearchField.getSearchField().setVisible(true);
 
