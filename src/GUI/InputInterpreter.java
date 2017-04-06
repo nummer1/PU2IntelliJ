@@ -1,11 +1,8 @@
 package GUI;
 
 import ai.api.model.AIResponse;
-import javafx.beans.binding.IntegerBinding;
-import javafx.geometry.Pos;
-import javafx.scene.control.TextArea;
 import AI.TextClientApplication;
-import org.junit.Test;
+import javafx.scene.layout.VBox;
 
 import java.util.HashMap;
 
@@ -13,6 +10,13 @@ import java.util.HashMap;
  * Created by havardbjornoy on 15/03/2017.
  */
 public class InputInterpreter {
+
+    VBox layout = App2.getLayout();
+    String switchFromMajor;
+    String switchToMajor;
+    int semestersStudied;
+
+
 
     private TextClientApplication anna = new TextClientApplication();
 
@@ -31,12 +35,14 @@ public class InputInterpreter {
             else {
                 switch (action) {
                     case "make.studyplan":
-                        String switchFromMajor = parameters.get("Switch-from-major").toString();
+                        switchFromMajor = parameters.get("Switch-from-major").toString();
                         switchFromMajor = switchFromMajor.replace("\"", "");
-                        String sem = parameters.get("semesters-studied").toString();
+                        switchToMajor = parameters.get("Switch-to-major").toString();
+                        String sem = parameters.get("Semesters-studied").toString();
                         sem = sem.replace("\"", "");
-                        int semestersStudied = Integer.parseInt(sem);
+                        semestersStudied = Integer.parseInt(sem);
                         ChatBoxLogic.showUserCoursesFrom(switchFromMajor, semestersStudied);
+                        layout.getChildren().get(2).setVisible(true);
 
                     case "get more information about TDT4240": // return link to webpage to course
                         //TODO:
@@ -48,5 +54,17 @@ public class InputInterpreter {
         } else {
             return "You have to write a question or request below";
         }
+    }
+
+    public String getSwitchFromMajor() {
+        return switchFromMajor;
+    }
+
+    public String getSwitchToMajor() {
+        return switchToMajor;
+    }
+
+    public int getSemestersStudied() {
+        return semestersStudied;
     }
 }

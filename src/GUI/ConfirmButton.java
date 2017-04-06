@@ -15,7 +15,7 @@ import static GUI.MidSection.getCompletedCourses;
  */
 public class ConfirmButton {
 
-    private static final Button confirmBtn = new Button("Bekreft");
+    private static final Button confirmBtn = new Button("Submit");
 
     public static Button getConfirmBtn() {
         return confirmBtn;
