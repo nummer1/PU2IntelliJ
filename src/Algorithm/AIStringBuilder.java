@@ -19,8 +19,7 @@ public class AIStringBuilder {
 
     private void MakeString() {
         ArrayList<String> courses;
-        courses = dbCom.getCourses();
-        // String s = "'[";
+        courses = dbCom.getCoursesAsString();
         System.out.println("before for-loop");
 
         for (int i = 0; i < courses.size(); i += 100) {
@@ -60,7 +59,6 @@ public class AIStringBuilder {
     }
 
     //Hvordan skal jeg finne ut hvordan den tolker input?
-    //
 
     public static void main(String[] args) {
 
@@ -69,10 +67,10 @@ public class AIStringBuilder {
         a.MakeString();
         /*
         try {
+            String s = "'[{\"values\": \"" + courseCode + "\",\"synonyms\": [\"" + courseCode + "\", \"" + courseName + "\"]}]'";
             Runtime.getRuntime().exec("/bin/bash -c curl -i -X POST -H \"Content-Type:application/json\" -H \"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\" -d " + s + "'https://console.api.ai/api-client/#/agent/d25c77d3-dd43-4d57-9e4a-16f47a40dee4/editEntity/e8fafbbb-2be7-4305-9bb5-4104a1513168'");
             System.out.print("it worked?!?");
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         */

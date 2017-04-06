@@ -1,6 +1,7 @@
 package Algorithm;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,10 @@ public class StudyPlan {
 
     public Semester getSemester(int i) { return semesters.get(i); }
 
+    public Collection<Semester> getSemesters() {
+        return this.semesters.values();
+    }
+
     public void setScore(int score) {
         this.score = score;
     }
@@ -46,6 +51,18 @@ public class StudyPlan {
             array.addAll(semesters.get(key).getCourses());
         }
         return array;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Integer key : semesters.keySet()) {
+            sb.append(key);
+            sb.append(": ");
+            sb.append(semesters.get(key));
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
 }
