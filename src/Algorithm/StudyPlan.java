@@ -53,6 +53,12 @@ public class StudyPlan {
         return array;
     }
 
+    public void fillSemesterWithElectives() {
+        for (Integer key : semesters.keySet()) {
+            semesters.get(key).fillWithElectives(key);
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

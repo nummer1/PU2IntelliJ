@@ -39,6 +39,10 @@ public class Semester {
         isAutumn = true;
     }
 
+    public boolean isAutumn() { return this.isAutumn; }
+
+    public boolean isSpring() { return this.isSpring; }
+
     public void addCourse(Course course) {
         this.studypoints += course.getStudypoints();
         this.courses.add(course);
@@ -63,10 +67,16 @@ public class Semester {
         return this.studypoints >= 30.0;
     }
 
-    public void fillWithElectives() {
+    public void fillWithElectives(int semesterNumber) {
         while(!isFilled()) {
-            Course c = new Course("valg", "agile", 7.5);
-            c.setCourseName("Valgfag");
+            StringBuilder code = new StringBuilder();
+            code.append("valg");
+            code.append(semesterNumber);
+            StringBuilder name = new StringBuilder();
+            name.append("valgfag");
+            name.append(semesterNumber);
+            Course c = new Course(code.toString(), "agile", 7.5);
+            c.setCourseName(name.toString());
             addCourse(c);
         }
     }

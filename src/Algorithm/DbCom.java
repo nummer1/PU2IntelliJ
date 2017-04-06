@@ -216,6 +216,9 @@ public class DbCom {
                 studyPlan.addSemester(sem, key);
             }
 
+            // fills studyPlan with electives before returning
+            studyPlan.fillSemesterWithElectives();
+
             return studyPlan;
 
         } catch (SQLException e) {
@@ -241,7 +244,7 @@ public class DbCom {
 
     public static void main(String[] args) {
         DbCom db = new DbCom();
-        List<String> c = db.getStudyCodesAsList();
+        StudyPlan c = db.getCoursesFromMajor("MTDT");
         System.out.println(c);
     }
 }
