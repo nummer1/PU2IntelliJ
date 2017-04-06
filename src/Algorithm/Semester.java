@@ -73,7 +73,7 @@ public class Semester {
             code.append("valg");
             code.append(semesterNumber);
             StringBuilder name = new StringBuilder();
-            name.append("valgfag");
+            name.append("Valgfag Semester ");
             name.append(semesterNumber);
             Course c = new Course(code.toString(), "agile", 7.5);
             c.setCourseName(name.toString());
