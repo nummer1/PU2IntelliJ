@@ -1,9 +1,11 @@
 package GUI;
 
 import ai.api.model.AIResponse;
+import javafx.beans.binding.IntegerBinding;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import AI.TextClientApplication;
+import org.junit.Test;
 
 import java.util.HashMap;
 
@@ -30,21 +32,12 @@ public class InputInterpreter {
                 switch (action) {
                     case "make.studyplan":
                         String switchFromMajor = parameters.get("Switch-from-major").toString();
-                        String switchToMajor = parameters.get("Switch-to-major").toString();
-                        Object timeStudied = parameters.get("Switch-from-major"); //Maybe think about modifying @sys.duration and make it include semesters
+                        switchFromMajor = switchFromMajor.replace("\"", "");
+                        String sem = parameters.get("semesters-studied").toString();
+                        sem = sem.replace("\"", "");
+                        int semestersStudied = Integer.parseInt(sem);
+                        ChatBoxLogic.showUserCoursesFrom(switchFromMajor, semestersStudied);
 
-                        MidSection midSection = new MidSection();
-                        midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
-                        midSection.resetCounts(); // Reset counts for indexing courses.
-
-                        TopSection topSection = new TopSection();
-                        topSection.getSearchField().getSearchField().setVisible(true);
-                        App.getLayout().setCenter(midSection.generateMidSection(switchFromMajor, switchToMajor,2));  //should have a field for years_studied/semester_studied
-                        App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
-                        break;
-                    case "change.interface": // Are we going to have this function. In that case we need to hide the other interface..
-                        //TODO:
-                        break;
                     case "get more information about TDT4240": // return link to webpage to course
                         //TODO:
                         break;

@@ -18,18 +18,18 @@ public class AIStringBuilder {
 
 
     private void MakeString() {
-        ArrayList<String> courses;
+        Collection<String> courses;
         courses = dbCom.getCoursesAsString();
         System.out.println("before for-loop");
 
-        for (int i = 0; i < courses.size(); i += 100) {
-            System.out.println("inside forloop, i= " + i);
+        for (String course : courses) {
+            System.out.println("inside forloop");
             System.out.println();
-            String[] course = courses.get(i).split(" ");
-            System.out.println(course[0]);
-            System.out.println(course[1]);
-            String courseCode = course[0];
-            String courseName = course[1];
+            String[] parts = course.split(":");
+            System.out.println(parts[0]);
+            System.out.println(parts[1]);
+            String courseCode = parts[0];
+            String courseName = parts[1];
 
             String s = "'[{\"values\": \"" + courseCode + "\",\"synonyms\": [\"" + courseCode + "\", \"" + courseName + "\"]}]'";
             String[] command = {"/bin/bash", "curl", "-i", "-X", "POST", "-H", "\"Content-Type:application/json\",", "-H", "\"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\"", "-d", s, "'https://api.api.ai/v1/entities/Subject/entries'"};

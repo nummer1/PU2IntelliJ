@@ -39,8 +39,6 @@ public class App2 extends Application {
         layout.setStyle("-fx-background-color: #fff9c4;");
         layout.getChildren().addAll(changeInterfaceBtn, chatBox.getChatBox());
 
-        ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2);
-
         if (App.getStage() != null) {
             App.getStage().getScene().setRoot(new Region());
             App.getLayout().getChildren().clear();

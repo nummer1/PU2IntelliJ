@@ -117,14 +117,14 @@ public class DbCom {
     }
 
     // return courseCode and courseName from database as string with space in between
-    public ArrayList<String> getCoursesAsString() {
+    public Collection<String> getCoursesAsString() {
         try {
             Statement courseStmt = this.con.createStatement();
             String courseQuery = "SELECT CourseCode, CourseName FROM Course";
             ResultSet rs = courseStmt.executeQuery(courseQuery);
-            ArrayList<String> rCol = new ArrayList<>();
+            Collection<String> rCol = new ArrayList<>();
             while (rs.next()) {
-                String s = rs.getString("CourseCode") + " " + rs.getString("CourseName");
+                String s = rs.getString("CourseCode") + ":" + rs.getString("CourseName");
                 rCol.add(s);
             }
             return rCol;
