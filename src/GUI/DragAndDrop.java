@@ -69,7 +69,6 @@ public class DragAndDrop {
 
                 ((TextArea) MidSection.getCoursePlan().getChildren().get(targetIndex)).setText(dragboard.getString()); // Set target text.
                 ((TextArea) MidSection.getCoursePlan().getChildren().get(sourceIndex)).setText(targetText); // Set source text.
-                System.out.println(targetFag.getText());
 
                 // Data transfer is successful
                 event.setDropCompleted(true);

@@ -3,6 +3,7 @@ package GUI; /**
  */
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
@@ -36,7 +37,8 @@ public class App extends Application {
             App2.getStage().getScene().setRoot(new Region());
             App2.getLayout().getChildren().clear();
         }
-        window.setScene(new Scene(layout, 800, 400));
+        window.setScene(new Scene(layout));
+        window.setFullScreen(true);
         layout.getStylesheets().add(getClass().getResource("stylesheets.css").toExternalForm());
         window.show();
     }

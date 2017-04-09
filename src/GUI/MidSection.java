@@ -71,7 +71,6 @@ public class MidSection {
         String toStudyCode = dbcom.getStudyCode(to);
         ArrayList<Course> finishedCourses = new ArrayList<>();
         finishedCourses.addAll(getCompletedCourses());
-        System.out.println(getCompletedCourses());
         StudyPlan studyplan = sel.switchMajor(finishedCourses, toStudyCode, "autumn", finishedSemesters);
         Collection<Semester> semesters = studyplan.getSemesters();
 
@@ -79,7 +78,6 @@ public class MidSection {
 
         for (Semester semester : semesters) {
             ArrayList<Course> sem = new ArrayList<>(semester.getCourses());
-            System.out.println(sem);
             courses.add(sem);
         }
 
@@ -125,7 +123,6 @@ public class MidSection {
         fag.getStyleClass().add("all-courses");
         fag.setEditable(false);
 
-        Font font = fag.getFont();
         double size = 12;
         fag.setFont(Font.font(size));
 
@@ -163,10 +160,8 @@ public class MidSection {
             count++;
             for (int fag = 0; fag < 4; fag++) {
                 if (count == coursePlan.getChildren().size()) {
-                    System.out.println("Antall elementer " + coursePlan.getChildren().size());
                     return;
                 }
-                System.out.println(coursePlan.getChildren().size());
                 coursePlan.getChildren().get(count).getStyleClass().remove("all-courses");
                 coursePlan.getChildren().get(count).getStyleClass().remove("completed-courses");
                 coursePlan.getChildren().get(count).getStyleClass().add("all-courses");
@@ -194,10 +189,8 @@ public class MidSection {
             count++;
             for (int fag = 0; fag < 4; fag++) {
                 if (count == coursePlan.getChildren().size()) {
-                    System.out.println("Antall elementer " + coursePlan.getChildren().size());
                     return;
                 }
-                System.out.println(coursePlan.getChildren().size());
                 coursePlan.getChildren().get(count).getStyleClass().remove("all-courses");
                 coursePlan.getChildren().get(count).getStyleClass().remove("completed-courses");
                 coursePlan.getChildren().get(count).getStyleClass().add("all-courses");
@@ -221,14 +214,12 @@ public class MidSection {
                 for (ArrayList<Course> semester : courses) {
                     for (Course arrayCourse : semester) {
                         if (arrayCourse.getCourseId().toUpperCase().trim().equals(courseID.toUpperCase().trim())) {
-                            System.out.println(arrayCourse.getCourseId() + ": " + courseID);
                             finishedCourses.add(arrayCourse);
                         }
                     }
                 }
             }
         }
-        System.out.println("Antall courses i finishedCourses: " + finishedCourses.size());
         return finishedCourses;
     }
 }

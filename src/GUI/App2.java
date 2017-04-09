@@ -46,7 +46,8 @@ public class App2 extends Application {
             App.getLayout().getChildren().clear();
         }
 
-        window.setScene(new Scene(layout, 800, 400));
+        window.setScene(new Scene(layout));
+        window.setFullScreen(true);
         layout.getStylesheets().add(getClass().getResource("stylesheets.css").toExternalForm());
         window.show();
     }
