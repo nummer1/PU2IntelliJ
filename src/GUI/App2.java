@@ -2,7 +2,10 @@ package GUI; /**
  * Created by andreaswilhelmflatt on 19.02.2017.
  */
 
+import Algorithm.Course;
 import Algorithm.DbCom;
+import Algorithm.Selector;
+import Algorithm.StudyPlan;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class App2 extends Application {
 
@@ -46,8 +51,7 @@ public class App2 extends Application {
         submitBtn.getStyleClass().add("change-interface-btn");
         submitBtn.setVisible(false);
         submitBtn.setOnAction(event -> {
-            // how can I get suggested studyplan displayed(with finishedCourses as input...not finished semesters as in Midsection.generateMidsection??)
-
+            //midSection.generateMidSection(from, to, finishedSemesters);
         });
 
         layout.setStyle("-fx-background-color: #fff9c4;");

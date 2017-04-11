@@ -90,6 +90,7 @@ public class MidSection {
 
     private void generateCoursePlan(ArrayList<ArrayList<Course>> courses) {
         for (ArrayList<Course> semester : courses) {
+            count = 0;
             for (Course course : semester) {
                 addCourse(course);
             }
@@ -137,7 +138,7 @@ public class MidSection {
             GridPane.setConstraints(fag, semesterCount - getCourses().size() / 2, count + 6);
         }
         count++;
-        count = count % 4; // Used to make each semester consist of 4 courses.
+        //count = count % 4; // Used to make each semester consist of 4 courses.
         coursePlan.getChildren().add(fag);
     }
 
