@@ -43,11 +43,6 @@ public class TopSection {
             app.start(App.getStage());
         });
 
-        /*
-        ChatBox chatBox = new ChatBox();
-        upperSection.getChildren().add(chatBox.getChatBox());
-        */
-
         TilFraChoices tilFraChoices = new TilFraChoices();
         tilFraChoices.initializeTilFraListener(topSection);
         tilFraChoices.initializeConnectedComboBox();
@@ -60,7 +55,7 @@ public class TopSection {
         ConfirmButton confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
 
-        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn()/*, chatBox.getChatBox()*/);
+        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn());
 
         SemesterSlider slider = new SemesterSlider();
         slider.initializeSliderListener();

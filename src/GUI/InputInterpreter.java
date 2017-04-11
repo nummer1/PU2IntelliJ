@@ -1,9 +1,8 @@
 package GUI;
 
 import ai.api.model.AIResponse;
-import javafx.geometry.Pos;
-import javafx.scene.control.TextArea;
 import AI.TextClientApplication;
+import javafx.scene.layout.VBox;
 
 import java.util.HashMap;
 
@@ -11,6 +10,13 @@ import java.util.HashMap;
  * Created by havardbjornoy on 15/03/2017.
  */
 public class InputInterpreter {
+
+    VBox layout = App2.getLayout();
+    String switchFromMajor;
+    String switchToMajor;
+    int semestersStudied;
+
+
 
     private TextClientApplication anna = new TextClientApplication();
 
@@ -29,22 +35,15 @@ public class InputInterpreter {
             else {
                 switch (action) {
                     case "make.studyplan":
-                        String switchFromMajor = parameters.get("Switch-from-major").toString();
-                        String switchToMajor = parameters.get("Switch-to-major").toString();
-                        Object timeStudied = parameters.get("Switch-from-major"); //Maybe think about modifying @sys.duration and make it include semesters
+                        switchFromMajor = parameters.get("Switch-from-major").toString();
+                        switchFromMajor = switchFromMajor.replace("\"", "");
+                        switchToMajor = parameters.get("Switch-to-major").toString();
+                        String sem = parameters.get("Semesters-studied").toString();
+                        sem = sem.replace("\"", "");
+                        semestersStudied = Integer.parseInt(sem);
+                        ChatBoxLogic.showUserCoursesFrom(switchFromMajor, semestersStudied);
+                        layout.getChildren().get(2).setVisible(true);
 
-                        MidSection midSection = new MidSection();
-                        midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
-                        midSection.resetCounts(); // Reset counts for indexing courses.
-
-                        TopSection topSection = new TopSection();
-                        topSection.getSearchField().getSearchField().setVisible(true);
-                        App.getLayout().setCenter(midSection.generateMidSection(switchFromMajor, switchToMajor,2));  //should have a field for years_studied/semester_studied
-                        App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
-                        break;
-                    case "change.interface": // Are we going to have this function. In that case we need to hide the other interface..
-                        //TODO:
-                        break;
                     case "get more information about TDT4240": // return link to webpage to course
                         //TODO:
                         break;
@@ -55,5 +54,17 @@ public class InputInterpreter {
         } else {
             return "You have to write a question or request below";
         }
+    }
+
+    public String getSwitchFromMajor() {
+        return switchFromMajor;
+    }
+
+    public String getSwitchToMajor() {
+        return switchToMajor;
+    }
+
+    public int getSemestersStudied() {
+        return semestersStudied;
     }
 }

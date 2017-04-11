@@ -18,6 +18,7 @@ public class ChatBox {
     private final VBox chatBox = new VBox(5);
     private List<Label> messages = new ArrayList<>();
     private ScrollPane container = new ScrollPane();
+    private InputInterpreter anna;
 
 
     public ChatBox() {
@@ -46,7 +47,7 @@ public class ChatBox {
 
         chatBoxSection.setAlignment(Pos.CENTER);
 
-        InputInterpreter anna = new InputInterpreter();
+        anna = new InputInterpreter();
         TextField userInput = new TextField();
         userInput.setPromptText("Ask ANNA.");
 
@@ -119,5 +120,9 @@ public class ChatBox {
         chatBoxSection.setMinWidth(width);
         chatBox.setPrefWidth(width - 20);
         chatBox.setPrefWidth(width - 20);
+    }
+
+    public InputInterpreter getInputInterpreter() {
+        return anna;
     }
 }
