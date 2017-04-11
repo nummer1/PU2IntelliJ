@@ -2,6 +2,9 @@ package GUI; /**
  * Created by andreaswilhelmflatt on 19.02.2017.
  */
 
+import Algorithm.DbCom;
+import Algorithm.Selector;
+import Algorithm.StudyPlan;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +18,8 @@ public class App2 extends Application {
 
     private static Stage window;
     private static VBox layout = new VBox(10);
+    private MidSection midSection;
+    private DbCom dbCom = new DbCom();
 
     public static void main(String[] args) {
         launch(args);
@@ -36,10 +41,17 @@ public class App2 extends Application {
         ChatBox chatBox = new ChatBox();
         layout.setAlignment(Pos.CENTER);
 
-        layout.setStyle("-fx-background-color: #fff9c4;");
-        layout.getChildren().addAll(changeInterfaceBtn, chatBox.getChatBox());
+        Button submitBtn = new Button("Submit");
+        submitBtn.getStyleClass().add("change-interface-btn");
+        submitBtn.setVisible(false);
 
-        ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2);
+        submitBtn.setOnAction(event -> {
+            // how can I get suggested studyplan displayed(with finishedCourses as input...not finished semesters as in Midsection.generateMidsection??)
+
+        });
+
+        layout.setStyle("-fx-background-color: #fff9c4;");
+        layout.getChildren().addAll(changeInterfaceBtn, chatBox.getChatBox(), submitBtn);
 
         if (App.getStage() != null) {
             App.getStage().getScene().setRoot(new Region());

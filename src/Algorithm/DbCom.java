@@ -124,7 +124,7 @@ public class DbCom {
             ResultSet rs = courseStmt.executeQuery(courseQuery);
             Collection<String> rCol = new ArrayList<>();
             while (rs.next()) {
-                String s = rs.getString("CourseCode") + " " + rs.getString("CourseName");
+                String s = rs.getString("CourseCode") + ":" + rs.getString("CourseName");
                 rCol.add(s);
             }
             return rCol;
