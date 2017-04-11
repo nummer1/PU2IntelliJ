@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class App2 extends Application {
 
     private static Stage window;
-    private static VBox layout = new VBox(5);
+    private static VBox layout = new VBox(2);
     private MidSection midSection;
     private DbCom dbCom = new DbCom();
 
@@ -44,7 +44,7 @@ public class App2 extends Application {
 
         Button submitBtn = new Button("Submit");
         submitBtn.getStyleClass().add("change-interface-btn");
-        //submitBtn.setVisible(false);
+        submitBtn.setVisible(false);
         submitBtn.setOnAction(event -> {
             // how can I get suggested studyplan displayed(with finishedCourses as input...not finished semesters as in Midsection.generateMidsection??)
 
@@ -52,8 +52,9 @@ public class App2 extends Application {
 
         layout.setStyle("-fx-background-color: #fff9c4;");
 
-        ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2);
         layout.getChildren().addAll(spacing, changeInterfaceBtn, chatBox.getChatBox(), submitBtn);
+        ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2);
+
 
         if (App.getStage() != null) {
             App.getStage().getScene().setRoot(new Region());
