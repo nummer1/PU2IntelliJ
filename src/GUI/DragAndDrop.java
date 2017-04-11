@@ -53,16 +53,25 @@ public class DragAndDrop {
                 int targetIndex = -1;
                 int sourceIndex = -1;
 
+                String sourceStyleClass = "";
+                String targetStyleClass = "";
+
                 for (int i = 0; i < MidSection.getCoursePlan().getChildren().size(); i++) {
+
                     if (event.getGestureTarget().equals(MidSection.getCoursePlan().getChildren().get(i))) {
                         targetFag = (TextArea) MidSection.getCoursePlan().getChildren().get(i);
                         targetIndex = i;
+                        targetStyleClass = targetFag.getStyleClass().get(2);
                     }
                     if (event.getGestureSource().equals(MidSection.getCoursePlan().getChildren().get(i))) {
                         sourceFag = (TextArea) MidSection.getCoursePlan().getChildren().get(i);
                         sourceIndex = i;
+                        sourceStyleClass = sourceFag.getStyleClass().get(2);
                     }
                 }
+
+                targetFag.getStyleClass().set(2, sourceStyleClass);
+                sourceFag.getStyleClass().set(2, targetStyleClass);
 
                 String targetText = targetFag.getText();
                 String sourceText = sourceFag.getText();

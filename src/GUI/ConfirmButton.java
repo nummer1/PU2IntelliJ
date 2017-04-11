@@ -41,4 +41,9 @@ public class ConfirmButton {
             }
         });
     }
+
+    public void setChatConfirmButtonAction() {
+        confirmBtn.setOnAction(e -> {
+        });
+    }
 }

@@ -82,7 +82,7 @@ public class ChatBox {
         chatBox.getChildren().add(styleLabel(firstMessage));
     }
 
-    public HBox styleLabel(Message m) {
+    private HBox styleLabel(Message m) {
 
         HBox content = new HBox(10);
 

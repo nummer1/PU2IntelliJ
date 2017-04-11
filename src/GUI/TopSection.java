@@ -11,7 +11,7 @@ public class TopSection {
 
     private Button changeInterfaceBtn;
     private SearchField searchField;
-    private VBox topSection = new VBox(10);
+    private VBox topSection = new VBox(5);
 
     public TopSection() {
         initializeTopSection();
@@ -30,6 +30,10 @@ public class TopSection {
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
         upperSection.setAlignment(Pos.CENTER);
+
+        Region spacing = new Region();
+        spacing.setMinHeight(0);
+        spacing.setMaxHeight(0);
 
         changeInterfaceBtn = new Button("Change Interface.");
         changeInterfaceBtn.getStyleClass().add("change-interface-btn");
@@ -68,6 +72,6 @@ public class TopSection {
 
         lowerSection.getChildren().addAll(slider.getSlider(), rightAlignTextField, searchField.getSearchField());
 
-        topSection.getChildren().addAll(changeInterfaceBtn, upperSection, lowerSection);
+        topSection.getChildren().addAll(spacing, changeInterfaceBtn, upperSection, lowerSection);
     }
 }

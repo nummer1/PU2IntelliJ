@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class App2 extends Application {
 
     private static Stage window;
-    private static VBox layout = new VBox(10);
+    private static VBox layout = new VBox(5);
 
     public static void main(String[] args) {
         launch(args);
@@ -35,9 +35,12 @@ public class App2 extends Application {
 
         ChatBox chatBox = new ChatBox();
         layout.setAlignment(Pos.CENTER);
+        Region spacing = new Region();
+        spacing.setMinHeight(0);
+        spacing.setMaxHeight(0);
 
         layout.setStyle("-fx-background-color: #fff9c4;");
-        layout.getChildren().addAll(changeInterfaceBtn, chatBox.getChatBox());
+        layout.getChildren().addAll(spacing, changeInterfaceBtn, chatBox.getChatBox());
 
         ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2);
 
