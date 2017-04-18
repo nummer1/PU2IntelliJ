@@ -7,6 +7,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
+
 public class TopSection {
 
     private Button changeInterfaceBtn;
@@ -57,15 +59,16 @@ public class TopSection {
 
         upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn());
 
-        SemesterSlider slider = new SemesterSlider();
+        SemesterSliderAndInstructions slider = new SemesterSliderAndInstructions();
         slider.initializeSliderListener();
-        slider.getSlider().setVisible(false);
+        slider.getSliderAndText().setVisible(false);
 
         //GJØR SLIK AT SEARCHFIELD BLIR HØYRE-SENTRERT
         Region rightAlignTextField = new Region(); // Added because I want to right-align the search-field.
         lowerSection.setHgrow(rightAlignTextField, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
+        lowerSection.setMaxWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20);
 
-        lowerSection.getChildren().addAll(slider.getSlider(), rightAlignTextField, searchField.getSearchField());
+        lowerSection.getChildren().addAll(slider.getSliderAndText(), rightAlignTextField, searchField.getSearchField());
 
         topSection.getChildren().addAll(spacing, changeInterfaceBtn, upperSection, lowerSection);
     }

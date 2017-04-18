@@ -7,6 +7,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
+
 /**
  * Created by andreaswilhelmflatt on 05.03.2017.
  */
@@ -54,8 +56,8 @@ public class TilFraChoices {
             //checkCompletedCourses();
 
             App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
-            SemesterSlider.getSlider().setMax(Math.ceil(midSection.getCoursePlan().getChildren().size()/10.0 * 2) / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
-            SemesterSlider.getSlider().setVisible(true);
+            SemesterSliderAndInstructions.getSlider().setMax(MidSection.getCourses().size() / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
+            SemesterSliderAndInstructions.getSliderAndText().setVisible(true);
             App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
 
             if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {

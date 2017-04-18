@@ -1,7 +1,6 @@
 package GUI;
 
 import Algorithm.Course;
-import Algorithm.Semester;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -32,8 +31,8 @@ public class ConfirmButton {
                 searchField.getSearchField().setVisible(true); // Set search-field visible.
 
                 App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString(), 2));
-                SemesterSlider.getSlider().setMax(Math.ceil(midSection.getCoursePlan().getChildren().size()/10.0 * 2) / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
-                SemesterSlider.getSlider().setVisible(true);
+                SemesterSliderAndInstructions.getSlider().setMax(Math.ceil(midSection.getCoursePlan().getChildren().size()/10.0 * 2) / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
+                SemesterSliderAndInstructions.getSlider().setVisible(true);
                 App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
             }
             else {
