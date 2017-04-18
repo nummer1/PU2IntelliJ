@@ -15,12 +15,6 @@ public class Selector {
         //TODO
     }
 
-
-    //A different aproach where the user only
-    public StudyPlan switchMajor(String from, String to, int currentSemester) {
-        return null;
-    }
-
     //This would be the initial call to our main algorithm.
     //It may have many different helping functions which can be implemented when needed.
     public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season, int currSemester) {
@@ -31,12 +25,18 @@ public class Selector {
         System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
         //remove sall courses with id = "valg"
-        Course rC = new Course("valg", "agile", 7.5);
-        while (neededCourses.remove(rC)) { }
+        //Course rC = new Course("valg", "agile", 7.5);
+        //while (neededCourses.remove(rC)) { }
         System.out.println(neededCourses);
 
         for (Course course : neededCourses) {
-            int semester = db.getSemester(course.getCourseId(), toName);
+            int semester;
+            if (course.getCourseId().substring(0, 4).equals("valg")) {
+                String code = course.getCourseId();
+                semester = Integer.parseInt(code.substring(code.length() - 1));
+            } else {
+                semester = db.getSemester(course.getCourseId(), toName);
+            }
             if (semester < 2) {
                 course.setScore(1000);
             } else if (semester < 4) {
@@ -79,7 +79,9 @@ public class Selector {
                     break;
                 }
                 Course c = neededCourses.get(neededCourses.size() - i);
-                if (semester.getStudypoints() <= 30.0 - c.getStudypoints()) {
+                Boolean isAllowdThisSeason = c.isAgile() || c.isSpring() && semester.isSpring() || c.isAutumn() && semester.isAutumn();
+                // if season do not match, dont put in studyplan, check course equals agile or equal semester season
+                if (semester.getStudypoints() <= 30.0 - c.getStudypoints() && isAllowdThisSeason) {
                     semester.addCourse(c);
                     neededCourses.remove(c);
                     System.out.println("REMOVED A COURSE");
@@ -142,7 +144,8 @@ public class Selector {
     }
 
     public static void main(String[] args) {
-
+        Selector s = new Selector();
+        s.switchMajor(new ArrayList<Course>(),"MTDT", "Autumn", 1);
     }
 
     //This function is only for demonstration purposes

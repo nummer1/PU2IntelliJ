@@ -64,6 +64,11 @@ public class Course implements Comparable<Course>{
         }
     }
 
+    public boolean isAutumn() { return this.isAutumn; }
+
+    public boolean isSpring() { return this.isSpring; }
+
+    public boolean isAgile() { return this.isAgile; }
 
     public String getCourseId() {
         return courseId;
