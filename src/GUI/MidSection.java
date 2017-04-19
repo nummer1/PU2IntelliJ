@@ -235,7 +235,7 @@ public class MidSection {
         int count = 0;
         for (double semester = 0; semester < finishedSemesters; semester++) {
             count++;
-            for (int fag = 0; fag < 4; fag++) {
+            for (int fag = 0; fag < courses.get((int) semester).size(); fag++) {
                 if (count == coursePlan.getChildren().size()) {
                     return;
                 }
@@ -248,7 +248,7 @@ public class MidSection {
 
         for (double semester = finishedSemesters; semester < getCourses().size(); semester++) {
             count++;
-            for (int fag = 0; fag < 4; fag++) {
+            for (int fag = 0; fag < courses.get((int) semester).size(); fag++) {
                 if (count == coursePlan.getChildren().size()) {
                     return;
                 }
