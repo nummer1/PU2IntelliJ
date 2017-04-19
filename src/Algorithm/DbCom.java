@@ -23,11 +23,6 @@ public class DbCom {
         this.createConnection(url, username, password);
     }
 
-    public static void main(String[] args) {
-        DbCom db = new DbCom();
-        System.out.println(db.getCourseSingle("TDT4100"));
-    }
-
     private void createConnection(String url, String username, String password) {
         System.out.println("Connecting to database...");
         try {
