@@ -44,9 +44,9 @@ public class SemesterTest extends TestCase {
     public void testFillWithElectives() {
         setup();
         assertEquals(this.sem.getStudypoints(), 0.0);
-        this.sem.fillWithElectives();
+        this.sem.fillWithElectives(1);
         assertEquals(this.sem.getStudypoints(), 30.0);
-        assertTrue(this.sem.getCourses().contains(new Course("valg", "agile")));
+        assertTrue(this.sem.getCourses().contains(new Course("valg1", "agile")));
     }
 
     public void testSeasons() {

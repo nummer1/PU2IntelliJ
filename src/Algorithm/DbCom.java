@@ -241,10 +241,4 @@ public class DbCom {
             throw new IllegalStateException("SQLException in DbCom.getSemester()", e);
         }
     }
-
-    public static void main(String[] args) {
-        DbCom db = new DbCom();
-        StudyPlan c = db.getCoursesFromMajor("MTDT");
-        System.out.println(c);
-    }
 }
