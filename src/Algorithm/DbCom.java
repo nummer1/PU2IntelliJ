@@ -14,10 +14,18 @@ public class DbCom {
     Connection con;
 
     public DbCom() {
-        String url = "jdbc:mysql://188.166.85.212:3306/Education";
+        String url = "jdbc:mysql://188.166.85.212:3306/Education"+
+                "?verifyServerCertificate=false"+
+                "&useSSL=true"+
+                "&requireSSL=true";
         String username = "default";
         String password = "";
         this.createConnection(url, username, password);
+    }
+
+    public static void main(String[] args) {
+        DbCom db = new DbCom();
+        System.out.println(db.getCourseSingle("TDT4100"));
     }
 
     private void createConnection(String url, String username, String password) {
