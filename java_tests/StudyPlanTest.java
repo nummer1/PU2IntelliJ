@@ -4,6 +4,7 @@ import Algorithm.StudyPlan;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Erlend on 05.04.2017.
@@ -21,6 +22,8 @@ public class StudyPlanTest extends TestCase {
         Semester sem = new Semester("autumn");
         this.studyPlan.addSemester(sem, 1);
         assertEquals(sem, this.studyPlan.getSemester(1));
+        Collection<Semester> semArray = this.studyPlan.getSemesters();
+        assertTrue(semArray.contains(sem));
     }
 
     public void testGetCourses() {
@@ -39,6 +42,12 @@ public class StudyPlanTest extends TestCase {
         setup();
         this.studyPlan.setScore(1001);
         assertEquals(1001, this.studyPlan.getScore());
+    }
+
+    public void testMajor() {
+        setup();
+        this.studyPlan.setMajor("MTDT");
+        assertEquals("MTDT", this.studyPlan.getMajor());
     }
 
 }

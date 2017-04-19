@@ -6,6 +6,7 @@ import Algorithm.Course;
 import junit.framework.TestCase;
 import org.junit.*;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class CourseTest extends TestCase{
 
     private void setup() {
         this.tdt4100 = new Course("TDT4100", "agile");
+        tdt4100.setCourseName("Objektorientert programmering");
         tdt4100.setDescription("This is a description");
         tdt4100.setDifficulty(5);
         c.setTime(dt);
@@ -25,15 +27,19 @@ public class CourseTest extends TestCase{
         dt = c.getTime();
         tdt4100.setExamDate("30/12/2017");
         tdt4100.setFaculty("IME");
+        tdt4100.setURL("https://www.ntnu.no/studier/emner/TDT4100");
     }
 
     public void testSetup() {
         setup();
+        assertNotNull(tdt4100.getCourseName());
         assertNotNull(tdt4100.getCourseId());
         assertNotNull(tdt4100.getDescription());
         assertNotNull(tdt4100.getFaculty());
         assertNotNull(tdt4100.getDifficulty());
         assertNotNull(tdt4100.getExamDate());
+        assertNotNull(tdt4100.getPrintable_date());
+        assertNotNull(tdt4100.getURL());
     }
 
     public void testCourseId() {
@@ -96,5 +102,35 @@ public class CourseTest extends TestCase{
         }
         tdt4100.setFaculty("IDI");
         assertEquals(tdt4100.getFaculty(), "IDI");
+    }
+
+    public void testSeason() {
+        setup();
+        assertEquals(true, this.tdt4100.isAgile());
+        assertEquals(true, this.tdt4100.isAutumn());
+        assertEquals(true, this.tdt4100.isSpring());
+        Course c = new Course("blah", "spring");
+        assertTrue(c.isSpring());
+        assertFalse(c.isAutumn());
+        c = new Course("blah", "autumn");
+        assertFalse(c.isSpring());
+        assertTrue(c.isAutumn());
+    }
+
+    public void testScore() {
+        setup();
+        assertEquals(0.0, this.tdt4100.getScore());
+        this.tdt4100.setScore(200);
+        assertEquals(200.0, this.tdt4100.getScore());
+    }
+
+    public void testDependencies() {
+        setup();
+        this.tdt4100.addDependency("aCourse");
+        ArrayList<String> depArray = this.tdt4100.getDependencies();
+        assertTrue(depArray.contains("aCourse"));
+        this.tdt4100.removeDependency("aCourse");
+        depArray = this.tdt4100.getDependencies();
+        assertTrue(depArray.isEmpty());
     }
 }

@@ -145,7 +145,6 @@ public class Course implements Comparable<Course>{
             try {
                 exam_date = df.parse(exam_string);
                 String newDateString = df.format(exam_date);
-                System.out.println(newDateString);
             } catch (ParseException e) {
                 exam_date = new Date(); // if parseException, sets date to now
             }
