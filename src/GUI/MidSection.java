@@ -3,6 +3,7 @@ package GUI;
 import Algorithm.*;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -130,8 +131,11 @@ public class MidSection {
         return coursePlan;
     }
 
-    private void generateCoursePlan(ArrayList<ArrayList<Course>> courses) {
+    public static void generateCoursePlan(ArrayList<ArrayList<Course>> courses) {
+        coursePlan.getChildren().clear();
         labelIndexes.clear();
+        resetCounts();
+
         int labelCount = 0;
 
         for (ArrayList<Course> semester : courses) {
@@ -320,11 +324,21 @@ public class MidSection {
 
             for (int j = 0; j < courses.get(i).size(); j++) {
                 if (counter == index) {
+                    SearchField.getSearchField().getItems().add(courses.get(i).get(j).getCourseId() + ":" + courses.get(i).get(j).getCourseName());
                     courses.get(i).remove(j);
                     return;
                 }
                 counter++;
             }
         }
+    }
+
+    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
+        for (Node node : gridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;
     }
 }

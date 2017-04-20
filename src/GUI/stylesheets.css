@@ -6,8 +6,8 @@
     -fx-background-color: #ffecb3;
 }
 
-.main-background .content {
-    -fx-background-color: yellow ;
+.main-background {
+    -fx-background-color: radial-gradient(center 50% 50% , radius 1500px , #ffebcd, #008080);
 }
 
 .aichat {

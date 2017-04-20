@@ -45,6 +45,10 @@ public class TopSection {
             app.start(App.getStage());
         });
 
+        Instructions instructions = new Instructions();
+        Instructions hidden = new Instructions();
+        hidden.getInstructions().setVisible(false);
+
         TilFraChoices tilFraChoices = new TilFraChoices();
         tilFraChoices.initializeTilFraListener(topSection);
         tilFraChoices.initializeConnectedComboBox();
@@ -57,7 +61,12 @@ public class TopSection {
         ConfirmButton confirmBtn = new ConfirmButton();
         confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
 
-        upperSection.getChildren().addAll(tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn());
+        Region alignTextField = new Region();
+        Region alignTextField2 = new Region();
+        upperSection.setHgrow(alignTextField, Priority.ALWAYS);
+        upperSection.setHgrow(alignTextField2, Priority.ALWAYS);
+
+        upperSection.getChildren().addAll(instructions.getInstructions(), alignTextField, tilFraChoices.getFraLabel(), tilFraChoices.getFraChoices(), tilFraChoices.getTilLabel(), tilFraChoices.getTilChoices(), confirmBtn.getConfirmBtn(), alignTextField2, hidden.getInstructions());
 
         SemesterSliderAndInstructions slider = new SemesterSliderAndInstructions();
         slider.initializeSliderListener();
@@ -68,7 +77,7 @@ public class TopSection {
         lowerSection.setHgrow(rightAlignTextField, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
         lowerSection.setMaxWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20);
 
-        lowerSection.getChildren().addAll(slider.getSliderAndText(), rightAlignTextField, searchField.getSearchField());
+        lowerSection.getChildren().addAll(slider.getSliderAndText(), rightAlignTextField, searchField.getInstructionsSearchFieldAndBtn());
 
         topSection.getChildren().addAll(spacing, changeInterfaceBtn, upperSection, lowerSection);
     }

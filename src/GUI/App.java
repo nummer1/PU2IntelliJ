@@ -30,7 +30,8 @@ public class App extends Application {
 
         TopSection topSection = new TopSection();
 
-        layout.setStyle("-fx-background-color: #fff9c4;");
+        layout.getStyleClass().add("main-background");
+        //layout.setStyle("-fx-background-color: #fff9c4;");
         layout.setTop(topSection.getTopSection());
 
         if (App2.getStage() != null) {

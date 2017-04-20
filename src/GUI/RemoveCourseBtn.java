@@ -1,5 +1,7 @@
 package GUI;
 
+import Algorithm.Course;
+import Algorithm.DbCom;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 

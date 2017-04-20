@@ -52,7 +52,7 @@ public class TilFraChoices {
             MidSection midSection = new MidSection();
             midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
             midSection.resetCounts(); // Reset counts for indexing courses.
-            SearchField.getSearchField().setVisible(true); // Set search-field visible.
+            SearchField.getInstructionsSearchFieldAndBtn().setVisible(true); // Set search-field visible.
             //checkCompletedCourses();
 
             App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
