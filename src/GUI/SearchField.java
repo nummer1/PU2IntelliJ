@@ -30,6 +30,7 @@ public class SearchField {
     public static VBox getInstructionsSearchFieldAndBtn() {return instructionsSearchFieldAndBtn;}
 
     public static void initializeSearchField() { // Initializes search-field.
+        instructionsSearchFieldAndBtn.getChildren().clear();
         Label instructions = new Label("Search custom courses");
         instructions.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
 

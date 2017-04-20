@@ -75,6 +75,7 @@ public class TopSection {
         //GJØR SLIK AT SEARCHFIELD BLIR HØYRE-SENTRERT
         Region rightAlignTextField = new Region(); // Added because I want to right-align the search-field.
         lowerSection.setHgrow(rightAlignTextField, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
+        upperSection.setMaxWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20);
         lowerSection.setMaxWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20);
 
         lowerSection.getChildren().addAll(slider.getSliderAndText(), rightAlignTextField, searchField.getInstructionsSearchFieldAndBtn());

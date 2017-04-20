@@ -32,9 +32,9 @@ public class ChatBoxLogic {
         SearchField.getSearchField().setMaxWidth(300);
         SearchField.getSearchField().getItems().clear();
         SearchField.initializeSearchField();
-        SearchField.getSearchField().setVisible(true);
+        SearchField.getInstructionsSearchFieldAndBtn().setVisible(true);
 
-        ChatBoxLogic.searchFieldHBox.getChildren().addAll(region, SearchField.getSearchField());
+        ChatBoxLogic.searchFieldHBox.getChildren().addAll(region, SearchField.getInstructionsSearchFieldAndBtn());
     }
 
     public static void showUserCoursesFrom(String from, int fininishedSemesters) { // Call this method when you want to show the user all courses from the Study he/she's been taking.

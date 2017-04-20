@@ -24,6 +24,8 @@ public class RemoveCourseBtn {
 
     public void initializeRemoveCourseBtn() {
         removeCourseBtn.setText("x");
+        removeCourseBtn.getStyleClass().add("remove-course-btn");
+        removeCourseBtn.setMaxWidth(50);
 
         removeCourseBtn.setOnAction(event -> {
             for (int i = 0; i < MidSection.getCoursePlan().getChildren().size(); i++) {

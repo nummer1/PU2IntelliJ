@@ -49,15 +49,15 @@ public class App2 extends Application {
 
         Button submitBtn = new Button("Submit");
         submitBtn.getStyleClass().add("change-interface-btn");
-        submitBtn.setVisible(false);
+        submitBtn.setVisible(false); // SET THIS TO TRUE WHEN REQUIREMENTS ARE FULFILLED
         submitBtn.setOnAction(event -> {
             //midSection.generateMidSection(from, to, finishedSemesters);
         });
 
-        layout.setStyle("-fx-background-color: #fff9c4;");
+        layout.getStyleClass().add("main-background");
 
         layout.getChildren().addAll(spacing, changeInterfaceBtn, chatBox.getChatBox(), submitBtn);
-        ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2);
+        ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2); //FJERNES NÅR IMPLEMENTASJONEN AV SUBMITBTN ER FERDIG
 
 
         if (App.getStage() != null) {

@@ -17,8 +17,8 @@ public class TilFraChoices {
     private ObservableList<Study> studies = setAvailableStudies();
     private ChoiceBox tilChoices = new ChoiceBox();
     private ChoiceBox fraChoices = new ChoiceBox();
-    private Label fraLabel = new Label("Fra: ");
-    private Label tilLabel = new Label("Til: ");
+    private Label fraLabel = new Label("From: ");
+    private Label tilLabel = new Label("To: ");
 
     public ObservableList<Study> getStudies() {
         return studies;
