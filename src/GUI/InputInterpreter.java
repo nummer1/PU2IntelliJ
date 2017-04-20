@@ -35,9 +35,9 @@ public class InputInterpreter {
             else {
                 switch (action) {
                     case "make.studyplan":
-                        switchFromMajor = parameters.get("Switch-from-major").toString();
+                        switchFromMajor = parameters.get("Switch-from-major").toString();   //  "Switch-from-major" is a courseCode
                         switchFromMajor = switchFromMajor.replace("\"", "");
-                        switchToMajor = parameters.get("Switch-to-major").toString();
+                        switchToMajor = parameters.get("Switch-to-major").toString();       //  "Switch-to-major" is a courseCode
                         String sem = parameters.get("Semesters-studied").toString();
                         sem = sem.replace("\"", "");
                         semestersStudied = Integer.parseInt(sem);
