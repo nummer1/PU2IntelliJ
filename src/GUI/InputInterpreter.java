@@ -1,5 +1,7 @@
 package GUI;
 
+import Algorithm.Course;
+import Algorithm.DbCom;
 import ai.api.model.AIResponse;
 import AI.TextClientApplication;
 import javafx.scene.layout.VBox;
@@ -15,6 +17,8 @@ public class InputInterpreter {
     String switchFromMajor;
     String switchToMajor;
     int semestersStudied;
+    DbCom db = new DbCom();
+
 
 
 
@@ -44,9 +48,11 @@ public class InputInterpreter {
                         ChatBoxLogic.showUserCoursesFrom(switchFromMajor, semestersStudied);
                         layout.getChildren().get(2).setVisible(true);
 
-                    case "get more information about TDT4240": // return link to webpage to course
-                        //TODO:
-                        break;
+                    case "get.URL": // return link to webpage to course
+                        String courseCode = parameters.get("Course").toString().replace('\"',' ').trim();
+                        Course course = db.getCourseSingle(courseCode);
+                        String url = course.getURL();
+                        return speech + " " + url;
                 }
             }
             return speech;
