@@ -28,7 +28,6 @@ public class SemesterSliderAndInstructions {
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         slider.setBlockIncrement(1);
-        //slider.setBlockIncrement(0.5);
         slider.setMajorTickUnit(1);
         slider.setMinorTickCount(1);
         slider.setSnapToTicks(true);

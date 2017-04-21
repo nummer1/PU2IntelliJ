@@ -12,8 +12,8 @@ import java.util.HashMap;
 public class InputInterpreter {
 
     VBox layout = App2.getLayout();
-    String switchFromMajor;
-    String switchToMajor;
+    private static String switchFromMajor;
+    private static String switchToMajor;
     int semestersStudied;
 
 
@@ -43,6 +43,7 @@ public class InputInterpreter {
                         semestersStudied = Integer.parseInt(sem);
                         ChatBoxLogic.showUserCoursesFrom(switchFromMajor, semestersStudied);
                         layout.getChildren().get(2).setVisible(true);
+                        App2.getSubmitBtn().setVisible(true);
 
                     case "get more information about TDT4240": // return link to webpage to course
                         //TODO:
@@ -56,11 +57,11 @@ public class InputInterpreter {
         }
     }
 
-    public String getSwitchFromMajor() {
+    public static String getSwitchFromMajor() {
         return switchFromMajor;
     }
 
-    public String getSwitchToMajor() {
+    public static String getSwitchToMajor() {
         return switchToMajor;
     }
 

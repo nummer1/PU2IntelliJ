@@ -14,7 +14,6 @@ public class App extends Application {
     private static Stage window;
     private static BorderPane layout = new BorderPane();
 
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -31,7 +30,6 @@ public class App extends Application {
         TopSection topSection = new TopSection();
 
         layout.getStyleClass().add("main-background");
-        //layout.setStyle("-fx-background-color: #fff9c4;");
         layout.setTop(topSection.getTopSection());
 
         if (App2.getStage() != null) {

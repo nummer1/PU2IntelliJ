@@ -22,10 +22,13 @@ public class App2 extends Application {
     private static VBox layout = new VBox(2);
     private MidSection midSection;
     private DbCom dbCom = new DbCom();
+    private static Button submitBtn;
 
     public static void main(String[] args) {
         launch(args);
     }
+
+    public static Button getSubmitBtn() {return submitBtn;}
 
     @Override
     public void start(Stage primaryStage) {
@@ -47,17 +50,20 @@ public class App2 extends Application {
         spacing.setMinHeight(0);
         spacing.setMaxHeight(0);
 
-        Button submitBtn = new Button("Submit");
+        DbCom courseConverter = new DbCom();
+
+        submitBtn = new Button("Submit");
         submitBtn.getStyleClass().add("change-interface-btn");
         submitBtn.setVisible(false); // SET THIS TO TRUE WHEN REQUIREMENTS ARE FULFILLED
         submitBtn.setOnAction(event -> {
-            //midSection.generateMidSection(from, to, finishedSemesters);
+            midSection = new MidSection();
+            layout.getChildren().add(midSection.generateMidSection(InputInterpreter.getSwitchFromMajor().toString(), InputInterpreter.getSwitchToMajor().replace("\"", "").trim().toString()));
+            submitBtn.setDisable(true);
         });
 
         layout.getStyleClass().add("main-background");
 
         layout.getChildren().addAll(spacing, changeInterfaceBtn, chatBox.getChatBox(), submitBtn);
-        ChatBoxLogic.showUserCoursesFrom("Datateknologi", 2); //FJERNES NÅR IMPLEMENTASJONEN AV SUBMITBTN ER FERDIG
 
 
         if (App.getStage() != null) {

@@ -18,7 +18,7 @@ public class ChatBox {
     private final VBox chatBox = new VBox(5);
     private List<Label> messages = new ArrayList<>();
     private ScrollPane container = new ScrollPane();
-    private InputInterpreter anna;
+    private static InputInterpreter anna;
 
 
     public ChatBox() {

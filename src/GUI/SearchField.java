@@ -50,18 +50,14 @@ public class SearchField {
                     if (semester.contains(course)) {return;}
                 }
 
-                int count = 0;
                 int semesterCount = 0;
 
                 for (ArrayList<Course> semester : courses) {
                     if (semester.size() == 4) {
-                        count += 4;
                         semesterCount++;
                         continue;
                     }
                     else {
-                        count += semester.size();
-                        //MidSection.addCustomCourse(course, semesterCount, count + 1);
                         MidSection.getCourses().get(semesterCount).add(course);
                         searchField.getItems().remove(course.getCourseId() + ":" + course.getCourseName());
                         MidSection.generateCoursePlan(MidSection.getCourses());

@@ -20,6 +20,7 @@ public class Instructions {
         instructionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
 
         TextArea instructionsArea = new TextArea();
+        instructionsArea.setEditable(false);
         instructionsArea.setFont(Font.font(14));
         instructionsArea.getStyleClass().add("instructions");
         instructionsArea.setWrapText(true);

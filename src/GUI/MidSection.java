@@ -103,7 +103,7 @@ public class MidSection {
         return ((Button) ((HBox) coursePlan.getChildren().get(index)).getChildren().get(1));
     }
 
-    public GridPane generateMidSection(String from, String to, int finishedSemesters) { // Initializes GridPane and adds courses.
+    public GridPane generateMidSection(String from, String to) { // Initializes GridPane and adds courses.
         makeBasicGridPane();
 
         Selector sel = new Selector();
@@ -114,7 +114,8 @@ public class MidSection {
         String toStudyCode = dbcom.getStudyCode(to);
         ArrayList<Course> finishedCourses = new ArrayList<>();
         finishedCourses.addAll(getCompletedCourses());
-        StudyPlan studyplan = sel.switchMajor(finishedCourses, toStudyCode, "autumn", finishedSemesters);
+        System.out.println("FERDIGE: " + finishedCourses);
+        StudyPlan studyplan = sel.switchMajor(finishedCourses, toStudyCode, "autumn");
         Collection<Semester> semesters = studyplan.getSemesters();
 
         courses.clear();
@@ -296,10 +297,10 @@ public class MidSection {
     public static ArrayList<Course> getCompletedCourses() {
         finishedCourses = new ArrayList<>();
         for (int i = 0; i < coursePlan.getChildren().size(); i++) {
-            if (i % 5 == 0) {
+            if (MidSection.getLabelIndexes().contains(Integer.valueOf(i))) {
                 continue;
             }
-            TextArea course = getCourseTextArea(count);
+            TextArea course = getCourseTextArea(i);
             String courseID = course.getText().split("\n")[0];
 
 
@@ -331,14 +332,5 @@ public class MidSection {
                 counter++;
             }
         }
-    }
-
-    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-                return node;
-            }
-        }
-        return null;
     }
 }

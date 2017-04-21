@@ -11,16 +11,12 @@ import javafx.scene.control.Button;
 public class RemoveCourseBtn {
 
     private Button removeCourseBtn = new Button();
-    private int index;
 
     public RemoveCourseBtn(int index) {
-        this.index = index;
         initializeRemoveCourseBtn();
     }
 
     public Button getButton() {return removeCourseBtn;}
-
-    public int getIndex() {return index;}
 
     public void initializeRemoveCourseBtn() {
         removeCourseBtn.setText("x");

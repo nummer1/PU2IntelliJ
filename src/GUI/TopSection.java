@@ -23,10 +23,6 @@ public class TopSection {
         return topSection;
     }
 
-    public SearchField getSearchField(){
-        return searchField;
-    }
-
     private void initializeTopSection() {
         topSection.setAlignment(Pos.CENTER);
         HBox upperSection = new HBox(10);

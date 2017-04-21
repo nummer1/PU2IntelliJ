@@ -20,10 +20,6 @@ public class TilFraChoices {
     private Label fraLabel = new Label("From: ");
     private Label tilLabel = new Label("To: ");
 
-    public ObservableList<Study> getStudies() {
-        return studies;
-    }
-
     public ChoiceBox getTilChoices() {
         return tilChoices;
     }
