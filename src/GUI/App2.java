@@ -32,6 +32,7 @@ public class App2 extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        layout.getChildren().clear();
         window = primaryStage;
         window.setTitle("ANNABot");
 
@@ -57,6 +58,7 @@ public class App2 extends Application {
         submitBtn.setVisible(false); // SET THIS TO TRUE WHEN REQUIREMENTS ARE FULFILLED
         submitBtn.setOnAction(event -> {
             midSection = new MidSection();
+            layout.getChildren().remove(MidSection.getCoursePlan());
             layout.getChildren().add(midSection.generateMidSection(InputInterpreter.getSwitchFromMajor().toString(), InputInterpreter.getSwitchToMajor().replace("\"", "").trim().toString()));
             submitBtn.setDisable(true);
         });

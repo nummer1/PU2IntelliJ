@@ -114,7 +114,6 @@ public class MidSection {
         String toStudyCode = dbcom.getStudyCode(to);
         ArrayList<Course> finishedCourses = new ArrayList<>();
         finishedCourses.addAll(getCompletedCourses());
-        System.out.println("FERDIGE: " + finishedCourses);
         StudyPlan studyplan = sel.switchMajor(finishedCourses, toStudyCode, "autumn");
         Collection<Semester> semesters = studyplan.getSemesters();
 
@@ -128,11 +127,16 @@ public class MidSection {
         getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
         resetCounts(); // Reset counts for indexing courses.
 
+        for (ArrayList<Course> semester : courses) {
+            semester.removeAll(finishedCourses);
+        }
+
         generateCoursePlan(courses);
         return coursePlan;
     }
 
     public static void generateCoursePlan(ArrayList<ArrayList<Course>> courses) {
+        System.out.println("COURSES" + courses);
         coursePlan.getChildren().clear();
         labelIndexes.clear();
         resetCounts();
@@ -150,8 +154,8 @@ public class MidSection {
 
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-            semesterLabel.setMinWidth((screenSize.getWidth() / (courses.size()/2)) - 10);
-            semesterLabel.setMaxWidth((screenSize.getWidth() / (courses.size()/2)) - 10);
+            //semesterLabel.setMinWidth((screenSize.getWidth() / (courses.size()/2)) - 10);
+            //semesterLabel.setMaxWidth((screenSize.getWidth() / (courses.size()/2)) - 10);
             semesterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
             GridPane.setHalignment(semesterLabel, HPos.CENTER); // Center Semester-Label.
 
@@ -165,6 +169,7 @@ public class MidSection {
             coursePlan.getChildren().add(semesterLabel);
 
             for (Course course : semester) {
+                System.out.println(semester);
                 addCourse(course);
                 labelCount++;
             }

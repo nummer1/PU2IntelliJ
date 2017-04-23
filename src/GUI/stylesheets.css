@@ -55,4 +55,12 @@
 
 .instructions .content {
     -fx-background-color: radial-gradient(center 50% 50% , radius 1500px , #ffebcd, #008080);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.text-area:focused {
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
 }
