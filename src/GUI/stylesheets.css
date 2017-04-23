@@ -17,6 +17,7 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-text-fill: white;
+    -fx-padding: 5 20 5 20;
 }
 
 .change-interface-btn {
@@ -38,6 +39,7 @@
     -fx-font-size: 16pt;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
+    -fx-padding: 5 20 5 20;
 }
 
 .remove-course-btn {
