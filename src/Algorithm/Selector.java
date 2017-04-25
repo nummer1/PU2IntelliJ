@@ -1,6 +1,5 @@
 package Algorithm;
 
-import GUI.Study;
 import java.util.*;
 
 //import com.google.gson.*;
@@ -24,11 +23,18 @@ public class Selector {
 
     //This would be the initial call to our main algorithm.
     //It may have many different helping functions which can be implemented when needed.
-    public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
+    public StudyPlan switchMajor( String fromName, String toName, String season, int currSemester) {
         DbCom db = new DbCom();
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
+        StudyPlan finished = db.getCoursesFromMajor(fromName);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
+        ArrayList<Course> finishedCourses = finished.getCourses();
+        System.out.println(majorCourses);
+        System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
+        //remove sall courses with id = "valg"
+        Course rC = new Course("valg", "agile");
+        while (neededCourses.remove(rC)) { }
         System.out.println(neededCourses);
 
         for (Course course : neededCourses) {
