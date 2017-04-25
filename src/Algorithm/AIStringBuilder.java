@@ -17,51 +17,67 @@ public class AIStringBuilder {
     private DbCom dbCom = new DbCom();
 
 
-    private void MakeString() {
+    public ArrayList MakeString() {
         Collection<String> courses;
         courses = dbCom.getCoursesAsString();
         System.out.println("before for-loop");
+        ArrayList array = new ArrayList<String>();
 
         for (String course : courses) {
-            System.out.println("inside forloop");
             System.out.println();
             String[] parts = course.split(":");
             System.out.println(parts[0]);
             System.out.println(parts[1]);
             String courseCode = parts[0];
             String courseName = parts[1];
+            courseName = replaceNorwegianLetters(courseName);
 
-            String s = "'[{\"values\": \"" + courseCode + "\",\"synonyms\": [\"" + courseCode + "\", \"" + courseName + "\"]}]'";
-            String[] command = {"/bin/bash", "curl", "-i", "-X", "POST", "-H", "\"Content-Type:application/json\",", "-H", "\"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\"", "-d", s, "'https://api.api.ai/v1/entities/Subject/entries'"};
+            String s = "[{\"values\":\"" + courseCode + "\",\"synonyms\":[\"" + courseCode + "\",\"" + courseName + "\"]}]";
+            String[] command = {"curl", "-i", "-X", "POST", "-H", "Content-Type:application/json", "-H", "Authorization:Bearer9f8a6f4d41834aa0bcbec4e763168c89", "-d", s, "https://api.api.ai/v1/entities/Course/entries"};
+            String fullString = "curl -i -X POST -H \"Content-Type:application/json\" -H Authorization:Bearer9f8a6f4d41834aa0bcbec4e763168c89 -d " + s + " https://api.api.ai/v1/entities/Course/entries";
+            System.out.println(fullString);
+            array.add(fullString);
 
 
             try {
-                // Process proc = new ProcessBuilder(command).start();         // "curl -i -X POST -H \"Content-Type:application/json\" -H \"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\" -d '" + s + "' 'https://api.api.ai/v1/entities/Subject/entries'"
-                String[] ccc = {"/bin/bash","cd", "Github"}; //hvordan teste hvordan det funker?
-                Process p = new ProcessBuilder(command).start();
-                InputStream is = p.getInputStream();
-                InputStreamReader isr = new InputStreamReader(is);
-                BufferedReader br = new BufferedReader(isr);
-                String line = "";
-                System.out.println(line);
-                while((line = br.readLine()) != null) {
-                    System.out.println("Inside WHILE");
-                    System.out.println(line);
-                }
+                // "curl -i -X POST -H \"Content-Type:application/json\" -H \"Authorization:Bearer 9f8a6f4d41834aa0bcbec4e763168c89\" -d '" + s + "' 'https://api.api.ai/v1/entities/Subject/entries'"
+                ProcessBuilder processBuilder = new ProcessBuilder(command);
+                processBuilder.redirectErrorStream(true);
+                final Process process = processBuilder.start();
 
-                // Runtime.getRuntime().exec(command);
-                System.out.println(s);
-            }
-            catch (IOException e){
+                InputStream stderr = process.getInputStream();
+                InputStreamReader isr = new InputStreamReader(stderr);
+                BufferedReader br = new BufferedReader(isr);
+                String line = null;
+
+
+                while ((line = br.readLine()) != null) {
+                    System.out.println(line);
+
+                }
+                process.waitFor();
+                System.out.println("Waiting ...");
+
+                System.out.println("Returned Value :" + process.exitValue());
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
+        return array;
     }
 
-    //Hvordan skal jeg finne ut hvordan den tolker input?
+    public static String replaceNorwegianLetters(String s) {
+        s = s.replace("æ", "ae");
+        s = s.replace("ø", "oe");
+        s = s.replace("å", "aa");
+        return s;
+    }
 
     public static void main(String[] args) {
-
 
         AIStringBuilder a = new AIStringBuilder();
         a.MakeString();

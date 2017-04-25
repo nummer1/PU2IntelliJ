@@ -1,5 +1,7 @@
 package GUI;
 
+import Algorithm.Course;
+import Algorithm.DbCom;
 import ai.api.model.AIResponse;
 import AI.TextClientApplication;
 import javafx.scene.layout.VBox;
@@ -15,6 +17,8 @@ public class InputInterpreter {
     private static String switchFromMajor;
     private static String switchToMajor;
     int semestersStudied;
+    DbCom db = new DbCom();
+
 
 
 
@@ -35,9 +39,9 @@ public class InputInterpreter {
             else {
                 switch (action) {
                     case "make.studyplan":
-                        switchFromMajor = parameters.get("Switch-from-major").toString();
+                        switchFromMajor = parameters.get("Switch-from-major").toString();   //  "Switch-from-major" is a courseCode
                         switchFromMajor = switchFromMajor.replace("\"", "");
-                        switchToMajor = parameters.get("Switch-to-major").toString();
+                        switchToMajor = parameters.get("Switch-to-major").toString();       //  "Switch-to-major" is a courseCode
                         String sem = parameters.get("Semesters-studied").toString();
                         sem = sem.replace("\"", "");
                         semestersStudied = Integer.parseInt(sem);
@@ -45,9 +49,11 @@ public class InputInterpreter {
                         layout.getChildren().get(2).setVisible(true);
                         App2.getSubmitBtn().setVisible(true);
 
-                    case "get more information about TDT4240": // return link to webpage to course
-                        //TODO:
-                        break;
+                    case "get.URL": // return link to webpage to course
+                        String courseCode = parameters.get("Course").toString().replace('\"',' ').trim();
+                        Course course = db.getCourseSingle(courseCode);
+                        String url = course.getURL();
+                        return speech + " " + url;
                 }
             }
             return speech;
