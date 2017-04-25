@@ -30,7 +30,7 @@ public class PrintableSwitchMajorTest {
     }
 
     private void printSwitch() {
-        StudyPlan newPlan = sel.switchMajor(this.from.getCourses(), "MTDT", "autumn", 2);
+        StudyPlan newPlan = sel.switchMajor(this.from.getCourses(), "MTDT", "autumn");
         System.out.println(newPlan);
     }
 
