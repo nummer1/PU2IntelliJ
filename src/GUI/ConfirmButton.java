@@ -22,7 +22,7 @@ public class ConfirmButton {
         confirmBtn.setOnAction(e -> {
             if (tilFraChoices.studiesIsSelected()) {
                 MidSection midSection = new MidSection();
-                App.getLayout().getChildren().remove(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString()));
+                //App.getLayout().getChildren().remove(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString()));
                 App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString()));
                 SemesterSliderAndInstructions.getSlider().setValue(0);
                 SemesterSliderAndInstructions.getSliderAndText().setVisible(false);
