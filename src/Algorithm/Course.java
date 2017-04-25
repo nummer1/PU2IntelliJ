@@ -25,9 +25,12 @@ public class Course implements Comparable<Course>{
     private boolean isAutumn;
     private boolean isAgile;
     private double score;
+    private double studypoints;
+    private String URL;
 
-    public Course(String courseId, String season) {
+    public Course(String courseId, String season, Double studypoints) {
         this.courseId = courseId;
+        this.studypoints = studypoints;
         if (season.equals("agile")) {
             isAgile = true;
             isAutumn = true;
@@ -42,6 +45,30 @@ public class Course implements Comparable<Course>{
             isAgile = false;
         }
     }
+
+    public Course(String courseId, String season) {
+        this.courseId = courseId;
+        this.studypoints = 7.5;
+        if (season.equals("agile")) {
+            isAgile = true;
+            isAutumn = true;
+            isSpring = true;
+        } else if (season.equals("spring")) {
+            isSpring = true;
+            isAutumn = false;
+            isAgile = false;
+        } else if (season.equals("autumn")) {
+            isAutumn = true;
+            isSpring = false;
+            isAgile = false;
+        }
+    }
+
+    public boolean isAutumn() { return this.isAutumn; }
+
+    public boolean isSpring() { return this.isSpring; }
+
+    public boolean isAgile() { return this.isAgile; }
 
     public String getCourseId() {
         return courseId;
@@ -118,7 +145,6 @@ public class Course implements Comparable<Course>{
             try {
                 exam_date = df.parse(exam_string);
                 String newDateString = df.format(exam_date);
-                System.out.println(newDateString);
             } catch (ParseException e) {
                 exam_date = new Date(); // if parseException, sets date to now
             }
@@ -130,8 +156,8 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public void setExam_Date(Date exam_Date) {
-        this.examDate = examDate;
+    public void setExam_Date(Date exam_date) {
+        this.examDate = exam_date;
     }
 
     public int getDifficulty() {
@@ -171,6 +197,19 @@ public class Course implements Comparable<Course>{
     public void setScore(double score) {
         this.score = score;
     }
+
+
+    public double getStudypoints() {
+        return studypoints;
+    }
+
+    public void setStudypoints(double studypoints) {
+        this.studypoints = studypoints;
+    }
+
+    public String getURL() { return this.URL; }
+
+    public void setURL(String URL) { this.URL = URL; }
 
     @Override
     public int compareTo(Course o) {

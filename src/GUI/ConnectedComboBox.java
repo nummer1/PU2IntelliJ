@@ -28,12 +28,6 @@ public class ConnectedComboBox<T> implements ChangeListener<T> {
         updateSelection();
     }
 
-    public void removeComboBox(ChoiceBox<T> comboBox){
-        comboBoxList.remove(comboBox);
-        comboBox.valueProperty().removeListener(this);
-        updateSelection();
-    }
-
     // this boolean needed because we can set combobox Value in updateSelection() 
     // this will trigger a value listener and update selection one more time => stack overflow
     // this behavior occurs only if we have more than one equal item in source ObservableList<T> items list.

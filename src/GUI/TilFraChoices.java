@@ -2,9 +2,12 @@ package GUI;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
+import java.awt.*;
 
 /**
  * Created by andreaswilhelmflatt on 05.03.2017.
@@ -14,12 +17,8 @@ public class TilFraChoices {
     private ObservableList<Study> studies = setAvailableStudies();
     private ChoiceBox tilChoices = new ChoiceBox();
     private ChoiceBox fraChoices = new ChoiceBox();
-    private Label fraLabel = new Label("Fra: ");
-    private Label tilLabel = new Label("Til: ");
-
-    public ObservableList<Study> getStudies() {
-        return studies;
-    }
+    private Label fraLabel = new Label("From: ");
+    private Label tilLabel = new Label("To: ");
 
     public ChoiceBox getTilChoices() {
         return tilChoices;
@@ -45,6 +44,34 @@ public class TilFraChoices {
     public void initializeTilFraListener(VBox topSection) { // Sets top-section visible if a study is selected.
         fraChoices.valueProperty().addListener(e -> {
             topSection.getChildren().get(1).setVisible(true);
+
+            MidSection midSection = new MidSection();
+            midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
+            midSection.resetCounts(); // Reset counts for indexing courses.
+            SearchField.getInstructionsSearchFieldAndBtn().setVisible(true); // Set search-field visible.
+            //checkCompletedCourses();
+
+            App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
+            SemesterSliderAndInstructions.getSlider().setMax(MidSection.getCourses().size() / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
+            SemesterSliderAndInstructions.getSliderAndText().setVisible(true);
+            App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
+
+            if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {
+                ConfirmButton.getConfirmBtn().setDisable(true);
+            }
+            else {
+                ConfirmButton.getConfirmBtn().setDisable(false);
+            }
+        });
+
+        tilChoices.valueProperty().addListener(e -> {
+            topSection.getChildren().get(1).setVisible(true);
+            if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {
+                ConfirmButton.getConfirmBtn().setDisable(true);
+            }
+            else {
+                ConfirmButton.getConfirmBtn().setDisable(false);
+            }
         });
     }
 

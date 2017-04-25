@@ -1,6 +1,7 @@
 import Algorithm.DbCom;
 import Algorithm.Selector;
 import Algorithm.StudyPlan;
+import junit.framework.TestCase;
 
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class PrintableSwitchMajorTest {
     }
 
     private void printSwitch() {
-        StudyPlan newPlan = sel.switchMajor("MTKOM", "MTDT", "autumn", 2);
+        StudyPlan newPlan = sel.switchMajor(this.from.getCourses(), "MTDT", "autumn");
         System.out.println(newPlan);
     }
 
