@@ -10,10 +10,11 @@ import java.util.*;
 
 public class Selector {
 
+    DbCom db = new DbCom();
+
     //This would be the initial call to our main algorithm.
     //It may have many different helping functions which can be implemented when needed.
     public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
-        DbCom db = new DbCom();
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
         System.out.println(majorCourses);
