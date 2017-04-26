@@ -2,43 +2,31 @@ package Algorithm;
 
 import java.util.*;
 
-//import com.google.gson.*;
-
-/**
- * Created by Erlend on 15.02.2017.
- */
-
 public class Selector {
 
-    //This will be called by the model. It chooses the correct function based on the json from api.ai
-    public void action(String json_filename) {
-        //TODO
-    }
+    private DbCom db = new DbCom();
 
-
-    //A different aproach where the user only
-    public StudyPlan switchMajor(String from, String to, int currentSemester) {
-        return null;
-    }
-
-    //This would be the initial call to our main algorithm.
-    //It may have many different helping functions which can be implemented when needed.
-    public StudyPlan switchMajor( String fromName, String toName, String season, int currSemester) {
-        DbCom db = new DbCom();
+    /**
+     * This function acts as the main algorithm, which the front end runs to make a new studyplan for the students.
+     * @param finishedCourses an Arraylist of the courses the student has finished
+     * @param toName a String of the major the student is switching to (e.g MTDT)
+     * @param season a String which denotes what season the studyplan should start in
+     * @return Studyplan - The finished studyplan object
+     */
+    public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
-        StudyPlan finished = db.getCoursesFromMajor(fromName);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
-        ArrayList<Course> finishedCourses = finished.getCourses();
-        System.out.println(majorCourses);
-        System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
-        //remove sall courses with id = "valg"
-        Course rC = new Course("valg", "agile");
-        while (neededCourses.remove(rC)) { }
-        System.out.println(neededCourses);
 
+        //Give courses score based on what year they are in
         for (Course course : neededCourses) {
-            int semester = db.getSemester(course.getCourseId(), toName);
+            int semester;
+            if (course.getCourseId().substring(0, 4).equals("valg")) {
+                String code = course.getCourseId();
+                semester = Integer.parseInt(code.substring(code.length() - 1));
+            } else {
+                semester = db.getSemester(course.getCourseId(), toName);
+            }
             if (semester < 2) {
                 course.setScore(1000);
             } else if (semester < 4) {
@@ -70,112 +58,46 @@ public class Selector {
         Collections.sort(neededCourses);
 
         //Set courses in semester based on the sorted set of courses
-        Stack<Course> stack = new Stack<>();
-        stack.addAll(neededCourses);
         StudyPlan studyplan = new StudyPlan("Custom studyplan");
         boolean autumn = season.equals("autumn");
         int semNumber = 1;
-        while (!stack.isEmpty()) {
+        while (!neededCourses.isEmpty()) {
             Semester semester = new Semester((autumn) ? "autumn" : "spring");
-            for(int j=0; j<4; j++) {
+            int i = 1;
+            while (!semester.isFilled() && !neededCourses.isEmpty()) {
+                if (i > neededCourses.size()) {
+                    break;
+                }
+                Course c = neededCourses.get(neededCourses.size() - i);
+                Boolean isAllowdThisSeason = c.isAgile() || c.isSpring() && semester.isSpring() || c.isAutumn() && semester.isAutumn();
+                // if season do not match, dont put in studyplan, check course equals agile or equal semester season
+                if (semester.getStudypoints() <= 30.0 - c.getStudypoints() && isAllowdThisSeason) {
+                    semester.addCourse(c);
+                    neededCourses.remove(c);
+                    System.out.println("REMOVED A COURSE");
+                    System.out.println(neededCourses);
+                } else {
+                    if (i <= neededCourses.size()) {
+                        i++;
+                    } else {
+                        System.out.println("BREAK");
+                        break;
+                    }
+                }
+                if (semester.isFilled()) {
+                    break;
+                }
+            }
+            /*for(int j=0; j<4; j++) {
                 if (!stack.isEmpty()) {
                     semester.addCourse(stack.pop());
                 }
-            }
+            }*/
             autumn = !autumn;
             studyplan.addSemester(semester, semNumber);
             semNumber += 1;
         }
 
-        //return the studyplan
         return studyplan;
     }
-
-/*    public StudyPlan dumbSwitchMajor(Collection<Course> from, Collection<Course> to, int semesters) {
-        Collection<Course> neededCourses = new ArrayList<>(to);
-        neededCourses.removeAll(from);
-        Stack<Course> stack = new Stack<>();
-        stack.addAll(neededCourses);
-        StudyPlan studyplan = new StudyPlan("Custom studyplan");
-
-        boolean autumn = semesters%2 == 0;
-        int semNumber = 1;
-        while (!stack.isEmpty()) {
-            Semester semester = new Semester((autumn) ? "autumn" : "spring");
-            for(int j=0; j<4; j++) {
-                if (!stack.isEmpty()) {
-                    semester.addCourse(stack.pop());
-                }
-            }
-            autumn = !autumn;
-            studyplan.addSemester(semester, semNumber);
-            semNumber += 1;
-        }
-        return studyplan;
-    }*/
-
-
-    //Takes in information gotten from the database and puts it into a Algorithm.Course object.
-    private Course convertToCourse(Dictionary course) {
-        //TODO
-        return new Course("TDT4100", "spring");
-    }
-
-    public static void main(String[] args) {
-
-    }
-
-    //This function is only for demonstration purposes
-    //Do not call this function unless you only want a static list over the first
-    //8 courses in mtdt :)
-    public static ArrayList<ArrayList<Course>> get_first_year() {
-        ArrayList<ArrayList<Course>> plan = new ArrayList<>();
-        ArrayList<Course> first = new ArrayList<>();
-        ArrayList<Course> second = new ArrayList<>();
-
-        Course tdt4110 = new Course("TDT4110", "autumn");
-        tdt4110.setCourseName("Informasjonsteknologi, grunnkurs");
-        tdt4110.setExamDate("12/12/2017");
-        first.add(tdt4110);
-
-        Course tma4100 = new Course("TMA4100", "autumn");
-        tma4100.setCourseName("Matematikk 1");
-        tma4100.setExamDate("08/12/2017");
-        first.add(tma4100);
-
-        Course tma4140 = new Course("TMA4140", "autumn");
-        tma4140.setCourseName("Diskret matematikk");
-        tma4140.setExamDate("02/12/2017");
-        first.add(tma4140);
-
-        Course exph0004 = new Course("EXPH0004", "autumn");
-        exph0004.setCourseName("Examen philosophicum for naturvitenskap og teknologi");
-        exph0004.setExamDate("27/11/2017");
-        first.add(exph0004);
-
-        Course tdt4100 = new Course("TDT4100", "spring");
-        tdt4100.setCourseName("Objektorientert programmering");
-        tdt4100.setExamDate("15/05/2017");
-        second.add(tdt4100);
-
-        Course tdt4112 = new Course("TDT4112", "spring");
-        tdt4112.setCourseName("Programmeringslab for datateknologi");
-        second.add(tdt4112);
-
-        Course tfe4101 = new Course("TFE4101", "spring");
-        tfe4101.setCourseName("Krets- og digitalteknikk");
-        tfe4101.setExamDate("25/05/2017");
-        second.add(tfe4101);
-
-        Course tma4115 = new Course("TMA4115", "spring");
-        tma4115.setCourseName("Matematikk 3");
-        tma4115.setExamDate("06/06/2017");
-        second.add(tma4115);
-
-        plan.add(first);
-        plan.add(second);
-
-        return plan;
-    }
-
 }

@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
  */
 public class AlertBox {
 
-    public static void display(String title, String message) {
+    public static void display(String title, String message) { // Displays an alertbox with the gives title and message.
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);

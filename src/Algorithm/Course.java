@@ -6,12 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by Erlend on 13.02.2017.
- */
-
-//TODO fix nullpointer exception when setting values in course
-
 public class Course implements Comparable<Course>{
 
     private String courseId;
@@ -25,9 +19,19 @@ public class Course implements Comparable<Course>{
     private boolean isAutumn;
     private boolean isAgile;
     private double score;
+    private double studypoints;
+    private String URL;
 
-    public Course(String courseId, String season) {
+    /**
+     * One of two constructors for Course.java. We have two constructors since most courses got 7,5 studypoints,
+     * but not all. The first constructor lets the developer choose studypoints, while the other defaults to 7,5
+     * @param courseId e.g TDT4140
+     * @param season e.g spring
+     * @param studypoints e.g 7,5
+     */
+    public Course(String courseId, String season, Double studypoints) {
         this.courseId = courseId;
+        this.studypoints = studypoints;
         if (season.equals("agile")) {
             isAgile = true;
             isAutumn = true;
@@ -43,13 +47,40 @@ public class Course implements Comparable<Course>{
         }
     }
 
+    public Course(String courseId, String season) {
+        this.courseId = courseId;
+        this.studypoints = 7.5;
+        if (season.equals("agile")) {
+            isAgile = true;
+            isAutumn = true;
+            isSpring = true;
+        } else if (season.equals("spring")) {
+            isSpring = true;
+            isAutumn = false;
+            isAgile = false;
+        } else if (season.equals("autumn")) {
+            isAutumn = true;
+            isSpring = false;
+            isAgile = false;
+        }
+    }
+
+    public boolean isAutumn() { return this.isAutumn; }
+
+    public boolean isSpring() { return this.isSpring; }
+
+    public boolean isAgile() { return this.isAgile; }
+
     public String getCourseId() {
         return courseId;
     }
 
-    // Sanitize the input for courseId
-    // First 2-6 chars, followed by 4-6 numbers.
-    // In CS there is mainly 3 chars followed by 4 numbers. (only exphil is 4 chars + 4 numbers)
+    /**
+     * Sanitize the input for courseId
+     * First 2-6 chars, followed by 4-6 numbers.
+     * In CS there is mainly 3 chars followed by 4 numbers. (only exphil is 4 chars + 4 numbers)
+     * @param courseId the courseId to sanitize
+     */
     public void setCourseId(String courseId) {
         String regex = "^[A-Z]{2,6}[0-9]{4,6}$";
         if (courseId.matches(regex)) {
@@ -70,8 +101,7 @@ public class Course implements Comparable<Course>{
     public String getDescription() {
         return description;
     }
-
-    // No sanitazion necessary, one is free to write whatever you may wish in the description
+    
     public void setDescription(String description) {
         this.description = description;
     }
@@ -80,8 +110,6 @@ public class Course implements Comparable<Course>{
         return faculty;
     }
 
-    // Sanitize the input for faculties
-    // Faculties are only alphabetic
     public void setFaculty(String faculty) {
         if (faculty == null) {
             this.faculty = null;
@@ -97,7 +125,7 @@ public class Course implements Comparable<Course>{
     }
 
     public String getPrintable_date () {
-        String dateString = null;
+        String dateString;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
             dateString = df.format(this.examDate);
@@ -107,8 +135,6 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    // Sanitize the input to make sure it is after the current day
-    // May be better to take a string as input, and convert it into date in this method
     public void setExamDate(String exam_string) {
         if (exam_string == null) {
             this.examDate = null;
@@ -117,8 +143,6 @@ public class Course implements Comparable<Course>{
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 exam_date = df.parse(exam_string);
-                String newDateString = df.format(exam_date);
-                System.out.println(newDateString);
             } catch (ParseException e) {
                 exam_date = new Date(); // if parseException, sets date to now
             }
@@ -130,16 +154,14 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    public void setExam_Date(Date exam_Date) {
-        this.examDate = examDate;
+    public void setExam_Date(Date exam_date) {
+        this.examDate = exam_date;
     }
 
     public int getDifficulty() {
         return difficulty;
     }
 
-    // Sanitize the input for difficulty
-    // Difficulty ranges from 1-10, where 10 is the most difficult
     public void setDifficulty(int difficulty) {
         if (1 <= difficulty && difficulty <= 10) {
             this.difficulty = difficulty;
@@ -171,6 +193,19 @@ public class Course implements Comparable<Course>{
     public void setScore(double score) {
         this.score = score;
     }
+
+
+    public double getStudypoints() {
+        return studypoints;
+    }
+
+    public void setStudypoints(double studypoints) {
+        this.studypoints = studypoints;
+    }
+
+    public String getURL() { return this.URL; }
+
+    public void setURL(String URL) { this.URL = URL; }
 
     @Override
     public int compareTo(Course o) {

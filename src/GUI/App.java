@@ -3,18 +3,23 @@ package GUI; /**
  */
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
-    private Stage window;
+    private static Stage window;
     private static BorderPane layout = new BorderPane();
-
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Stage getStage() {
+        return window;
     }
 
     @Override
@@ -24,10 +29,16 @@ public class App extends Application {
 
         TopSection topSection = new TopSection();
 
-        layout.setStyle("-fx-background-color: #fff9c4;");
+        layout.getStyleClass().add("main-background");
         layout.setTop(topSection.getTopSection());
 
-        window.setScene(new Scene(layout, 800, 400));
+        if (App2.getStage() != null) {
+            App2.getStage().getScene().setRoot(new Region());
+            App2.getLayout().getChildren().clear();
+        }
+        window.setScene(new Scene(layout));
+        window.setFullScreen(true);
+        layout.getStylesheets().add(getClass().getResource("stylesheets.css").toExternalForm());
         window.show();
     }
 

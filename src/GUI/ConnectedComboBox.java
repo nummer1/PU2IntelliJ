@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ConnectedComboBox<T> implements ChangeListener<T> {
+public class ConnectedComboBox<T> implements ChangeListener<T> { // IF COURSE X IS SELECTED IN "FROM-COURSE", THIS COURSE IF REMOVED FROM "TO-COURSE". BIDIRECTIONAL
 
     private ObservableList<T> items;
     private List<ChoiceBox<T>> comboBoxList = new ArrayList<>();
@@ -25,12 +25,6 @@ public class ConnectedComboBox<T> implements ChangeListener<T> {
     public void addComboBox(ChoiceBox<T> comboBox){
         comboBoxList.add(comboBox);
         comboBox.valueProperty().addListener(this);
-        updateSelection();
-    }
-
-    public void removeComboBox(ChoiceBox<T> comboBox){
-        comboBoxList.remove(comboBox);
-        comboBox.valueProperty().removeListener(this);
         updateSelection();
     }
 

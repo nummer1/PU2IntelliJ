@@ -2,24 +2,23 @@ package GUI;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
+
 /**
  * Created by andreaswilhelmflatt on 05.03.2017.
  */
-public class TilFraChoices {
+public class TilFraChoices { // CREATES THE TO-FROM CHOICES IN THE GUI NOT USING CHATBOT.
 
     private ObservableList<Study> studies = setAvailableStudies();
     private ChoiceBox tilChoices = new ChoiceBox();
     private ChoiceBox fraChoices = new ChoiceBox();
-    private Label fraLabel = new Label("Fra: ");
-    private Label tilLabel = new Label("Til: ");
-
-    public ObservableList<Study> getStudies() {
-        return studies;
-    }
+    private Label fraLabel = new Label("From: ");
+    private Label tilLabel = new Label("To: ");
 
     public ChoiceBox getTilChoices() {
         return tilChoices;
@@ -45,10 +44,37 @@ public class TilFraChoices {
     public void initializeTilFraListener(VBox topSection) { // Sets top-section visible if a study is selected.
         fraChoices.valueProperty().addListener(e -> {
             topSection.getChildren().get(1).setVisible(true);
+
+            MidSection midSection = new MidSection();
+            midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
+            midSection.resetCounts(); // Reset counts for indexing courses.
+            SearchField.getInstructionsSearchFieldAndBtn().setVisible(true); // Set search-field visible.
+
+            App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
+            SemesterSliderAndInstructions.getSlider().setMax(MidSection.getCourses().size() / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
+            SemesterSliderAndInstructions.getSliderAndText().setVisible(true);
+            App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
+
+            if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {
+                ConfirmButton.getConfirmBtn().setDisable(true); // DISABLES CONFIRMBUTTON IF TO AND FROM IS NOT SELECTED.
+            }
+            else {
+                ConfirmButton.getConfirmBtn().setDisable(false);
+            }
+        });
+
+        tilChoices.valueProperty().addListener(e -> {
+            topSection.getChildren().get(1).setVisible(true);
+            if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {
+                ConfirmButton.getConfirmBtn().setDisable(true);
+            }
+            else {
+                ConfirmButton.getConfirmBtn().setDisable(false);
+            }
         });
     }
 
-    public void initializeConnectedComboBox() {
+    public void initializeConnectedComboBox() { // REMOVES A SELECTED TO-STUDY FROM THE FROM-STUDY DROP-DOWN. BIDIRECTIONAL
         ObservableList<String> studyNames = FXCollections.observableArrayList();
 
         studies.forEach(study -> studyNames.add(study.getStudy()));
@@ -57,7 +83,7 @@ public class TilFraChoices {
         connectedComboBox.addComboBox(tilChoices);
     }
 
-    private ObservableList<Study> setAvailableStudies() {
+    private ObservableList<Study> setAvailableStudies() { // ADDS AVAILABLE STUDIES
         ObservableList<Study> studies = FXCollections.observableArrayList();
         studies.add(new Study("Datateknologi"));
         studies.add(new Study("Kommunikasjonsteknologi"));

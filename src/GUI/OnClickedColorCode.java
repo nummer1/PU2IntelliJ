@@ -7,17 +7,20 @@ import javafx.scene.control.TextArea;
  */
 public class OnClickedColorCode {
 
-    public static void initializeOnClickedColorCode(TextArea fag) {
+    public static void initializeOnClickedColorCode(TextArea fag) { // Colors (green/yellow) a TextArea when mouse-clicked.
         fag.setOnMouseClicked(event -> {
 
+
             for (int i = 0; i < MidSection.getCoursePlan().getChildren().size(); i++) {
-                if (event.getSource().equals(MidSection.getCoursePlan().getChildren().get(i))) {
-                    if (MidSection.getCoursePlan().getChildren().get(i).getStyleClass().get(2).equals("all-courses")) {
-                        MidSection.getCoursePlan().getChildren().get(i).getStyleClass().remove("all-courses");
-                        MidSection.getCoursePlan().getChildren().get(i).getStyleClass().add("completed-courses");
+                if (MidSection.getLabelIndexes().contains(Integer.valueOf(i))) {continue;}
+
+                if (event.getSource().equals(MidSection.getCourseTextArea(i))) {
+                    if (MidSection.getCourseTextArea(i).getStyleClass().get(2).equals("all-courses")) {
+                        MidSection.getCourseTextArea(i).getStyleClass().remove("all-courses");
+                        MidSection.getCourseTextArea(i).getStyleClass().add("completed-courses");
                     } else {
-                        MidSection.getCoursePlan().getChildren().get(i).getStyleClass().remove("completed-courses");
-                        MidSection.getCoursePlan().getChildren().get(i).getStyleClass().add("all-courses");
+                        MidSection.getCourseTextArea(i).getStyleClass().remove("completed-courses");
+                        MidSection.getCourseTextArea(i).getStyleClass().add("all-courses");
                     }
                 }
             }

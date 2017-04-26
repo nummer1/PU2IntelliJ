@@ -1,31 +1,24 @@
 package GUI;
 
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+
+import java.awt.*;
+import java.awt.Label;
+import java.awt.ScrollPane;
+import java.util.*;
+
+
 /**
- * Created by andreaswilhelmflatt on 23/03/2017.
+ * Created by havardbjornoy on 03/04/2017.
  */
-public class Message {
+public class Message { // CREATES A SINGLE MESSAGE FOR THE CHATBOT
 
-    private String sender;
-    private String content;
+    String message;
+    Boolean isBot;
 
-    public Message(String sender, String content) {
-        this.sender = new String(sender);
-        this.content = new String(content);
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public Message (Boolean isBot, String speech) {
+        this.isBot = isBot;
+        message = speech;
     }
 }

@@ -45,12 +45,26 @@ public class StudyPlan {
         return this.major;
     }
 
+    /**
+     * Returns a list of all the courses in the studyplan as Course objects
+     * @return a list of all the courses in the studyplan
+     */
     public ArrayList<Course> getCourses() {
         ArrayList<Course> array = new ArrayList<>();
         for(Integer key : this.semesters.keySet()) {
             array.addAll(semesters.get(key).getCourses());
         }
         return array;
+    }
+
+    /**
+     * Iterates through every semester in the studyplan, invoking the fillWithElectives method in each.
+     * This method fills the semester with elective courses until the semester has 30 studypoints total
+     */
+    public void fillSemesterWithElectives() {
+        for (Integer key : semesters.keySet()) {
+            semesters.get(key).fillWithElectives(key);
+        }
     }
 
     @Override

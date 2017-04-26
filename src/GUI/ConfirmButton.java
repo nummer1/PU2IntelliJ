@@ -1,36 +1,32 @@
 package GUI;
 
-import Algorithm.Semester;
+import Algorithm.Course;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 
-/**
- * Created by andreaswilhelmflatt on 05.03.2017.
- */
+import java.util.ArrayList;
+
+import static GUI.MidSection.getCompletedCourses;
+
 public class ConfirmButton {
 
-    private final Button confirmBtn = new Button("Bekreft");
+    private static final Button confirmBtn = new Button("Submit");
 
-    public Button getConfirmBtn() {
+    public static Button getConfirmBtn() {
         return confirmBtn;
     }
 
-    public void setConfirmBtnAction(SearchField searchField, ChoiceBox fraChoices, TilFraChoices tilFraChoices) {
-        // Checks if the user selected their preferred change.
+    public void setConfirmBtnAction(ChoiceBox fraChoices, TilFraChoices tilFraChoices) {
         confirmBtn.setOnAction(e -> {
-            if (tilFraChoices.studiesIsSelected()) {
+            if (tilFraChoices.studiesIsSelected()) { // Checks if the user selected their preferred change.
                 MidSection midSection = new MidSection();
-                midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
-                midSection.resetCounts(); // Reset counts for indexing courses.
-                searchField.getSearchField().setVisible(true); // Set search-field visible.
-                //checkCompletedCourses();
-
-                App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString(), 2));
-                SemesterSlider.getSlider().setMax(Math.ceil(midSection.getCoursePlan().getChildren().size()/10.0)); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
-                SemesterSlider.getSlider().setVisible(true);
+                String fromStudy = fraChoices.getSelectionModel().getSelectedItem().toString();
+                String toStudy = tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString();
+                App.getLayout().setCenter(midSection.generateMidSection(fromStudy, toStudy));
+                SemesterSliderAndInstructions.getSlider().setValue(0); // RESETS THE VALUE OF THE SLIDER TO 0
+                SemesterSliderAndInstructions.getSliderAndText().setVisible(false); // SET SLIDER AND INSTRUCTION TEXT INVISIBLE
                 App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
-                System.out.println(Math.ceil(midSection.getCoursePlan().getChildren().size()/10.0));
             }
             else {
                 AlertBox.display("Feilmelding.", "Velg ønsket bytte av studie.");

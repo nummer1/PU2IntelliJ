@@ -2,12 +2,10 @@ import Algorithm.DbCom;
 import Algorithm.Selector;
 import Algorithm.StudyPlan;
 
-
-import java.util.ArrayList;
-
 /**
  * Created by Erlend on 20.03.2017.
  */
+
 public class PrintableSwitchMajorTest {
 
     StudyPlan from;
@@ -29,7 +27,7 @@ public class PrintableSwitchMajorTest {
     }
 
     private void printSwitch() {
-        StudyPlan newPlan = sel.switchMajor("MTKOM", "MTDT", "autumn", 2);
+        StudyPlan newPlan = sel.switchMajor(this.from.getCourses(), "MTDT", "autumn");
         System.out.println(newPlan);
     }
 
@@ -39,5 +37,4 @@ public class PrintableSwitchMajorTest {
         m.printTo();
         m.printSwitch();
     }
-
 }

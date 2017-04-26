@@ -28,3 +28,10 @@ UPDATE CourseStudyProgram SET Semester = 3 WHERE StudyCode = 'MTKOM' AND CourseC
 UPDATE CourseStudyProgram SET Semester = 4 WHERE StudyCode = 'MTKOM' AND CourseCode IN();
 
 DELETE FROM CourseStudyProgram WHERE StudyCode = 'MTKOM' AND CourseCode IN('HMS0002', 'TMA4240');
+
+UPDATE CourseStudyProgram SET Semester = 2 WHERE StudyCode = 'MTKOM' AND CourseCode = 'EXPH0004';
+UPDATE CourseStudyProgram SET Semester = 6 WHERE StudyCode = 'MTKOM' AND CourseCode = 'TFY4125';
+
+#BTI
+UPDATE CourseStudyProgram SET Semester = 2 WHERE StudyCode = 'BIT' AND CourseCode = 'MA0301';
+INSERT INTO CourseStudyProgram (CourseCode, StudyCode, Semester, MandatoryString)  VALUES ('TDT4110', 'BIT', 1, 'O');
