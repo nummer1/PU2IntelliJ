@@ -1,14 +1,11 @@
 import Algorithm.DbCom;
 import Algorithm.Selector;
 import Algorithm.StudyPlan;
-import junit.framework.TestCase;
-
-
-import java.util.ArrayList;
 
 /**
  * Created by Erlend on 20.03.2017.
  */
+
 public class PrintableSwitchMajorTest {
 
     StudyPlan from;
@@ -40,5 +37,4 @@ public class PrintableSwitchMajorTest {
         m.printTo();
         m.printSwitch();
     }
-
 }

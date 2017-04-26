@@ -48,22 +48,6 @@ public class DbCom {
         }
     }
 
-    //returns list off all studyCodes
-    public List<String> getStudyCodesAsList() {
-        try {
-            Statement stmt = this.con.createStatement();
-            String query = "SELECT StudyCode FROM StudyProgram";
-            ResultSet rs = stmt.executeQuery(query);
-            List<String> codeList = new ArrayList<>();
-            while(rs.next()) {
-                codeList.add(rs.getString("StudyCode"));
-            }
-            return codeList;
-        } catch (SQLException e) {
-            throw new IllegalStateException("SQLException in DbCom.getStudyCodesAsList()", e);
-        }
-    }
-
     // returns a single course
     public Course getCourseSingle(String courseInp) {
         List<String> inp = new ArrayList<>();
@@ -152,16 +136,6 @@ public class DbCom {
         }
     }
 
-    // overload getCoursesFromMajor that only gives you the 'to' first semesters
-    public StudyPlan getCoursesFromMajor(String studyCodeInp, int to) {
-        StudyPlan tempSp = this.getCoursesFromMajor(studyCodeInp);
-        StudyPlan returnSp = new StudyPlan(studyCodeInp);
-        for (int i = 1; i <= to; i++) {
-            returnSp.addSemester(tempSp.getSemester(i), i);
-        }
-        return returnSp;
-    }
-
     //get all the courses in a given major in uppercase
     public StudyPlan getCoursesFromMajor(String studyCodeInp) {
         try {
@@ -229,7 +203,7 @@ public class DbCom {
         }
     }
 
-    // reuturn the respective semester from coursecode and studycode
+    // return the respective semester from coursecode and studycode
     public int getSemester(String courseCode, String studyCode) {
         try {
             Statement stmt = this.con.createStatement();

@@ -92,7 +92,6 @@ public class MidSection {
         for (ArrayList<Course> semester : courses) {
             labelIndexes.add(counter);
             counter++;
-
             for (Course course : semester) {
                 counter++;
             }

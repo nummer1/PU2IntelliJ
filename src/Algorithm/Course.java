@@ -124,7 +124,7 @@ public class Course implements Comparable<Course>{
     }
 
     public String getPrintable_date () {
-        String dateString = null;
+        String dateString;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
             dateString = df.format(this.examDate);
@@ -144,7 +144,6 @@ public class Course implements Comparable<Course>{
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 exam_date = df.parse(exam_string);
-                String newDateString = df.format(exam_date);
             } catch (ParseException e) {
                 exam_date = new Date(); // if parseException, sets date to now
             }
