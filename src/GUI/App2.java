@@ -51,14 +51,12 @@ public class App2 extends Application {
         spacing.setMinHeight(0);
         spacing.setMaxHeight(0);
 
-        DbCom courseConverter = new DbCom();
-
         submitBtn = new Button("Submit");
         submitBtn.getStyleClass().add("change-interface-btn");
         submitBtn.setVisible(false); // SET THIS TO TRUE WHEN REQUIREMENTS ARE FULFILLED
         submitBtn.setOnAction(event -> {
             midSection = new MidSection();
-            layout.getChildren().remove(MidSection.getCoursePlan());
+            layout.getChildren().remove(MidSection.getCoursePlan()); // REMOVE PREVIOUS COURSEPLAN IF ANY
             layout.getChildren().add(midSection.generateMidSection(InputInterpreter.getSwitchFromMajor().toString(), InputInterpreter.getSwitchToMajor().replace("\"", "").trim().toString()));
             submitBtn.setDisable(true);
         });

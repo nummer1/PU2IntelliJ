@@ -23,18 +23,14 @@ import java.util.Iterator;
  */
 public class MidSection {
 
-    private static GridPane coursePlan = new GridPane();
-    private static int semesterCount = -1;
-    private static int count = 0;
-    private static ArrayList<ArrayList<Course>> courses;
-    private static ArrayList<Course> finishedCourses = new ArrayList<>();
-    private static ArrayList<Integer> labelIndexes = new ArrayList<>();
+    private static GridPane coursePlan = new GridPane(); // THE COURSEPLAN SHOWN IN THE GUI
+    private static int semesterCount = -1; // INDEX FOR KEEPING TRACK OF WHAT SEMESTER CURRENTLY ON WHEN ADDING COURSES
+    private static int count = 0; // INDEX FOR KEEPING TRACK OF WHAT COURSE CURRENTLY ON WHEN ADDING COURSES
+    private static ArrayList<ArrayList<Course>> courses; // ALL COURSES STORED AS COURSE-OBJECTS
+    private static ArrayList<Course> finishedCourses = new ArrayList<>(); // ALL FINISHEDCOURSES (ALL COURSES COLOR-CODED GREEN)
+    private static ArrayList<Integer> labelIndexes = new ArrayList<>(); // INDEXES FOR LABELS IN THE COURSEPLAN
 
     public static GridPane getCoursePlan () {return coursePlan;} // Returns courseplan.
-
-    public int getCount() {return count;}
-
-    public int getSemesterCount() {return semesterCount;}
 
     public static ArrayList<Integer> getLabelIndexes(){return labelIndexes;}
 
@@ -45,7 +41,7 @@ public class MidSection {
         count = 0;
     }
 
-    private static Collection<String> getStudyPlanCoursesAsString() {
+    private static Collection<String> getStudyPlanCoursesAsString() { // RETURNS ALL COURSES IN AN ARRAYLIST<STRING> WITH THE COURSE'S NAME
         Collection<String> coursesAsString = new ArrayList<>();
 
         for (ArrayList<Course> semester : courses) {
@@ -56,7 +52,7 @@ public class MidSection {
         return coursesAsString;
     }
 
-    public GridPane showAllCoursesFrom(String from) {
+    public GridPane showAllCoursesFrom(String from) { // SHOWS ALL COURSES FROM A SPECIFIED STUDY
         makeBasicGridPane();
 
         DbCom dbcom = new DbCom();
@@ -81,43 +77,39 @@ public class MidSection {
         return coursePlan;
     }
 
-    public static TextArea getCourseTextArea(int index) {
+    public static TextArea getCourseTextArea(int index) { // GETS COURSEPLAN TEXTAREA # INDEX
         return ((TextArea)((HBox) coursePlan.getChildren().get(index)).getChildren().get(0));
     }
 
-    public static void updateLabelIndexes() {
+    public static void updateLabelIndexes() { // CHECKS IF LABELINDEXES HAS CHANGED (DUE TO FOR EXAMPLE A REMOVED COURSE OR SIMILAR)
         labelIndexes.clear();
         int counter = 0;
 
         for (ArrayList<Course> semester : courses) {
             labelIndexes.add(counter);
-            counter++;
-
-            for (Course course : semester) {
-                counter++;
-            }
+            counter++; // ADDS 1 FOR THE LABEL
+            counter += semester.size(); // ADDS MORE DEPENDING ON HOW MANY COURSES IN THE SEMESTER
         }
     }
 
-    public static Button getCourseButton(int index) {
+    public static Button getCourseButton(int index) { // RETURNS THE BUTTON AT INDEX I IN COURSEPLAN
         return ((Button) ((HBox) coursePlan.getChildren().get(index)).getChildren().get(1));
     }
 
-    public GridPane generateMidSection(String from, String to) { // Initializes GridPane and adds courses.
+    public GridPane generateMidSection(String from, String to) { // GENERATES A COURSEPLAN THAT CHECKS WHICH COURSES IS ALREADY TAKEN, AND REMOVES THEM FROM THE SUGGESTED COURSEPLAN
         makeBasicGridPane();
 
         Selector sel = new Selector();
 
         DbCom dbcom = new DbCom();
 
-        String fromStudyCode = dbcom.getStudyCode(from);
         String toStudyCode = dbcom.getStudyCode(to);
         ArrayList<Course> finishedCourses = new ArrayList<>();
         finishedCourses.addAll(getCompletedCourses());
-        StudyPlan studyplan = sel.switchMajor(finishedCourses, toStudyCode, "autumn");
+        StudyPlan studyplan = sel.switchMajor(finishedCourses, toStudyCode, "autumn"); // RETURNS THE SUGGESTED COURSEPLAN
         Collection<Semester> semesters = studyplan.getSemesters();
 
-        courses.clear();
+        courses.clear(); // CLEARS COURSES IF PREVIOUS PLAN EXISTS
 
         for (Semester semester : semesters) {
             ArrayList<Course> sem = new ArrayList<>(semester.getCourses());
@@ -136,7 +128,6 @@ public class MidSection {
     }
 
     public static void generateCoursePlan(ArrayList<ArrayList<Course>> courses) {
-        System.out.println("COURSES" + courses);
         coursePlan.getChildren().clear();
         labelIndexes.clear();
         resetCounts();
@@ -144,7 +135,7 @@ public class MidSection {
         int labelCount = 0;
 
         for (ArrayList<Course> semester : courses) {
-            labelIndexes.add(labelCount);
+            labelIndexes.add(labelCount); // ADDS THE INDEX OF THE LABEL TO LABELCOUNTS TO KEEP TRACK OF THESE FOR USE LATER
             labelCount++;
 
             count = 0;
@@ -152,10 +143,6 @@ public class MidSection {
             semesterCount++;
             Label semesterLabel = new Label("Semester " + Integer.toString(semesterCount + 1));
 
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-            //semesterLabel.setMinWidth((screenSize.getWidth() / (courses.size()/2)) - 10);
-            //semesterLabel.setMaxWidth((screenSize.getWidth() / (courses.size()/2)) - 10);
             semesterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
             GridPane.setHalignment(semesterLabel, HPos.CENTER); // Center Semester-Label.
 
@@ -169,7 +156,6 @@ public class MidSection {
             coursePlan.getChildren().add(semesterLabel);
 
             for (Course course : semester) {
-                System.out.println(semester);
                 addCourse(course);
                 labelCount++;
             }
@@ -209,39 +195,10 @@ public class MidSection {
 
         fagAndButton.getChildren().addAll(fag, btn.getButton());
 
-        //count = count % 4; // Used to make each semester consist of 4 courses.
         coursePlan.getChildren().add(fagAndButton);
     }
 
-    public static void addCustomCourse(Course course, int semesterCount, int count) { // Adds a course to the courseplan.
-        HBox fagAndButton = new HBox(0);
-
-        Button button = new Button();
-
-        TextArea fag = new TextArea(course.getCourseId() + "\n" + course.getCourseName() + "\n" + "Eksamensdato: " + course.getPrintable_date());
-        fag.getStyleClass().add("all-courses");
-        fag.setEditable(false);
-
-        double size = 12;
-        fag.setFont(Font.font(size));
-
-        DragAndDrop.initializeDragAndDrop(fag);
-        OnClickedColorCode.initializeOnClickedColorCode(fag);
-        fag.setWrapText(true); // Forces newline if the text use more width than the textbox is given.
-
-        if (semesterCount < getCourses().size() / 2) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
-            GridPane.setConstraints(fagAndButton, semesterCount, count);
-        }
-        else {
-            GridPane.setConstraints(fagAndButton, semesterCount - getCourses().size() / 2, count + 5);
-        }
-
-        fagAndButton.getChildren().addAll(fag, button);
-
-        coursePlan.getChildren().add(fagAndButton);
-    }
-
-    public static void colorCompleteCourses(int finishedSemesters) {
+    public static void colorCompleteCourses(int finishedSemesters) { // COLORS ALL COURSES GREEN IN SEMESTER I <= FINISHEDSEMESTERS
         int count = 0;
         for (double semester = 0; semester < finishedSemesters; semester++) {
             count++;
@@ -299,7 +256,7 @@ public class MidSection {
         }
     }
 
-    public static ArrayList<Course> getCompletedCourses() {
+    public static ArrayList<Course> getCompletedCourses() { // Returns all completed (green) courses.
         finishedCourses = new ArrayList<>();
         for (int i = 0; i < coursePlan.getChildren().size(); i++) {
             if (MidSection.getLabelIndexes().contains(Integer.valueOf(i))) {
@@ -323,7 +280,7 @@ public class MidSection {
         return finishedCourses;
     }
 
-    public static void removeCourseFromCoursesArrayList(int index) {
+    public static void removeCourseFromCoursesArrayList(int index) { // Removes a course from courses-arrayList, with index as input (index comes from the courseplan)
         int counter = 0;
         for (int i = 0; i < courses.size(); i++) {
             counter++;

@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 /**
  * Created by andreaswilhelmflatt on 18/04/2017.
  */
-public class RemoveCourseBtn {
+public class RemoveCourseBtn { // Adds a removeCourseButton to the GridPane for each Course (TextArea).
 
     private Button removeCourseBtn = new Button();
 

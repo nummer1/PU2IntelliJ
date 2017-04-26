@@ -17,15 +17,15 @@ public class ConfirmButton {
         return confirmBtn;
     }
 
-    public void setConfirmBtnAction(SearchField searchField, ChoiceBox fraChoices, TilFraChoices tilFraChoices) {
-        // Checks if the user selected their preferred change.
+    public void setConfirmBtnAction(ChoiceBox fraChoices, TilFraChoices tilFraChoices) {
         confirmBtn.setOnAction(e -> {
-            if (tilFraChoices.studiesIsSelected()) {
+            if (tilFraChoices.studiesIsSelected()) { // Checks if the user selected their preferred change.
                 MidSection midSection = new MidSection();
-                //App.getLayout().getChildren().remove(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString()));
-                App.getLayout().setCenter(midSection.generateMidSection(fraChoices.getSelectionModel().getSelectedItem().toString(), tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString()));
-                SemesterSliderAndInstructions.getSlider().setValue(0);
-                SemesterSliderAndInstructions.getSliderAndText().setVisible(false);
+                String fromStudy = fraChoices.getSelectionModel().getSelectedItem().toString();
+                String toStudy = tilFraChoices.getTilChoices().getSelectionModel().getSelectedItem().toString();
+                App.getLayout().setCenter(midSection.generateMidSection(fromStudy, toStudy));
+                SemesterSliderAndInstructions.getSlider().setValue(0); // RESETS THE VALUE OF THE SLIDER TO 0
+                SemesterSliderAndInstructions.getSliderAndText().setVisible(false); // SET SLIDER AND INSTRUCTION TEXT INVISIBLE
                 App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
             }
             else {

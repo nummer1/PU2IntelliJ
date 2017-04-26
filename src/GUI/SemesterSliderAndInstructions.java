@@ -23,7 +23,7 @@ public class SemesterSliderAndInstructions {
     private static Slider slider = new Slider();
     private static VBox sliderAndText = new VBox(5);
 
-    public SemesterSliderAndInstructions() {
+    public SemesterSliderAndInstructions() { // Creates semesterSlider and Instructions.
         slider.setMin(0);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);

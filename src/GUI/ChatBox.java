@@ -5,7 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode; import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class ChatBox {
     private VBox chatBoxSection = new VBox(1);
     private final VBox chatBox = new VBox(5);
     private List<Label> messages = new ArrayList<>();
-    private ScrollPane container = new ScrollPane();
+    private ScrollPane container = new ScrollPane(); // CONTAINS CHATBOX
     private static InputInterpreter anna;
 
 
@@ -26,7 +26,7 @@ public class ChatBox {
         alwaysScrollToBottom();
     }
 
-    private void alwaysScrollToBottom() {
+    private void alwaysScrollToBottom() { // MAKES THE MESSAGE-FIELD ALWAYS SCROLLED TO THE BOTTOM
         chatBox.heightProperty().addListener(new ChangeListener() {
 
             @Override
@@ -42,18 +42,18 @@ public class ChatBox {
 
     private void initChatBox() {
         container.setContent(chatBox);
-        setWidth(800);
+        setDimensions(800);
         container.setStyle("-fx-background: white");
 
         chatBoxSection.setAlignment(Pos.CENTER);
 
-        anna = new InputInterpreter();
+        anna = new InputInterpreter(); // ENABLES THE AI TO INTERPRET USER INPUT
         TextField userInput = new TextField();
         userInput.setPromptText("Ask ANNA.");
 
 
         userInput.setOnKeyPressed(keyPressed -> {
-            if (keyPressed.getCode().equals(KeyCode.ENTER) && userInput.getLength() != 0) {
+            if (keyPressed.getCode().equals(KeyCode.ENTER) && userInput.getLength() != 0) { // ALIGNS MESSAGE PROPERLY, DEPENDING ON THE SENDER
 
                 Message userMessage = new Message(false, userInput.getText());
                 Label inputMessage = new Label(userMessage.message);
@@ -61,7 +61,7 @@ public class ChatBox {
                 chatBox.getChildren().add(styleLabel(userMessage));
 
                 // no code for å disable userInput
-                String speech = anna.interpret(userInput.getText());
+                String speech = anna.interpret(userInput.getText()); // INTERPRET USER INPUT
                 Message botMessage = new Message(true, speech);
                 Label botMessageLabel = new Label(botMessage.message);
                 messages.add(botMessageLabel);
@@ -71,19 +71,19 @@ public class ChatBox {
             }
         });
 
-        showFirstMessage();
+        showFirstMessage(); //
 
         chatBoxSection.getChildren().addAll(container, userInput);
     }
 
-    private void showFirstMessage() {
+    private void showFirstMessage() { // SHOWS THE INTRODUCING MESSAGE FROM ANNA
         Message firstMessage = new Message(true, "Hi, I'm Anna. Please let me know if there is anything I could help you with.");
         Label firstMessageLabel = new Label(firstMessage.message);
         messages.add(firstMessageLabel);
         chatBox.getChildren().add(styleLabel(firstMessage));
     }
 
-    private HBox styleLabel(Message m) {
+    private HBox styleLabel(Message m) { // MAKES A LABEL FX-ELEMENT, COLORED WITH THE RIGHT COLOR (DEPENDING ON THE SENDER) ETC.
 
         HBox content = new HBox(10);
 
@@ -96,7 +96,7 @@ public class ChatBox {
         }
         label.setWrapText(true);
 
-        Region rightAlignTextField = new Region(); //
+        Region rightAlignTextField = new Region(); // REGION FOR ALIGNING LABEL CORRECTLY IF IT NEEDS TO BE ALIGNED TO THE RIGHT. REGION FILLS THE LEFT-SECTION
         content.setHgrow(rightAlignTextField, Priority.SOMETIMES); // Gives rightAlignTextField horizontal-space priority.
 
         if (m.isBot) {
@@ -114,12 +114,12 @@ public class ChatBox {
         return content;
     }
 
-    private void setWidth(int width) {
-        container.setPrefSize(width, 0.66 * width);
-        chatBoxSection.setMaxWidth(width);
-        chatBoxSection.setMinWidth(width);
-        chatBox.setPrefWidth(width - 20);
-        chatBox.setPrefWidth(width - 20);
+    private void setDimensions(int dimension) { // SET DIMENSIONS OF THE CHATBOT
+        container.setPrefSize(dimension, 0.66 * dimension);
+        chatBoxSection.setMaxWidth(dimension);
+        chatBoxSection.setMinWidth(dimension);
+        chatBox.setPrefWidth(dimension - 20);
+        chatBox.setPrefWidth(dimension - 20);
     }
 
     public InputInterpreter getInputInterpreter() {

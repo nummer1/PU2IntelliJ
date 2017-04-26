@@ -29,7 +29,7 @@ public class SearchField {
 
     public static VBox getInstructionsSearchFieldAndBtn() {return instructionsSearchFieldAndBtn;}
 
-    public static void initializeSearchField() { // Initializes search-field.
+    public static void initializeSearchField() { // Initializes search-field and instructions.
         instructionsSearchFieldAndBtn.getChildren().clear();
         Label instructions = new Label("Search custom courses");
         instructions.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
@@ -37,13 +37,13 @@ public class SearchField {
         Button btn = new Button("Add");
         btn.getStyleClass().add("change-interface-btn");
         btn.setOnAction(event -> {
-            if (searchField.getSelectionModel().isEmpty()) {
+            if (searchField.getSelectionModel().isEmpty()) { // Add button does nothing if a course is not selected.
                 return;
             }
             else {
                 String courseCode = searchField.getSelectionModel().getSelectedItem().toString().split(":")[0];
                 DbCom db = new DbCom();
-                Course course = db.getCourseSingle(courseCode);
+                Course course = db.getCourseSingle(courseCode); // Gets the specified course as a Course-object.
                 ArrayList<ArrayList<Course>> courses = MidSection.getCourses();
 
                 for (ArrayList<Course> semester : courses) {
@@ -58,8 +58,8 @@ public class SearchField {
                         continue;
                     }
                     else {
-                        MidSection.getCourses().get(semesterCount).add(course);
-                        searchField.getItems().remove(course.getCourseId() + ":" + course.getCourseName());
+                        MidSection.getCourses().get(semesterCount).add(course); // Adds the course to courses-arrayList.
+                        searchField.getItems().remove(course.getCourseId() + ":" + course.getCourseName()); // Removes it from Searchfield so it can't be added twice.
                         MidSection.generateCoursePlan(MidSection.getCourses());
                         MidSection.colorCompleteSliderCourses(SemesterSliderAndInstructions.getSlider().getValue());
                         return;

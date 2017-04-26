@@ -14,7 +14,7 @@ public class ChatBoxLogic {
     private static HBox searchFieldHBox;
     private static GridPane coursePlan;
 
-    private static void showAllCoursesFrom(String from) {
+    private static void showAllCoursesFrom(String from) { // SHOWS ALL COURSES IN A SPECIFIED STUDY
         midSection = new MidSection();
         midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
         midSection.resetCounts(); // Reset counts for indexing courses.
@@ -23,7 +23,7 @@ public class ChatBoxLogic {
         coursePlan.setMaxHeight(720);
     }
 
-    private static void searchField() { // Call this method _after_ calling showAllCoursesFrom.
+    private static void searchField() { // Call this method _after_ calling showAllCoursesFrom. Shows SearchField + add-btn.
         searchFieldHBox = new HBox(10);
 
         Region region = new Region();
@@ -37,7 +37,7 @@ public class ChatBoxLogic {
         ChatBoxLogic.searchFieldHBox.getChildren().addAll(region, SearchField.getInstructionsSearchFieldAndBtn());
     }
 
-    public static void showUserCoursesFrom(String from, int fininishedSemesters) { // Call this method when you want to show the user all courses from the Study he/she's been taking.
+    public static void showUserCoursesFrom(String from, int fininishedSemesters) { // Call this method when you want to show the user all courses from the Study he/she's been taking, with the courses already taken colored in green.
         showAllCoursesFrom(from);
         searchField();
         MidSection.colorCompleteCourses(fininishedSemesters);

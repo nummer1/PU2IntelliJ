@@ -13,15 +13,15 @@ public class Instructions {
 
     private VBox instructions;
 
-    public Instructions() {
+    public Instructions() { // MAKES THE INSTRUCTIONBOX SHOWN IN APP (THE ONE WITHOUT THE CHATBOT)
         instructions = new VBox(5);
 
         Label instructionsLabel = new Label("Instructions");
-        instructionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
+        instructionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 16)); // FONTSIZE 16
 
         TextArea instructionsArea = new TextArea();
         instructionsArea.setEditable(false);
-        instructionsArea.setFont(Font.font(14));
+        instructionsArea.setFont(Font.font(14)); // FONTSIZE 14
         instructionsArea.getStyleClass().add("instructions");
         instructionsArea.setWrapText(true);
         instructionsArea.setText("1: Choose desired study to switch from, and to. \n" +

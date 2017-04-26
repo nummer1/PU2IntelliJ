@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class DragAndDrop {
 
-    public static void initializeDragAndDrop(TextArea fag) {
+    public static void initializeDragAndDrop(TextArea fag) { // ENABLES DRAG AND DROP FOR COURSES IN THE COURSEPLAN.
         fag.setOnDragDetected(event -> {
             String sourceText = fag.getText();
 
@@ -60,7 +60,7 @@ public class DragAndDrop {
 
                 for (int i = 0; i < MidSection.getCoursePlan().getChildren().size(); i++) {
 
-                    if (MidSection.getLabelIndexes().contains(Integer.valueOf(i))) {continue;}
+                    if (MidSection.getLabelIndexes().contains(Integer.valueOf(i))) {continue;} // CHECKS IF THE ELEMENT IS A LABEL. IF YES; CONTINUE (WE ONLY WANT TEXTAREA AKA COURSES)
 
                     if (event.getGestureTarget().equals(MidSection.getCourseTextArea(i))) {
                         targetFag = MidSection.getCourseTextArea(i);
@@ -78,7 +78,6 @@ public class DragAndDrop {
                 sourceFag.getStyleClass().set(2, targetStyleClass);
 
                 String targetText = targetFag.getText();
-                String sourceText = sourceFag.getText();
 
                 MidSection.getCourseTextArea(targetIndex).setText(dragboard.getString()); // Set target text.
                 MidSection.getCourseTextArea(sourceIndex).setText(targetText); // Set source text.

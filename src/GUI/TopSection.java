@@ -23,7 +23,7 @@ public class TopSection {
         return topSection;
     }
 
-    private void initializeTopSection() {
+    private void initializeTopSection() { // INITIALIZES THE TOPSECTION IN THE GUI NOT USING THE CHATBOT.
         topSection.setAlignment(Pos.CENTER);
         HBox upperSection = new HBox(10);
         HBox lowerSection = new HBox(10);
@@ -55,9 +55,9 @@ public class TopSection {
         searchField.getSearchField().setMaxWidth(300);
 
         ConfirmButton confirmBtn = new ConfirmButton();
-        confirmBtn.setConfirmBtnAction(searchField, tilFraChoices.getFraChoices(), tilFraChoices);
+        confirmBtn.setConfirmBtnAction(tilFraChoices.getFraChoices(), tilFraChoices);
 
-        Region alignTextField = new Region();
+        Region alignTextField = new Region(); // REGIONS ADDED TO ALIGN INSTRUCTIONS, TO- AND FROM-STUDY AND CONFIRMBUTTON CORRECTLY.
         Region alignTextField2 = new Region();
         upperSection.setHgrow(alignTextField, Priority.ALWAYS);
         upperSection.setHgrow(alignTextField2, Priority.ALWAYS);

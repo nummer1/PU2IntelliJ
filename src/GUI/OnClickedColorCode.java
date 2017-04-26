@@ -7,7 +7,7 @@ import javafx.scene.control.TextArea;
  */
 public class OnClickedColorCode {
 
-    public static void initializeOnClickedColorCode(TextArea fag) {
+    public static void initializeOnClickedColorCode(TextArea fag) { // Colors (green/yellow) a TextArea when mouse-clicked.
         fag.setOnMouseClicked(event -> {
 
 

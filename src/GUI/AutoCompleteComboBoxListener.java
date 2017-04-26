@@ -7,7 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
+public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> { // ADDS AUTOCOMPLETEFUNCTIONALITY FOR THE SEARCHFIELD
 
     private ComboBox comboBox;
     private StringBuilder sb;

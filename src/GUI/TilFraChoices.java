@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Created by andreaswilhelmflatt on 05.03.2017.
  */
-public class TilFraChoices {
+public class TilFraChoices { // CREATES THE TO-FROM CHOICES IN THE GUI NOT USING CHATBOT.
 
     private ObservableList<Study> studies = setAvailableStudies();
     private ChoiceBox tilChoices = new ChoiceBox();
@@ -49,7 +49,6 @@ public class TilFraChoices {
             midSection.getCoursePlan().getChildren().clear(); // Clear previous studyplan if any.
             midSection.resetCounts(); // Reset counts for indexing courses.
             SearchField.getInstructionsSearchFieldAndBtn().setVisible(true); // Set search-field visible.
-            //checkCompletedCourses();
 
             App.getLayout().setCenter(midSection.showAllCoursesFrom(fraChoices.getSelectionModel().getSelectedItem().toString()));
             SemesterSliderAndInstructions.getSlider().setMax(MidSection.getCourses().size() / 2); // Divides by 10 because coursePlan (GridPane) consist of x(4 courses + 1 label) fields.
@@ -57,7 +56,7 @@ public class TilFraChoices {
             App.getLayout().setAlignment(App.getLayout().getCenter(), Pos.CENTER);
 
             if (fraChoices.getSelectionModel().isEmpty() || tilChoices.getSelectionModel().isEmpty()) {
-                ConfirmButton.getConfirmBtn().setDisable(true);
+                ConfirmButton.getConfirmBtn().setDisable(true); // DISABLES CONFIRMBUTTON IF TO AND FROM IS NOT SELECTED.
             }
             else {
                 ConfirmButton.getConfirmBtn().setDisable(false);
@@ -75,7 +74,7 @@ public class TilFraChoices {
         });
     }
 
-    public void initializeConnectedComboBox() {
+    public void initializeConnectedComboBox() { // REMOVES A SELECTED TO-STUDY FROM THE FROM-STUDY DROP-DOWN. BIDIRECTIONAL
         ObservableList<String> studyNames = FXCollections.observableArrayList();
 
         studies.forEach(study -> studyNames.add(study.getStudy()));
@@ -84,7 +83,7 @@ public class TilFraChoices {
         connectedComboBox.addComboBox(tilChoices);
     }
 
-    private ObservableList<Study> setAvailableStudies() {
+    private ObservableList<Study> setAvailableStudies() { // ADDS AVAILABLE STUDIES
         ObservableList<Study> studies = FXCollections.observableArrayList();
         studies.add(new Study("Datateknologi"));
         studies.add(new Study("Kommunikasjonsteknologi"));
