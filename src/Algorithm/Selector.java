@@ -2,18 +2,17 @@ package Algorithm;
 
 import java.util.*;
 
-//import com.google.gson.*;
-
-/**
- * Created by Erlend on 15.02.2017.
- */
-
 public class Selector {
 
     private DbCom db = new DbCom();
 
-    //This would be the initial call to our main algorithm.
-    //It may have many different helping functions which can be implemented when needed.
+    /**
+     * This function acts as the main algorithm, which the front end runs to make a new studyplan for the students.
+     * @param finishedCourses an Arraylist of the courses the student has finished
+     * @param toName a String of the major the student is switching to (e.g MTDT)
+     * @param season a String which denotes what season the studyplan should start in
+     * @return Studyplan - The finished studyplan object
+     */
     public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
@@ -99,7 +98,6 @@ public class Selector {
             semNumber += 1;
         }
 
-        //return the studyplan
         return studyplan;
     }
 }

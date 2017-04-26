@@ -47,11 +47,19 @@ public class Semester {
 
     public boolean isSpring() { return this.isSpring; }
 
+    /**
+     * Adds a single course to the semester
+     * @param course The course to be added
+     */
     public void addCourse(Course course) {
         this.studypoints += course.getStudypoints();
         this.courses.add(course);
     }
 
+    /**
+     * Adds multiple courses to the semester
+     * @param courseList a List with courses to be added
+     */
     public void addCourseList(List<Course> courseList) {
         for (Course course : courseList) {
             this.studypoints += course.getStudypoints();
@@ -67,6 +75,10 @@ public class Semester {
         return studypoints;
     }
 
+    /**
+     * Returns true if the semester has 30 studypoints (size of a normal semester)
+     * @return studypoints >= 30
+     */
     public boolean isFilled() {
         return this.studypoints >= 30.0;
     }

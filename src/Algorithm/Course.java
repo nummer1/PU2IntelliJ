@@ -6,12 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by Erlend on 13.02.2017.
- */
-
-//TODO fix nullpointer exception when setting values in course
-
 public class Course implements Comparable<Course>{
 
     private String courseId;
@@ -28,6 +22,13 @@ public class Course implements Comparable<Course>{
     private double studypoints;
     private String URL;
 
+    /**
+     * One of two constructors for Course.java. We have two constructors since most courses got 7,5 studypoints,
+     * but not all. The first constructor lets the developer choose studypoints, while the other defaults to 7,5
+     * @param courseId e.g TDT4140
+     * @param season e.g spring
+     * @param studypoints e.g 7,5
+     */
     public Course(String courseId, String season, Double studypoints) {
         this.courseId = courseId;
         this.studypoints = studypoints;
@@ -74,9 +75,12 @@ public class Course implements Comparable<Course>{
         return courseId;
     }
 
-    // Sanitize the input for courseId
-    // First 2-6 chars, followed by 4-6 numbers.
-    // In CS there is mainly 3 chars followed by 4 numbers. (only exphil is 4 chars + 4 numbers)
+    /**
+     * Sanitize the input for courseId
+     * First 2-6 chars, followed by 4-6 numbers.
+     * In CS there is mainly 3 chars followed by 4 numbers. (only exphil is 4 chars + 4 numbers)
+     * @param courseId the courseId to sanitize
+     */
     public void setCourseId(String courseId) {
         String regex = "^[A-Z]{2,6}[0-9]{4,6}$";
         if (courseId.matches(regex)) {
@@ -97,8 +101,7 @@ public class Course implements Comparable<Course>{
     public String getDescription() {
         return description;
     }
-
-    // No sanitazion necessary, one is free to write whatever you may wish in the description
+    
     public void setDescription(String description) {
         this.description = description;
     }
@@ -107,8 +110,6 @@ public class Course implements Comparable<Course>{
         return faculty;
     }
 
-    // Sanitize the input for faculties
-    // Faculties are only alphabetic
     public void setFaculty(String faculty) {
         if (faculty == null) {
             this.faculty = null;
@@ -134,8 +135,6 @@ public class Course implements Comparable<Course>{
         }
     }
 
-    // Sanitize the input to make sure it is after the current day
-    // May be better to take a string as input, and convert it into date in this method
     public void setExamDate(String exam_string) {
         if (exam_string == null) {
             this.examDate = null;
@@ -163,8 +162,6 @@ public class Course implements Comparable<Course>{
         return difficulty;
     }
 
-    // Sanitize the input for difficulty
-    // Difficulty ranges from 1-10, where 10 is the most difficult
     public void setDifficulty(int difficulty) {
         if (1 <= difficulty && difficulty <= 10) {
             this.difficulty = difficulty;
