@@ -5,10 +5,6 @@ import java.util.*;
 import java.sql.*;
 
 
-/**
- * Created by kasparov on 01.03.17.
- */
-
 public class DbCom {
 
     Connection con;
@@ -32,7 +28,11 @@ public class DbCom {
         }
     }
 
-    // might return wrong name since studyName is not unique in database
+    /**
+    * returns studyCode related to studyName
+    * might return wrong name since studyName is not unique in database
+    * not prefered unless strictly nesseccary
+    */
     public String getStudyCode(String studyName) {
         try {
             Statement stmt = this.con.createStatement();
@@ -48,7 +48,9 @@ public class DbCom {
         }
     }
 
-    // returns a single course
+    /**
+    * returns a single course with courseCode courseInp
+    */
     public Course getCourseSingle(String courseInp) {
         List<String> inp = new ArrayList<>();
         inp.add(courseInp);
@@ -56,7 +58,9 @@ public class DbCom {
         return c.get(courseInp);
     }
 
-    // returns a map of courses with coursecode as key
+    /**
+    * returns a map of courses with courseInp as key
+    */
     public Map<String, Course> getCourses(Collection<String> courseInp) {
 
         StringBuilder sb = new StringBuilder();
@@ -119,7 +123,9 @@ public class DbCom {
         return courses;
     }
 
-    // return courseCode and courseName from database as string with space in between
+    /**
+    * returns list of courseCodes and courseNames from database as string with space in between
+    */
     public Collection<String> getCoursesAsString() {
         try {
             Statement courseStmt = this.con.createStatement();
@@ -136,7 +142,9 @@ public class DbCom {
         }
     }
 
-    //get all the courses in a given major in uppercase
+    /**
+    * returns all the coursecodes from major with studyCode equal studyCodeInp in uppercase
+    */
     public StudyPlan getCoursesFromMajor(String studyCodeInp) {
         try {
             Statement stmt1 = this.con.createStatement();
@@ -203,7 +211,9 @@ public class DbCom {
         }
     }
 
-    // return the respective semester from coursecode and studycode
+    /**
+    * returns the semester where people going 'studyCode' have 'courseCode' acording to the university studyPlan
+    */
     public int getSemester(String courseCode, String studyCode) {
         try {
             Statement stmt = this.con.createStatement();
