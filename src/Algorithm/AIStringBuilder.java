@@ -48,7 +48,7 @@ public class AIStringBuilder {
                 InputStream stderr = process.getInputStream();
                 InputStreamReader isr = new InputStreamReader(stderr);
                 BufferedReader br = new BufferedReader(isr);
-                String line = null;
+                String line;
 
 
                 while ((line = br.readLine()) != null) {

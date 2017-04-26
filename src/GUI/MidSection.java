@@ -32,10 +32,6 @@ public class MidSection {
 
     public static GridPane getCoursePlan () {return coursePlan;} // Returns courseplan.
 
-    public int getCount() {return count;}
-
-    public int getSemesterCount() {return semesterCount;}
-
     public static ArrayList<Integer> getLabelIndexes(){return labelIndexes;}
 
     public static ArrayList<ArrayList<Course>> getCourses() {return courses;}
@@ -92,7 +88,6 @@ public class MidSection {
         for (ArrayList<Course> semester : courses) {
             labelIndexes.add(counter);
             counter++;
-
             for (Course course : semester) {
                 counter++;
             }
@@ -213,33 +208,6 @@ public class MidSection {
         coursePlan.getChildren().add(fagAndButton);
     }
 
-    public static void addCustomCourse(Course course, int semesterCount, int count) { // Adds a course to the courseplan.
-        HBox fagAndButton = new HBox(0);
-
-        Button button = new Button();
-
-        TextArea fag = new TextArea(course.getCourseId() + "\n" + course.getCourseName() + "\n" + "Eksamensdato: " + course.getPrintable_date());
-        fag.getStyleClass().add("all-courses");
-        fag.setEditable(false);
-
-        double size = 12;
-        fag.setFont(Font.font(size));
-
-        DragAndDrop.initializeDragAndDrop(fag);
-        OnClickedColorCode.initializeOnClickedColorCode(fag);
-        fag.setWrapText(true); // Forces newline if the text use more width than the textbox is given.
-
-        if (semesterCount < getCourses().size() / 2) { // Checks if GUI needs to start on the lower section of the study-plan (semester 6-10).
-            GridPane.setConstraints(fagAndButton, semesterCount, count);
-        }
-        else {
-            GridPane.setConstraints(fagAndButton, semesterCount - getCourses().size() / 2, count + 5);
-        }
-
-        fagAndButton.getChildren().addAll(fag, button);
-
-        coursePlan.getChildren().add(fagAndButton);
-    }
 
     public static void colorCompleteCourses(int finishedSemesters) {
         int count = 0;
