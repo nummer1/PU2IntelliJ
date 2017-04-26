@@ -10,20 +10,16 @@ import java.util.*;
 
 public class Selector {
 
+    private DbCom db = new DbCom();
+
     //This would be the initial call to our main algorithm.
     //It may have many different helping functions which can be implemented when needed.
     public StudyPlan switchMajor( ArrayList<Course> finishedCourses, String toName, String season) {
-        DbCom db = new DbCom();
         StudyPlan majorCourses = db.getCoursesFromMajor(toName);
         ArrayList<Course> neededCourses = majorCourses.getCourses();
-        System.out.println(majorCourses);
-        System.out.println(finishedCourses);
         neededCourses.removeAll(finishedCourses);
-        //remove sall courses with id = "valg"
-        //Course rC = new Course("valg", "agile", 7.5);
-        //while (neededCourses.remove(rC)) { }
-        System.out.println(neededCourses);
 
+        //Give courses score based on what year they are in
         for (Course course : neededCourses) {
             int semester;
             if (course.getCourseId().substring(0, 4).equals("valg")) {
@@ -104,30 +100,6 @@ public class Selector {
         }
 
         //return the studyplan
-        System.out.println(studyplan);
         return studyplan;
     }
-
-/*    public StudyPlan dumbSwitchMajor(Collection<Course> from, Collection<Course> to, int semesters) {
-        Collection<Course> neededCourses = new ArrayList<>(to);
-        neededCourses.removeAll(from);
-        Stack<Course> stack = new Stack<>();
-        stack.addAll(neededCourses);
-        StudyPlan studyplan = new StudyPlan("Custom studyplan");
-
-        boolean autumn = semesters%2 == 0;
-        int semNumber = 1;
-        while (!stack.isEmpty()) {
-            Semester semester = new Semester((autumn) ? "autumn" : "spring");
-            for(int j=0; j<4; j++) {
-                if (!stack.isEmpty()) {
-                    semester.addCourse(stack.pop());
-                }
-            }
-            autumn = !autumn;
-            studyplan.addSemester(semester, semNumber);
-            semNumber += 1;
-        }
-        return studyplan;
-    }*/
 }

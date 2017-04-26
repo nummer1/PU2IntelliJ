@@ -121,8 +121,4 @@ public class ChatBox {
         chatBox.setPrefWidth(width - 20);
         chatBox.setPrefWidth(width - 20);
     }
-
-    public InputInterpreter getInputInterpreter() {
-        return anna;
-    }
 }

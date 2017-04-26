@@ -83,8 +83,4 @@ public class InputInterpreter {
     public static String getSwitchToMajor() {
         return switchToMajor;
     }
-
-    public int getSemestersStudied() {
-        return semestersStudied;
-    }
 }

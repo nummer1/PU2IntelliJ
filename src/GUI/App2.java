@@ -21,7 +21,6 @@ public class App2 extends Application {
     private static Stage window;
     private static VBox layout = new VBox(2);
     private MidSection midSection;
-    private DbCom dbCom = new DbCom();
     private static Button submitBtn;
 
     public static void main(String[] args) {
@@ -50,8 +49,6 @@ public class App2 extends Application {
         Region spacing = new Region();
         spacing.setMinHeight(0);
         spacing.setMaxHeight(0);
-
-        DbCom courseConverter = new DbCom();
 
         submitBtn = new Button("Submit");
         submitBtn.getStyleClass().add("change-interface-btn");
